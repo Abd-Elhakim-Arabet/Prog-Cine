@@ -17,11 +17,11 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  final user = FirebaseAuth.instance.currentUser;
+  //final user = FirebaseAuth.instance.currentUser;
   List<String> Ids = [];
   @override
   void logOut() {
-    FirebaseAuth.instance.signOut();
+    //FirebaseAuth.instance.signOut();
   }
 
   void initState() {
