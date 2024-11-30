@@ -17,11 +17,11 @@ class homePage extends StatefulWidget {
 }
 
 class _homePageState extends State<homePage> {
-  //final user = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser;
   List<String> Ids = [];
   @override
   void logOut() {
-    //FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut();
   }
 
   void initState() {
@@ -31,7 +31,7 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.myBackground,
-      body: const Column(
+      body:  Column(
         children: [
           SizedBox(
             height: 60,
@@ -79,7 +79,8 @@ class _homePageState extends State<homePage> {
           ),
           SizedBox(height: 30,),
              // mainMovieMenu(),
-          MovieSlider()
+          MovieSlider(),
+          ElevatedButton(onPressed: logOut, child: Text("logout"))
         ],
       ),
     );

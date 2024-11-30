@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:prog/auth/directing_page.dart';
 import "package:firebase_core/firebase_core.dart";
 import 'package:prog/pages/home_page.dart';
+import 'package:prog/pages/movie_description.dart';
 import 'package:prog/pages/reset_password.dart';
 
 void main() async {
