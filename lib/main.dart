@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:prog/auth/directing_page.dart';
-import "package:firebase_core/firebase_core.dart";
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:prog/pages/home_page.dart';
 import 'package:prog/pages/movie_description.dart';
 import 'package:prog/pages/reset_password.dart';
@@ -9,7 +10,9 @@ import 'package:prog/pages/reset_password.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
   
 }
