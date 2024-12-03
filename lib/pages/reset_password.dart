@@ -24,17 +24,39 @@ class _resetPasswordState extends State<resetPassword> {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(email: _emailController.text.trim());
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              content: Text("Reset Link Has Been Sent To Your Email"),
-            );
-          });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        backgroundColor: Colors.green,
+        content: const Row(
+          children: [
+            Icon(Icons.email, color: Colors.white,),
+            Text("Password reset link sent to your email"),
+          ],
+        ),
+      ));
     } on FirebaseAuthException catch (e)
-    ////to fix: if email does not exist, display a message it says it does not exist
     {
-      print("hi");
+      String message = '';
+      Icon icon;
+      switch (e.code) {
+        case 'auth/invalid-email':
+          message = 'No user found for that email.';
+          icon = Icon(Icons.email, color: Colors.white,);
+          break;
+        default:
+          message = 'An error occurred.';
+          icon = Icon(Icons.error, color: Colors.white,);
+          break;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Row(
+          children: [
+            icon,
+            Text(message),
+          ],
+        ),
+      ));
+    }
+      /* print("hi");
       showDialog(
           context: context,
           builder: (context) {
@@ -42,7 +64,7 @@ class _resetPasswordState extends State<resetPassword> {
               content: Text(e.message.toString()),
             );
           });
-    }
+    } */
   }
 
   @override
@@ -104,3 +126,4 @@ class _resetPasswordState extends State<resetPassword> {
     );
   }
 }
+
