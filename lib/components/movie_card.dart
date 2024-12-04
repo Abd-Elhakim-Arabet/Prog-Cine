@@ -14,7 +14,7 @@ class movieCard extends StatelessWidget {
         child: Container(
           
           width: 200,
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           decoration: BoxDecoration(
             color: AppColors.myPrimary,
             borderRadius: BorderRadius.only(
@@ -68,11 +68,16 @@ class movieCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 6,),
-            Text("Movie Name: a very long movie name to catch those wierd japanese animes as an exception", style: TextStyle(
+            Text("Movie Name: a very long movie name to catch those wierd japanese animes as an exception",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+             style: TextStyle(
               color: Colors.white,
               fontFamily: AppFonts.mainFont,
-              fontSize: 14
-            ), textAlign: TextAlign.center,)
+              fontSize: 14,
+
+            ), textAlign: TextAlign.center,
+            )
           ],),
         ),
       ),
