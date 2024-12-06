@@ -74,13 +74,16 @@ class movieCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: Text(
-                  "Movie Name: a very long movie name to caon",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: AppFonts.mainFont,
-                      fontSize: 14),
-                  textAlign: TextAlign.center,
+                child: SingleChildScrollView( 
+                  scrollDirection: Axis.horizontal, 
+                  child: Text(
+                    "Movie Name: a very long movie name to caon",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: AppFonts.mainFont,
+                        fontSize: 14),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               )
             ],

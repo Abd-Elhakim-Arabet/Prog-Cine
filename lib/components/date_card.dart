@@ -27,7 +27,7 @@ class dateCard extends StatelessWidget {
       scale = 1;
     }
     return Container(
-      height: 93 * scale,
+      height: 110 * scale, //93->110
       width: 79 * scale,
       decoration: BoxDecoration(
         color: containerColor,
