@@ -59,7 +59,7 @@ class _mainMovieMenuState extends State<mainMovieMenu> {
                         height: 270,
                         width: double.infinity,
                         child: Image.asset(
-                          "lib/assets/images/stray.avif",
+                          "lib/assets/images/stray.jpg",
                           fit: BoxFit.cover,
                         ),
                       ),
