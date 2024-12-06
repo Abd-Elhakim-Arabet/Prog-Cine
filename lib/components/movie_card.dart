@@ -13,7 +13,7 @@ class movieCard extends StatelessWidget {
         scale: value,
         child: Container(
           width: 200,
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           decoration: BoxDecoration(
             color: AppColors.myPrimary,
             borderRadius: BorderRadius.only(

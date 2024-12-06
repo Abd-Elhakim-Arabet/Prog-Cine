@@ -7,6 +7,7 @@ import 'package:prog/components/lower_section.dart';
 import 'package:prog/components/main_movie_menu.dart';
 import 'package:prog/components/movie_slider.dart';
 import 'package:prog/components/search_bar.dart';
+import 'package:prog/components/theater_card.dart';
 import 'package:prog/components/see_all.dart';
 import 'package:prog/components/upper_section.dart';
 import 'package:prog/readData/get_name.dart';
@@ -145,4 +146,20 @@ class _homePageState extends State<homePage> {
       ),
     );
   }
+}
+
+Widget movieListBuilder(context) {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    height: MediaQuery.of(context).size.height * 0.35,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 7,
+      itemBuilder: (context, index) {
+        return movieCard(
+          value: 1.0,
+        );
+      },
+    ),
+  );
 }
