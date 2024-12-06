@@ -5,6 +5,7 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/app_drawer.dart';
 import 'package:prog/components/lower_section.dart';
 import 'package:prog/components/main_movie_menu.dart';
+import 'package:prog/components/movie_card.dart';
 import 'package:prog/components/movie_slider.dart';
 import 'package:prog/components/search_bar.dart';
 import 'package:prog/components/theater_card.dart';
