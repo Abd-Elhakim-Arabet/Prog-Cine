@@ -15,6 +15,7 @@ class resetPassword extends StatefulWidget {
 class _resetPasswordState extends State<resetPassword> {
   final _emailController = TextEditingController();
 
+  @override
   void dispose() {
     _emailController.dispose();
     super.dispose();
@@ -96,7 +97,7 @@ class _resetPasswordState extends State<resetPassword> {
             child: Text(
               "Enter the email address associated with your account",
               style: TextStyle(
-                color: Colors.grey,
+                color: AppColors.myAccent,
                 fontFamily: AppFonts.mainFont,
                 fontSize: 14,
               ),

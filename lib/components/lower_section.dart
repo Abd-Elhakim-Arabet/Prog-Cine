@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:prog/assets/colors.dart';
 
 class BottomNavBar extends StatelessWidget {
+  void Function(int)? onTabChange;
+   BottomNavBar({super.key, required this.onTabChange});
+
   // final Function(int) onTabTapped;
   // final int currentIndex;
 
@@ -9,36 +13,40 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: AppColors.myBackground,
-      unselectedItemColor: Colors.white, 
-       selectedItemColor: Colors.white,
-       iconSize: 30.0,
-      // currentIndex: currentIndex,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: ''
-        
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.settings),
-          label: ''
-       
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: ''
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Container(
+        child: GNav(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          color: AppColors.myAccent,
+          activeColor: AppColors.myPrimary,
+          tabActiveBorder: Border.all(color: AppColors.myAccent,),
+          tabBackgroundColor: AppColors.myAccent,
+          tabBorderRadius: 16,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          onTabChange: (value) => onTabChange!(value),
+          tabs: const [
+            GButton(icon: Icons.home,
+              text: "Home",
+            ),
+            GButton(
+              icon: Icons.movie,
+              text: "Movies",
+              ),
+              GButton(
+                icon: Icons.theaters,
+                text: "Theatres",
+                ),
+                GButton(
+                  icon: Icons.person,
+                  text: "Profile",
+                  ),
+          ],
           
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.location_on),
-          label: ''
           
-        ),
-      ],
-    
+          
+          ),
+      ),
     );
   }
 }
