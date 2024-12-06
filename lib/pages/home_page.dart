@@ -2,14 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/main_movie_menu copy.dart';
-import 'package:prog/components/movie_card.dart';
+import 'package:prog/components/app_drawer.dart';
+import 'package:prog/components/lower_section.dart';
+import 'package:prog/components/main_movie_menu.dart';
 import 'package:prog/components/movie_slider.dart';
 import 'package:prog/components/search_bar.dart';
 import 'package:prog/components/theater_card.dart';
 import 'package:prog/components/see_all.dart';
 import 'package:prog/components/upper_section.dart';
 import 'package:prog/readData/get_name.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -21,18 +23,26 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   final user = FirebaseAuth.instance.currentUser;
   List<String> Ids = [];
+
+
+
   @override
   void logOut() {
     FirebaseAuth.instance.signOut();
   }
 
+  @override
   void initState() {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
+    final pageController = PageController(viewportFraction: 1);
     return Scaffold(
+
       backgroundColor: AppColors.myBackground,
+      drawer: appDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -84,65 +94,52 @@ class _homePageState extends State<homePage> {
             SizedBox(
               height: 30,
             ),
-            mainMovieMenu(),
-            //MovieSlider(),
+            mainMovieMenu(
+              pgController: pageController,
+            ),
             SizedBox(
               height: 10,
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25),
-                child: const Text(
-                  "Featured",
-                  //textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: AppFonts.mainFont),
-                ),
+            SmoothPageIndicator(
+              controller: pageController,
+              count: 3,
+              effect: WormEffect(
+                dotWidth: 10,
+                dotHeight: 10,
+                activeDotColor: AppColors.myPrimary,
+                dotColor: AppColors.myAccent,
               ),
             ),
             SizedBox(
-              height: 6,
+              height: 10,
             ),
-            movieListBuilder(context),
-            SizedBox(
-              height: 6,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25),
-                child: const Text(
-                  "Comming Soon",
-                  //textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: AppFonts.mainFont),
-                ),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Cats and Dogs?", style: TextStyle(
+                  fontFamily: AppFonts.mainFont,
+                  color: AppColors.myYellow,
+                  fontSize: 20
+                ),),
               ),
             ),
-            SizedBox(
-              height: 6,
+            SizedBox(height: 10,),
+            MovieSlider(),
+            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Cats and Dogs?", style: TextStyle(
+                  fontFamily: AppFonts.mainFont,
+                  color: AppColors.myYellow,
+                  fontSize: 20
+                ),),
+              ),
             ),
-            movieListBuilder(context),
-            SizedBox(
-              height: 6,
-            ),
-            TheaterCard(
-              backgroundColor: Colors.orange,
-              title: "Salle Cosmos Alpha",
-              subtitle: "Memorial du Martyr, El Madania",
-              location: "Algiers",
-              status: "NEW",
-            ),
-            SizedBox(
-              height: 6,
-            ),
+            SizedBox(height: 10,),
+            MovieSlider(),
             ElevatedButton(onPressed: logOut, child: Text("logout"))
           ],
         ),
