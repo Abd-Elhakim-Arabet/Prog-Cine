@@ -20,12 +20,12 @@ class loginPage extends StatefulWidget {
 class _loginPageState extends State<loginPage> {
   @override
   Widget build(BuildContext context) {
-    final _emailController = TextEditingController();
-    final _passwordController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
 
     void register() async {
-      if (!_formKey.currentState!.validate()){
+      if (!formKey.currentState!.validate()){
         return;
       }
       showDialog(
@@ -36,8 +36,8 @@ class _loginPageState extends State<loginPage> {
 
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim());
+            email: emailController.text.trim(),
+            password: passwordController.text.trim());
       } on FirebaseAuthException catch (e){
         String message = '';
         Icon icon;
@@ -95,8 +95,8 @@ class _loginPageState extends State<loginPage> {
     }
 
     void dispose() {
-      _emailController.dispose();
-      _passwordController.dispose();
+      emailController.dispose();
+      passwordController.dispose();
       super.dispose();
     }
 
@@ -107,17 +107,17 @@ class _loginPageState extends State<loginPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+                    children: const [
                       cornerSquare(),
                     ],
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 40,
                       ),
@@ -141,7 +141,7 @@ class _loginPageState extends State<loginPage> {
                       validator: emailValidator,
                       hint: "Email",
                       obsecure: false,
-                      controller: _emailController,
+                      controller: emailController,
                     ),
                   ),
                   SizedBox(
@@ -154,7 +154,7 @@ class _loginPageState extends State<loginPage> {
                       validator: passValidator,
                       hint: "Password",
                       obsecure: true,
-                      controller: _passwordController,
+                      controller: passwordController,
                     ),
                   ),
                   SizedBox(

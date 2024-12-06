@@ -25,7 +25,7 @@ class cornerSquare extends StatelessWidget {
               Positioned(
                 left: 47,
                 child: Image.asset(
-                  'lib/assets/images/pinkCorn.png', 
+                  'lib/assets/images/corner2.png', 
                   width: 300,
                   height: 251, 
                   fit: BoxFit.contain, 

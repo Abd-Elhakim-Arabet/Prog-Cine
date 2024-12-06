@@ -15,7 +15,7 @@ class MovieImageTitle extends StatelessWidget {
         
         width: double.infinity,
         height: 400,
-        margin: EdgeInsets.only(left: 10,right: 10,top: 45,bottom: 5),
+        margin: EdgeInsets.only(left: 10,right: 10,top: 45,bottom: 10),
         decoration: BoxDecoration(
           color: AppColors.myPrimary,
           borderRadius: BorderRadius.only(
@@ -94,7 +94,7 @@ class MovieImageTitle extends StatelessWidget {
               bottom: 65,
               right: 20,
 
-            child: Container(
+            child: SizedBox(
               height: 40,
               width: 40,
               child: FloatingActionButton(

@@ -100,12 +100,12 @@ class signupPage extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+                    children: const [
                       cornerSquare(),
                     ],
                   ),
                   Row(
-                    children: [
+                    children: const [
                       SizedBox(
                         width: 40,
                       ),
