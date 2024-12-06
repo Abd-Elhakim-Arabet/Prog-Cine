@@ -64,7 +64,7 @@ class movieCard2 extends StatelessWidget {
                               bottomRight: Radius.circular(5),
                             ),
                             child: Image.asset(
-                              "lib/assets/images/stray.avif",
+                              "lib/assets/images/stray.png",
                               height: 200,
                               width: 190,
                               fit: BoxFit.cover,
