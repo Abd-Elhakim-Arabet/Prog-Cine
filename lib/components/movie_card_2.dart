@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/data/dummy_models.dart';
+import 'package:prog/pages/movie_description.dart';
 
 class movieCard2 extends StatelessWidget {
-  const movieCard2({super.key});
+  final Movie movie;
+  const movieCard2({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: (){
-        Navigator.of(context).pushNamed("/movieDescription");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => movieDescription(movie: movie)));
       },
       child: Container(
         width: 200,
@@ -22,10 +25,10 @@ class movieCard2 extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.myPrimary,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
                     ),
                     boxShadow: [
                       BoxShadow(
@@ -64,7 +67,7 @@ class movieCard2 extends StatelessWidget {
                               bottomRight: Radius.circular(5),
                             ),
                             child: Image.asset(
-                              "lib/assets/images/stray.jpg",
+                              movie.smallImage,
                               height: 200,
                               width: 190,
                               fit: BoxFit.cover,
@@ -81,8 +84,8 @@ class movieCard2 extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(left:  20.0),
-                    child: Text("Stray", style: TextStyle(
-                      color: AppColors.myPrimary,
+                    child: Text(movie.name, style: TextStyle(
+                      color: Colors.white,
                       fontFamily: AppFonts.mainFont,
                       fontSize: 16
                     ),),

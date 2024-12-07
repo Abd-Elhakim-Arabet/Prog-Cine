@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/data/dummy_data.dart';
+import 'package:prog/data/dummy_models.dart';
 
 class mainMovieMenu extends StatefulWidget {
   final dynamic pgController;
+  final List<Movie> movies;
 
-  const mainMovieMenu({super.key, this.pgController});
+  const mainMovieMenu({super.key, this.pgController, required this.movies});
 
   @override
   State<mainMovieMenu> createState() => _mainMovieMenuState();
@@ -29,7 +32,7 @@ class _mainMovieMenuState extends State<mainMovieMenu> {
         ]),
         child: PageView.builder(
           controller: widget.pgController,
-          itemCount: 3,
+          itemCount: allMovies.length,
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.symmetric(horizontal: 8),
@@ -59,7 +62,7 @@ class _mainMovieMenuState extends State<mainMovieMenu> {
                         height: 270,
                         width: double.infinity,
                         child: Image.asset(
-                          "lib/assets/images/stray.jpg",
+                          widget.movies[index].bigImage,
                           fit: BoxFit.cover,
                         ),
                       ),
