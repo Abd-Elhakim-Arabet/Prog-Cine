@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prog/assets/colors.dart';
 
 
 
@@ -23,7 +24,9 @@ class DateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      highlightColor: AppColors.myPrimary.withOpacity(0.2),
+      splashColor: AppColors.myPrimary.withOpacity(0.2),
       onTap: onTap,
       child: Container(
         width: 90,
