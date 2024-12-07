@@ -263,7 +263,7 @@ Theater CosmosB =
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
-    image: "lib/assets/images/theaters/cosmos_beta.png",
+    image: "lib/assets/images/cosmos_beta.png",
     days: CosmosB_days,
   );
  
@@ -276,7 +276,7 @@ Theater CosmosAlpha =
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
-    image: "lib/assets/images/theaters/cosmos_alpha.png",
+    image: "lib/assets/images/cosmos_alpha.png",
     days: CosmosB_days,
   );
 
@@ -287,7 +287,7 @@ Theater Ibnzaydun =
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
-    image: "lib/assets/images/theaters/ibn_zaydun.png",
+    image: "lib/assets/images/ibn_zaydun.png",
     days: CosmosB_days,
   );
 
@@ -298,7 +298,7 @@ Theater IbnKhaldoun =
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
-    image: "lib/assets/images/theaters/ibn_khaldoun.png",
+    image: "lib/assets/images/ibn_khaldoun.png",
     days: CosmosB_days,
   );
 
@@ -309,7 +309,7 @@ Theater AhmedBey =
     location: "Constantine, Algeria",
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
-    image: "lib/assets/images/theaters/ahmed_bey.png",
+    image: "lib/assets/images/ahmed_bey.png",
     days: CosmosB_days,
   );
 

@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
         "/resetPassword": (context) => resetPassword(),
         "/auth": (context) => authPage(),
         "/movieDescription":(context) => movieDescription(movie: allMovies[0],),
-        "/cinemaDescription":(context) => cinemaDescription(),
         },
     );
   }
