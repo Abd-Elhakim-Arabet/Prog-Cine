@@ -21,7 +21,7 @@ class movieCard2 extends StatelessWidget {
             Container(
                   width: 200,
                   height: 240,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  margin: EdgeInsets.symmetric(horizontal: 10,),
                   decoration: BoxDecoration(
                     color: AppColors.myPrimary,
                     borderRadius: BorderRadius.only(
@@ -43,6 +43,7 @@ class movieCard2 extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(7.0),
                         child: Container(
+                          
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
@@ -68,28 +69,26 @@ class movieCard2 extends StatelessWidget {
                             ),
                             child: Image.asset(
                               movie.smallImage,
-                              height: 200,
+                              height: 100,
                               width: 190,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                       ),
-                      
-                      
-                   
                 ),
                 SizedBox(height: 5,),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:  20.0),
-                    child: Text(movie.name, style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: AppFonts.mainFont,
-                      fontSize: 16
-                    ),),
-                  ))
+                Padding(
+                  padding: const EdgeInsets.only(left:  20.0,),
+                  child: Text(movie.name,
+                  maxLines: 1, 
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    color: Colors.white,
+                    fontFamily: AppFonts.mainFont,
+                    fontSize: 16
+                  ),),
+                )
           ],
         ),
       ),
