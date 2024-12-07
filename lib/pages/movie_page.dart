@@ -3,6 +3,7 @@ import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/movie_matrix.dart';
 import 'package:prog/components/search_bar.dart';
+import 'package:prog/components/surfer.dart';
 import 'package:prog/components/upper_section.dart';
 
 class moviePage extends StatefulWidget {
@@ -24,7 +25,10 @@ class _moviePageState extends State<moviePage> {
             child: Column(
               
               children: [
+
                 SizedBox(height: 70,),
+                Surfer(),
+                SizedBox(height: 10,),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: mySearchBar(),

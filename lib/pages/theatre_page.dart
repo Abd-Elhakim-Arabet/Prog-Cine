@@ -42,6 +42,7 @@ class _theatrePageState extends State<theatrePage> {
                     ],
                   ),
                 ),
+                SizedBox(height: 10,),
                 theatresList()
               ],
             ),
