@@ -3,6 +3,7 @@ import 'package:prog/assets/colors.dart';
 import 'package:prog/components/lower_section.dart';
 import 'package:prog/pages/home_page.dart';
 import 'package:prog/pages/movie_page.dart';
+import 'package:prog/pages/profile_page.dart';
 import 'package:prog/pages/theatre_page.dart';
 
 class pagesNavigator extends StatefulWidget {
@@ -24,7 +25,7 @@ class _pagesNavigatorState extends State<pagesNavigator> {
     const homePage(),
     const moviePage(),
     const theatrePage(),
-    const theatrePage(),
+    const ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {
