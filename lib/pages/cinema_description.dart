@@ -23,7 +23,6 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   String lastMovieTime = "7:30 pm";
   String location = "Algiers, Algeria";
   var selectedDate = DateTime.now();
-  String location = "Algiers, ";
   void initState() {
     super.initState();
     title = widget.cinema.name;
