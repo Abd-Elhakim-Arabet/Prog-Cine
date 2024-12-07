@@ -117,27 +117,27 @@ List<Movie> allMovies = [
 
 TheaterDay CosmosB_friday = 
   TheaterDay(
-    date: DateTime(2024, 11,6),
+    date: DateTime(2024, 12,6),
     schedules: [
       Schedule(
         id: 1,
         movieId: 1,
-        startTime: DateTime(2024, 11,6, 11, 00),
+        startTime: DateTime(2024, 12,6, 11, 00),
       ),
       Schedule(
         id: 2,
         movieId: 2,
-        startTime: DateTime(2024, 11,6, 15, 00),
+        startTime: DateTime(2024, 12,6, 15, 00),
       ),
       Schedule(
         id: 2,
         movieId: 2,
-        startTime: DateTime(2024, 11,6, 18, 00),
+        startTime: DateTime(2024, 12,6, 18, 00),
       ),
       Schedule(
         id: 2,
         movieId: 2,
-        startTime: DateTime(2024, 11,6, 21, 00),
+        startTime: DateTime(2024, 12,6, 21, 00),
       ),
     ],
   );
@@ -145,106 +145,106 @@ TheaterDay CosmosB_friday =
 
 TheaterDay CosmosB_saturday = 
   TheaterDay(
-    date: DateTime(2024, 11, 07),
+    date: DateTime(2024, 12, 07),
     schedules: [
       Schedule(
         id: 1,
         movieId: 1,
-        startTime: DateTime(2024, 11, 7, 11, 00),
+        startTime: DateTime(2024, 12, 7, 11, 00),
       ),
       Schedule(
         id: 2,
         movieId: 8,
-        startTime: DateTime(2024, 11,7, 13, 00),
+        startTime: DateTime(2024, 12,7, 13, 00),
       ),
       Schedule(
         id: 2,
         movieId: 3,
-        startTime: DateTime(2024, 11,7, 15, 00),
+        startTime: DateTime(2024, 12,7, 15, 00),
       ),
       Schedule(
         id: 2,
         movieId: 3,
-        startTime: DateTime(2024, 11,7, 18, 00),
+        startTime: DateTime(2024, 12,7, 18, 00),
       ),
       Schedule(
         id: 2,
         movieId: 1,
-        startTime: DateTime(2024, 11,7, 21, 00),
+        startTime: DateTime(2024, 12,7, 21, 00),
       ),
       Schedule(
         id: 2,
         movieId: 8,
-        startTime: DateTime(2024, 11,7, 23, 00),
+        startTime: DateTime(2024, 12,7, 23, 00),
       ),
     ],
   );
 
 TheaterDay CosmosB_sunday =
   TheaterDay(
-    date: DateTime(2024, 11,08),
+    date: DateTime(2024, 12,08),
     schedules: [
       Schedule(
         id: 1,
         movieId: 4,
-        startTime: DateTime(2024, 11,08, 11, 00),
+        startTime: DateTime(2024, 12,08, 11, 00),
       ),
       Schedule(
         id: 2,
         movieId: 9,
-        startTime: DateTime(2024, 11,08, 13, 00),
+        startTime: DateTime(2024, 12,08, 13, 00),
       ),
       Schedule(
         id: 2,
         movieId: 2,
-        startTime: DateTime(2024, 11,08, 15, 00),
+        startTime: DateTime(2024, 12,08, 15, 00),
       ),
       Schedule(
         id: 2,
         movieId: 1,
-        startTime: DateTime(2024, 11,08, 18, 00),
+        startTime: DateTime(2024, 12,08, 18, 00),
       ),
       Schedule(
         id: 2,
         movieId: 1,
-        startTime: DateTime(2024, 11,08, 21, 00),
+        startTime: DateTime(2024, 12,08, 21, 00),
       ),
       Schedule(
         id: 2,
         movieId: 7,
-        startTime: DateTime(2024, 11,08, 23, 00),
+        startTime: DateTime(2024, 12,08, 23, 00),
       ),
     ],
   );
 
 TheaterDay CosmosB_monday = 
   TheaterDay(
-    date: DateTime(2024, 11,09),
+    date: DateTime(2024, 12,09),
     schedules: [
       Schedule(
         id: 1,
         movieId: 4,
-        startTime: DateTime(2024, 11,09, 11, 00),
+        startTime: DateTime(2024, 12,09, 11, 00),
       ),
       Schedule(
         id: 2,
         movieId: 2,
-        startTime: DateTime(2024, 11,09, 15, 00),
+        startTime: DateTime(2024, 12,09, 15, 00),
       ),
       Schedule(
         id: 2,
         movieId: 5,
-        startTime: DateTime(2024, 11,09, 18, 00),
+        startTime: DateTime(2024, 12,09, 18, 00),
       ),
       Schedule(
         id: 2,
         movieId: 1,
-        startTime: DateTime(2024, 11,09, 21, 00),
+        startTime: DateTime(2024, 12,09, 21, 00),
       ),
       Schedule(
         id: 2,
         movieId: 5,
-        startTime: DateTime(2024, 11,09, 23, 00),
+        startTime: DateTime(2024, 12,09, 23, 00),
       ),
     ]
   );

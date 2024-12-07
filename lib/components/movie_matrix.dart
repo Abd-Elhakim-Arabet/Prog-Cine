@@ -23,7 +23,8 @@ class _movieMatrixState extends State<movieMatrix> {
         physics:
             NeverScrollableScrollPhysics(), // Disable GridView's own scrolling
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 20,
+            mainAxisExtent:270 ,
+            crossAxisCount: 2, mainAxisSpacing: 25, crossAxisSpacing: 20,
             childAspectRatio: 0.7
             ),
         itemCount: widget.movies.length,
