@@ -1,71 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:prog/assets/colors.dart';
-import 'package:prog/assets/fonts.dart';
+import 'package:intl/intl.dart';
 
-class dateCard extends StatelessWidget {
-  final String day;
-  final int number;
-  final String month;
-  final bool isActive;
-  final Color? color;
-  const dateCard(
-      {super.key,
-      required this.day,
-      required this.number,
-      required this.month,
-      this.isActive = false,
-      this.color = AppColors.myPrimary});
+
+
+class DateCard extends StatelessWidget {
+  final DateTime date;
+  final bool isSelected;
+  final VoidCallback? onTap;
+  final Color activeColor;
+  final Color? inactiveBackgroundColor;
+  final Color? inactiveTextColor;
+
+  const DateCard({
+    super.key,
+    required this.date,
+    required this.isSelected,
+    this.onTap,
+    required this.activeColor,
+    this.inactiveBackgroundColor,
+    this.inactiveTextColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Color? containerColor = AppColors.myAccent;
-    Color textColor = AppColors.myBackground;
-    double scale = 0.8;
-    if (isActive) {
-      containerColor = color;
-      textColor = Colors.white;
-      scale = 1;
-    }
-    return Container(
-      height: 93 * scale,
-      width: 79 * scale,
-      decoration: BoxDecoration(
-        color: containerColor,
-        borderRadius: BorderRadius.circular(10),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 90,
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        decoration: _buildDecoration(),
+        child: _buildDateContent(),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            day,
-            style: TextStyle(
-              color: textColor,
-              fontFamily: AppFonts.mainFont,
-              fontSize: 16,
-            ),
-          ),
-          Column(
-            children: [
-              Text(
-                number.toString(),
-                style: TextStyle(
-                  color: textColor,
-                  fontFamily: AppFonts.mainFont,
-                  fontSize: 19,
-                ),
-              ),
-              Text(
-                month,
-                style: TextStyle(
-                  color: textColor,
-                  fontFamily: AppFonts.mainFont,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
-        ],
+    );
+  }
+
+  BoxDecoration _buildDecoration() {
+    return BoxDecoration(
+      color: isSelected 
+        ? activeColor 
+        : inactiveBackgroundColor,
+      borderRadius: BorderRadius.circular(10),
+      border: !isSelected 
+        ? Border.all(color: Colors.grey.shade300) 
+        : null,
+      boxShadow: !isSelected 
+        ? [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: const Offset(0, 2),
+            )
+          ]
+        : null,
+    );
+  }
+
+  Widget _buildDateContent() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildDateText(
+          text: DateFormat('MMM').format(date),
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+        ),
+        const SizedBox(height: 4),
+        _buildDateText(
+          text: date.day.toString(),
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        const SizedBox(height: 4),
+        _buildDateText(
+          text: DateFormat('EEE').format(date),
+          fontSize: 12,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDateText({
+    required String text,
+    double fontSize = 12,
+    FontWeight fontWeight = FontWeight.normal,
+  }) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        color: isSelected 
+          ? Colors.white 
+          : inactiveTextColor,
       ),
     );
   }
 }
+
+

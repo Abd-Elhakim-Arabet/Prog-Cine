@@ -1,55 +1,64 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/components/date_card.dart';
 
 class dateSlider extends StatefulWidget {
-  final Color colored;
-  const dateSlider({super.key, this.colored = AppColors.myPrimary});
+  final Color activeColor;
+  final Color? inactiveBackgroundColor;
+  final Color? inactiveTextColor;
+  final DateTime? initialDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+  final Function(DateTime)? onDateChanged;
+
+  const dateSlider({
+    super.key, 
+    this.activeColor = AppColors.myPrimary, 
+    this.inactiveBackgroundColor = AppColors.myAccent,
+    this.inactiveTextColor = Colors.black,
+    this.initialDate,
+    this.firstDate,
+    this.lastDate,
+    this.onDateChanged,
+  });
 
   @override
-  State<dateSlider> createState() => _dateSliderState();
+  State<dateSlider> createState() => _DateSliderState();
 }
 
-class _dateSliderState extends State<dateSlider> {
-  int active = 0;
+class _DateSliderState extends State<dateSlider> {
+  late DateTime _selectedDate;
 
   @override
   void initState() {
     super.initState();
-    active = 0;
-  }
-
-  void selectDay(index) {
-    active = index;
-    setState(() {});
+    _selectedDate = widget.initialDate ?? DateTime.now();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider.builder(
-      options: CarouselOptions(
-          height: 93,
-          viewportFraction: 0.3,
-          enableInfiniteScroll: false,
-          padEnds: false),
-      itemCount: 5,
-      itemBuilder: (context, index, realIndex) {
-        return Align(
-          alignment: Alignment.bottomCenter,
-          child: GestureDetector(
-            onTap: () {
-              selectDay(index);
-            },
-            child: dateCard(
-              day: "Mon",
-              number: index,
-              month: "Dec",
-              isActive: index == active,
-              color: widget.colored,
-            ),
-          ),
+    return EasyDateTimeLinePicker.itemBuilder(
+      firstDate: widget.firstDate ?? DateTime.now(),
+      lastDate: widget.lastDate ?? DateTime(2024, 12, 12),
+      focusedDate: _selectedDate,
+      itemExtent: 64.0, 
+      itemBuilder: (context, date, isSelected, isDisabled, isToday, onTap) {
+        return DateCard(
+          date: date,
+          isSelected: isSelected,
+          onTap: onTap,
+          activeColor: widget.activeColor,
+          inactiveBackgroundColor: widget.inactiveBackgroundColor,
+          inactiveTextColor: widget.inactiveTextColor,
         );
+      },
+      onDateChange: (date) {
+        setState(() {
+          _selectedDate = date;
+        });
+        
+        widget.onDateChanged?.call(date);
       },
     );
   }
