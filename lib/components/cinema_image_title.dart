@@ -46,7 +46,7 @@ class cinemaImageTitle extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
+                        color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 5,
                         offset: Offset(0, 3),
@@ -70,7 +70,7 @@ class cinemaImageTitle extends StatelessWidget {
                       imageUrl,
                       height: 320,
                       width: double.infinity,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),

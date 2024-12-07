@@ -46,7 +46,7 @@ class _DateSliderState extends State<dateSlider> {
       firstDate: widget.firstDate ?? DateTime.now(),
       lastDate: widget.lastDate ?? DateTime(2024, 12, 12),
       focusedDate: _selectedDate,
-      itemExtent: 64.0, 
+      itemExtent: 80.0, 
       itemBuilder: (context, date, isSelected, isDisabled, isToday, onTap) {
         return DateCard(
           date: date,
@@ -55,6 +55,7 @@ class _DateSliderState extends State<dateSlider> {
           activeColor: widget.activeColor,
           inactiveBackgroundColor: widget.inactiveBackgroundColor,
           inactiveTextColor: widget.inactiveTextColor,
+          
         );
       },
       onDateChange: (date) {

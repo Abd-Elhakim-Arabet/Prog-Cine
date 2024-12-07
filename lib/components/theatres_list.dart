@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prog/components/theatre_card.dart';
+import 'package:prog/data/dummy_models.dart';
+import 'package:prog/pages/cinema_description.dart';
 
 class theatresList extends StatefulWidget {
-  const theatresList({super.key});
+  final List<Theater> theatres;
+  const theatresList({super.key, required this.theatres});
 
   @override
   State<theatresList> createState() => _theatresListState();
@@ -11,13 +14,24 @@ class theatresList extends StatefulWidget {
 class _theatresListState extends State<theatresList> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        theatreCard(),
-        SizedBox(height: 10,),
-        theatreCard(),
-        SizedBox(height: 10,)
-      ],
-    );
+    return ListView.builder(
+        shrinkWrap:
+            true, // Ensure the ListView takes up only the necessary space
+        physics:
+            NeverScrollableScrollPhysics(), // Disable ListView's own scrolling
+        itemCount: widget.theatres.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              InkWell(
+                  onTap: () {
+                     Navigator.push(context, MaterialPageRoute(builder: (context) => cinemaDescription(cinema: widget.theatres[index])));
+                    
+                  },
+                  child: theatreCard(theatre: widget.theatres[index])),
+              SizedBox(height: 10),
+            ],
+          );
+        });
   }
 }
