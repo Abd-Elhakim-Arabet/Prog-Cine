@@ -27,118 +27,121 @@ class _movieDescriptionState extends State<movieDescription> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.myPrimary,
+        iconTheme: IconThemeData(color: AppColors.myAccent),
+        backgroundColor: Colors.transparent,
       ),
       backgroundColor: AppColors.myBackground,
-      body: Column(
-        children: [
-          MovieImageTitle(
-            imageUrl: url,
-            title: title,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            MovieImageTitle(
+              imageUrl: url,
+              title: title,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    years.toString(),
+                    style: TextStyle(
+                      color: AppColors.myAccent,
+                      fontFamily: AppFonts.mainFont,
+                      fontSize: 17,
+                    ),
+                  ),
+                  Text(
+                    genres,
+                    style: TextStyle(
+                      color: AppColors.myAccent,
+                      fontFamily: AppFonts.mainFont,
+                      fontSize: 17,
+                    ),
+                  ),
+                  Text(
+                    duration,
+                    style: TextStyle(
+                      color: AppColors.myAccent,
+                      fontFamily: AppFonts.mainFont,
+                      fontSize: 17,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  years.toString(),
-                  style: TextStyle(
-                    color: AppColors.myAccent,
-                    fontFamily: AppFonts.mainFont,
-                    fontSize: 17,
-                  ),
+                Image.asset(
+                  "lib/assets/images/imdb.png",
+                  width: 40,
+                ),
+                SizedBox(
+                  width: 10,
                 ),
                 Text(
-                  genres,
+                  imdbRating.toString(),
                   style: TextStyle(
-                    color: AppColors.myAccent,
+                    color: Colors.white,
                     fontFamily: AppFonts.mainFont,
-                    fontSize: 17,
+                    fontSize: 19,
                   ),
                 ),
+                Icon(
+                  Icons.star,
+                  color: Colors.yellow,
+                ),
+                SizedBox(
+                  width: 35,
+                ),
+                Image.asset(
+                  "lib/assets/images/tomatoes.png",
+                  width: 40,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
                 Text(
-                  duration,
+                  "$tomatoesPercent%",
                   style: TextStyle(
-                    color: AppColors.myAccent,
+                    color: Colors.white,
                     fontFamily: AppFonts.mainFont,
-                    fontSize: 17,
+                    fontSize: 19,
                   ),
-                )
+                ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "lib/assets/images/imdb.png",
-                width: 40,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                imdbRating.toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: AppFonts.mainFont,
-                  fontSize: 19,
-                ),
-              ),
-              Icon(
-                Icons.star,
-                color: Colors.yellow,
-              ),
-              SizedBox(
-                width: 35,
-              ),
-              Image.asset(
-                "lib/assets/images/tomatoes.png",
-                width: 40,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                "$tomatoesPercent%",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: AppFonts.mainFont,
-                  fontSize: 19,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                description,
-                style: TextStyle(
-                  color: AppColors.myAccent,
-                  fontFamily: AppFonts.mainFont,
-                  fontSize: 14,
+            SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  description,
+                  style: TextStyle(
+                    color: AppColors.myAccent,
+                    fontFamily: AppFonts.mainFont,
+                    fontSize: 14,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 20,),
-          Padding(
-            padding: const EdgeInsets.only(left: 25.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: dateSlider()),
-          ),
-          Text("Cosmos Alpha", style: TextStyle(
-            
-          ))
-        ],
+            SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: dateSlider()),
+            ),
+            Text("Cosmos Alpha", style: TextStyle(
+              
+            ))
+          ],
+        ),
       ),
     );
   }
