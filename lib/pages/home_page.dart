@@ -11,6 +11,7 @@ import 'package:prog/components/search_bar.dart';
 import 'package:prog/components/theater_card.dart';
 import 'package:prog/components/see_all.dart';
 import 'package:prog/components/upper_section.dart';
+import 'package:prog/data/dummy_data.dart';
 import 'package:prog/readData/get_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -96,6 +97,7 @@ class _homePageState extends State<homePage> {
               height: 30,
             ),
             mainMovieMenu(
+              movies: FeaturedMovies,
               pgController: pageController,
             ),
             SizedBox(
@@ -103,7 +105,10 @@ class _homePageState extends State<homePage> {
             ),
             SmoothPageIndicator(
               controller: pageController,
-              count: 3,
+              count: FeaturedMovies.length,
+              onDotClicked: (index) => pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn),
               effect: WormEffect(
                 dotWidth: 10,
                 dotHeight: 10,
@@ -118,7 +123,7 @@ class _homePageState extends State<homePage> {
               padding: const EdgeInsets.only(left: 8.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Cats and Dogs?", style: TextStyle(
+                child: Text("Popular movies", style: TextStyle(
                   fontFamily: AppFonts.mainFont,
                   color: AppColors.myYellow,
                   fontSize: 20
@@ -126,13 +131,15 @@ class _homePageState extends State<homePage> {
               ),
             ),
             SizedBox(height: 10,),
-            MovieSlider(),
+            MovieSlider(
+              movies: PopularMovies,
+            ),
             SizedBox(height: 10,),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Cats and Dogs?", style: TextStyle(
+                child: Text("In theaters", style: TextStyle(
                   fontFamily: AppFonts.mainFont,
                   color: AppColors.myYellow,
                   fontSize: 20
@@ -140,7 +147,9 @@ class _homePageState extends State<homePage> {
               ),
             ),
             SizedBox(height: 10,),
-            MovieSlider(),
+            MovieSlider(
+              movies: inTheaters ,
+            ),
             ElevatedButton(onPressed: logOut, child: Text("logout"))
           ],
         ),
@@ -149,18 +158,3 @@ class _homePageState extends State<homePage> {
   }
 }
 
-Widget movieListBuilder(context) {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-    height: MediaQuery.of(context).size.height * 0.35,
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 7,
-      itemBuilder: (context, index) {
-        return movieCard(
-          value: 1.0,
-        );
-      },
-    ),
-  );
-}

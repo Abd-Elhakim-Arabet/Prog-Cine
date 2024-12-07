@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/movie_card_2.dart';
+import 'package:prog/data/dummy_models.dart';
 
 class movieMatrix extends StatefulWidget {
-  const movieMatrix({super.key});
+  final List<Movie> movies;
+  const movieMatrix({super.key, required this.movies});
 
   @override
   State<movieMatrix> createState() => _movieMatrixState();
@@ -24,9 +26,11 @@ class _movieMatrixState extends State<movieMatrix> {
             crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 20,
             childAspectRatio: 0.7
             ),
-        itemCount: 6,
+        itemCount: widget.movies.length,
         itemBuilder: (context, index) {
-          return movieCard2();
+          return movieCard2(
+            movie: widget.movies[index],
+          );
         },
       ),
     );

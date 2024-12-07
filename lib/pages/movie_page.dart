@@ -4,6 +4,7 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/movie_matrix.dart';
 import 'package:prog/components/search_bar.dart';
 import 'package:prog/components/upper_section.dart';
+import 'package:prog/data/dummy_data.dart';
 
 class moviePage extends StatefulWidget {
   const moviePage({super.key});
@@ -18,46 +19,71 @@ class _moviePageState extends State<moviePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: AppColors.myBackground,
       body: SingleChildScrollView(
-            child: Column(
-              
-              children: [
-                SizedBox(height: 70,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: mySearchBar(),
-                  ),
-               
-                
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        filter,
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: AppColors.myPrimary,
-                          fontFamily: AppFonts.mainFont,
-                        ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.tune,
-                            color: AppColors.myAccent,
-                            )
-                          ],
-                        )
-                    ],
-                  ),
-                ),
-                movieMatrix(),
-              ],
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 70,
             ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25),
+              child: mySearchBar(),
+            ),
+            const SizedBox(height: 20),
+            Section(filter: filter),
+            movieMatrix(
+              movies:PopularMovies,
+            ),
+            const SizedBox(height: 20),
+            Section(filter: "This Weekend"),
+            movieMatrix(
+              movies: This_weekend,
+            ),
+            const SizedBox(height: 20),
+            Section(filter: "In Theatres"),
+            movieMatrix(
+              movies: inTheaters,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Section extends StatelessWidget {
+  const Section({
+    super.key,
+    required this.filter,
+  });
+
+  final String filter;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            filter,
+            style: const TextStyle(
+              fontSize: 20,
+              color: AppColors.myPrimary,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ),
+          const Row(
+            children: [
+              /* Icon(
+                Icons.tune,
+                color: AppColors.myAccent,
+              ) */
+            ],
+          )
+        ],
       ),
     );
   }

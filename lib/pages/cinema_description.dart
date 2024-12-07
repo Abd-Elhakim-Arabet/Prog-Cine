@@ -25,7 +25,8 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
     return Scaffold(
       backgroundColor: AppColors.myBackground,
       appBar: AppBar(
-        backgroundColor: AppColors.myPrimary,
+        iconTheme: IconThemeData(color: AppColors.myAccent),
+        backgroundColor:Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -113,7 +114,9 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
             SizedBox(height: 30,),
             dateSlider(colored: cinemaColor),
             SizedBox(height: 30,),
-            MovieSlider()
+            MovieSlider(
+              movies: [],
+            )
           ],
         ),
       ),

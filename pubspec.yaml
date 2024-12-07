@@ -69,7 +69,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/images/
-
+    # - lib/assets/images/theaters/
+    - lib/assets/images/movies/196 meters/
+    - lib/assets/images/movies/wicked/
+    - lib/assets/images/movies/moana 2/
+    - lib/assets/images/movies/monsieur aznavour/
+    - lib/assets/images/movies/dr frantz/
+    - lib/assets/images/movies/smile 2/
+    - lib/assets/images/movies/gladiator 2/
+    - lib/assets/images/movies/venom 3/
+    - lib/assets/images/movies/the wild robot/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

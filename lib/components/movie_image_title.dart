@@ -64,7 +64,7 @@ class MovieImageTitle extends StatelessWidget {
                         bottomLeft: Radius.circular(40),
                         bottomRight: Radius.circular(40),
                       ),
-                      child: Image.network(
+                      child: Image.asset(
                         
                         imageUrl,
                         height: 320,

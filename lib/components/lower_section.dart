@@ -19,9 +19,9 @@ class BottomNavBar extends StatelessWidget {
         child: GNav(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           color: AppColors.myAccent,
-          activeColor: AppColors.myPrimary,
-          tabActiveBorder: Border.all(color: AppColors.myAccent,),
-          tabBackgroundColor: AppColors.myAccent,
+          activeColor: AppColors.myAccent,
+          tabActiveBorder: Border.all(color: AppColors.myPrimary,),
+          tabBackgroundColor: AppColors.myPrimary,
           tabBorderRadius: 16,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           onTabChange: (value) => onTabChange!(value),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/data/dummy_models.dart';
 
 class movieCard extends StatelessWidget {
   final value;
-  const movieCard({super.key, this.value});
+  final Movie movie;
+  const movieCard({super.key, this.value, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class movieCard extends StatelessWidget {
             ],
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
@@ -61,7 +64,7 @@ class movieCard extends StatelessWidget {
                       bottomRight: Radius.circular(5),
                     ),
                     child: Image.asset(
-                      "lib/assets/images/stray.avif",
+                      movie.smallImage,
                       height: 200,
                       width: 190,
                       fit: BoxFit.cover,
@@ -75,14 +78,17 @@ class movieCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: Text(
-                  "Movie Name: a very long movie name to caon",
+                  movie.name,
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: AppFonts.mainFont,
                       fontSize: 14),
                   textAlign: TextAlign.center,
                 ),
-              )
+              ),
+              SizedBox(
+                height: 12,
+              ),
             ],
           ),
         ),

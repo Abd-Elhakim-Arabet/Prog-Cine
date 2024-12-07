@@ -1,10 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:prog/components/movie_card.dart';
+import 'package:prog/data/dummy_data.dart';
+import 'package:prog/data/dummy_models.dart';
+import 'package:prog/pages/movie_description.dart';
 
 class MovieSlider extends StatefulWidget {
-  const MovieSlider({super.key});
-
+  const MovieSlider({super.key, required this.movies});
+  final List<Movie> movies;
   @override
   State<MovieSlider> createState() => _MovieSliderState();
 }
@@ -25,7 +28,7 @@ class _MovieSliderState extends State<MovieSlider> {
       height: 300,
       child: PageView.builder(
         controller: _pageController,
-        itemCount: 3,
+        itemCount: widget.movies.length,
         itemBuilder: (context, index) {
           return AnimatedBuilder(
             animation: _pageController,
@@ -41,9 +44,12 @@ class _MovieSliderState extends State<MovieSlider> {
               return Center(
                 child: Transform.scale(
                   scale: value,
-                  child: GestureDetector(
-                    onTap: () {},
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => movieDescription(movie: widget.movies[index])));
+                    },
                     child: movieCard(
+                      movie:widget.movies[index],
                       value: value,
                     ),
                   ),
