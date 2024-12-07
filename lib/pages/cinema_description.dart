@@ -112,7 +112,7 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
             ),
         
             SizedBox(height: 30,),
-            dateSlider(colored: cinemaColor),
+            dateSlider(),
             SizedBox(height: 30,),
             MovieSlider(
               movies: [],
