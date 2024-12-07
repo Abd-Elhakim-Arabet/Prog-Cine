@@ -26,7 +26,7 @@ class DateCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 90,
+        //width: 90,
         margin: const EdgeInsets.symmetric(horizontal: 5),
         decoration: _buildDecoration(),
         child: _buildDateContent(),
@@ -40,9 +40,8 @@ class DateCard extends StatelessWidget {
         ? activeColor 
         : inactiveBackgroundColor,
       borderRadius: BorderRadius.circular(10),
-      border: !isSelected 
-        ? Border.all(color: Colors.grey.shade300) 
-        : null,
+      
+      
       boxShadow: !isSelected 
         ? [
             BoxShadow(

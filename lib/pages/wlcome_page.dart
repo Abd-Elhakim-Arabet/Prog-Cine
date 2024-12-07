@@ -18,7 +18,7 @@ class welcomePage extends StatelessWidget {
               image: DecorationImage(
                 alignment: Alignment.center,
                 image: AssetImage("lib/assets/images/arrivalBg.png"),
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
               ),
             ),
             child: Container(),

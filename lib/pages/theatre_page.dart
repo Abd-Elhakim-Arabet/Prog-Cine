@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/theatres_list.dart';
+import 'package:prog/data/dummy_data.dart';
 
 class theatrePage extends StatefulWidget {
   const theatrePage({super.key});
@@ -42,8 +43,8 @@ class _theatrePageState extends State<theatrePage> {
                     ],
                   ),
                 ),
-                theatresList()
-              ],
+                SizedBox(height: 10,),
+                theatresList(theatres: theaters,),],
             ),
       ),
     );
