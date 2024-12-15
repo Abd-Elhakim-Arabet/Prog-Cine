@@ -30,6 +30,7 @@ class signupPage extends StatelessWidget {
       );
 
       addUserDetails(
+        userCredential.user!.uid,
           _emailController.text.trim(), _usernameController.text.trim());
     }on FirebaseAuthException catch (e){
       String message = '';
@@ -72,10 +73,11 @@ class signupPage extends StatelessWidget {
     }
   }
 
-  Future addUserDetails(email, username) async {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .add({'email': email, 'username': username});
+  Future addUserDetails(String uid, email, username) async {
+    await FirebaseFirestore.instance.collection("users").doc(uid).set({
+      'email': email,
+      'username': username,
+    });
   }
 
   void dipose() {
