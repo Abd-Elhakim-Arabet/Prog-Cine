@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/theatres_list.dart';
+import 'package:prog/components/single_use/theatre_page/theatres_list.dart';
 import 'package:prog/data/dummy_data.dart';
 
 class theatrePage extends StatefulWidget {

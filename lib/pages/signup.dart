@@ -6,7 +6,7 @@ import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/corner_square.dart';
 import 'package:prog/components/myTextField.dart';
-import 'package:prog/components/myTextFormField.dart';
+import 'package:prog/components/multiple_use/myTextFormField.dart';
 import 'package:prog/components/my_google_btn.dart';
 import 'package:prog/components/my_long_btn.dart';
 import 'package:prog/utils/myvalidator.dart';
