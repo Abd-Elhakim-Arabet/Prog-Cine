@@ -7,55 +7,63 @@ class TestDb extends StatefulWidget {
   const TestDb({super.key});
 
   @override
-  State<TestDb> createState() => _TestDbState();
+  State<TestDb> createState() => _TestScheduleState();
 }
 
-class _TestDbState extends State<TestDb> {
+class _TestScheduleState extends State<TestDb> {
   final DatabaseService databaseService = DatabaseService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.myBackground,
       body: SingleChildScrollView(
-        child: movieListTest(),
+        child: scheduleListTest(),  
       ),
     );
   }
-  Widget movieListTest() {
+
+  Widget scheduleListTest() {
     return SizedBox(
-      
       height: MediaQuery.sizeOf(context).height * 0.50,
       width: MediaQuery.sizeOf(context).width,
       child: StreamBuilder(
-          stream: databaseService.getMovies(),
-          builder: (context, snapshot) {
-            List movies = snapshot.data?.docs ?? [];
-            if (movies.isEmpty) {
-              return Center(
-                child: Text('No movies found'),
-              );
-            }
-            print(movies);
-            return ListView.builder(
-              itemCount: movies.length,
-              itemBuilder: (context, index) {
-              Movie movie = movies[index].data();
-              String movieId = movies[index].id;
+        stream: databaseService.getSchedule(),  
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+            return Center(child: Text('No theatersday found'));
+          }
+
+          List theaters = snapshot.data?.docs ?? [];
+          print(theaters);
+        
+
+          return ListView.builder(
+            itemCount: theaters.length,
+             
+            itemBuilder: (context, index) {
+             // Theater theater=theaters[0].data();
+              Schedule THID=theaters[0].data();
+           
+         
+
               return Column(
                 children: [
-                  ListTile(
-                    title: Text(movie.name),
-                    subtitle: Text(movie.description),
-                    
-                  ),
-                  Text(movie.imdbRating),
-                  Text(movie.imdbRating),
-                  Text("${DateTime(2024, 11, 07)}")
-                  
+                  Text(THID.id.toString()),
+                  Text(THID.movieId.toString()),
+                  Text(THID.startTime.toString())
                 ],
+
+              
               );
-            });
-          }),
+            },
+          );
+        },
+      ),
     );
   }
 }
