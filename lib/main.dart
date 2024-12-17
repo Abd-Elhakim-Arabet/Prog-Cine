@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  TestDb(),
+      home:  directingPage(),
       routes: {
         "/resetPassword": (context) => resetPassword(),
         "/auth": (context) => authPage(),
