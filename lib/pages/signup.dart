@@ -6,7 +6,7 @@ import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/corner_square.dart';
 import 'package:prog/components/myTextField.dart';
-import 'package:prog/components/myTextFormField.dart';
+import 'package:prog/components/multiple_use/myTextFormField.dart';
 import 'package:prog/components/my_google_btn.dart';
 import 'package:prog/components/my_long_btn.dart';
 import 'package:prog/utils/myvalidator.dart';
@@ -30,6 +30,7 @@ class signupPage extends StatelessWidget {
       );
 
       addUserDetails(
+        userCredential.user!.uid,
           _emailController.text.trim(), _usernameController.text.trim());
     }on FirebaseAuthException catch (e){
       String message = '';
@@ -72,10 +73,11 @@ class signupPage extends StatelessWidget {
     }
   }
 
-  Future addUserDetails(email, username) async {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .add({'email': email, 'username': username});
+  Future addUserDetails(String uid, email, username) async {
+    await FirebaseFirestore.instance.collection("users").doc(uid).set({
+      'email': email,
+      'username': username,
+    });
   }
 
   void dipose() {

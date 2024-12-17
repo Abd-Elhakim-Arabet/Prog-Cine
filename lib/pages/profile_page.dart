@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/components/multiple_use/surfer.dart';
+import 'package:prog/services/storage/database_service.dart';
 import 'settings/privacy_page.dart';
 import 'settings/location_page.dart';
 import 'settings/help_support_page.dart';
@@ -20,9 +22,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final DatabaseService databaseService = DatabaseService();
   @override
   Widget build(BuildContext context) {
-    var profileInfo =  Flexible(
+    var profileInfo = Flexible(
       flex: 0,
       child: Column(
         children: [
@@ -42,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           SizedBox(height: 20),
           Text(
-            "Abdelahakim Arabet",
+            "Abdelhakim Arabet",
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -152,9 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void logOut() {
-    FirebaseAuth.instance.signOut();
-  }
+  
+
 }
 
 class ProfileListItem extends StatelessWidget {
@@ -187,7 +189,11 @@ class ProfileListItem extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(icon, size: 25, color: Colors.black,),
+              Icon(
+                icon,
+                size: 25,
+                color: Colors.black,
+              ),
               SizedBox(width: 25),
               Text(
                 text,
