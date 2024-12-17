@@ -152,7 +152,8 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   }
 
   List<Movie> getMovies(Theater theater,DateTime date) {
-    for (var day in theater.days) {
+    // implemetation to be adjusted
+    /*for (var day in theater.days) {
       if(
         day.date.weekday == selectedDate.weekday
       ){ {
@@ -164,12 +165,13 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
         return todayMovies;
       }
     }
-  }
+  }*/
     return [];
 }
 
 List<DateTime> getTimes(Theater theater,DateTime date) {
-    for (var day in theater.days) {
+   // implemetation to be adjusted
+    /*for (var day in theater.days) {
       if(
         day.date.weekday == selectedDate.weekday
       ){ {
@@ -181,7 +183,7 @@ List<DateTime> getTimes(Theater theater,DateTime date) {
         return times;
       }
     }
-  }
+  }*/
     return [];
 }
 }

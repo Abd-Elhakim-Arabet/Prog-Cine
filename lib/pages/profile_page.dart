@@ -23,6 +23,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final DatabaseService databaseService = DatabaseService();
+  void logOut() {
+      FirebaseAuth.instance.signOut();
+    }
   @override
   Widget build(BuildContext context) {
     var profileInfo = Flexible(
@@ -153,10 +156,9 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
+
+    
   }
-
-  
-
 }
 
 class ProfileListItem extends StatelessWidget {
