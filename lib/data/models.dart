@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Movie {
   final int id;
   final String name;
@@ -23,7 +25,7 @@ class Movie {
     required this.rottenTomatoesRating,
   });
 
-  Movie.fromJson(Map<String, Object?> json)
+  Movie.fromJson(Map<String, dynamic> json)
       : this(
           id: json['id']! as int,
           name: json['name']! as String,
@@ -63,7 +65,7 @@ class Movie {
     );
   }
 
-  Map<String, Object?> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
@@ -89,18 +91,70 @@ class Schedule {
     required this.movieId,
     required this.startTime,
   });
+
+  Schedule.fromJson(Map<String,dynamic> json):
+  this(
+    id: json["id"]! as int ,
+      movieId:json["movieId"]! as int,
+      startTime: (json["startTime"]! as Timestamp ).toDate());
+
+
+  Schedule Copy({int ? id,int ? movieId,DateTime?startTime}){
+    return Schedule(id: id?? this.id
+    , movieId: movieId?? this.movieId
+    , startTime: startTime?? this.startTime);
+
+  }
+  Map<String,dynamic> toJson(){
+    return{
+      "id":id,
+      "movieId":movieId,
+      "startTime": startTime,
+
+    };
+  }
+  
+  
 }
 
 class TheaterDay {
   final int theaterId;
   final DateTime date;
-  final List<Schedule> schedules;
+  final List<int> schedules;
 
   TheaterDay({
     required this.theaterId,
     required this.date,
     required this.schedules,
   });
+
+ TheaterDay.fromJson(Map<String, dynamic> json)
+      : theaterId = json['theaterId']! as int,
+        date = (json['date']! as Timestamp).toDate(), 
+        schedules = (json["schedules"] as List<dynamic>?)?.map((e) => e as int).toList() ?? [];
+            
+
+ 
+  Map<String, Object> toJson() {
+    return {
+      'theaterId': theaterId,
+      'date': date, 
+      'schedules': schedules
+    };
+  }
+
+ 
+  TheaterDay copyWith({
+    int? theaterId,
+    DateTime? date,
+    List<int>? schedules,
+  }) {
+    return TheaterDay(
+      theaterId: theaterId ?? this.theaterId,
+      date: date ?? this.date,
+      schedules: schedules ?? this.schedules,
+    );
+  }
 }
 
 class Theater {
@@ -110,7 +164,7 @@ class Theater {
   final String firstMovieTime;
   final String lastMovieTime;
   final String image;
-  final List<TheaterDay> days;
+  final List<int> days;
 
 
   Theater({
@@ -122,4 +176,45 @@ class Theater {
     required this.image,
     required this.days,
   });
+    Theater.fromJson(Map<String, dynamic> json)
+      : id = json['id']! as int,
+        name = json['name']! as String,
+        location = json['location']! as String,
+        firstMovieTime = json['firstMovieTime']! as String,
+        lastMovieTime = json['lastMovieTime']! as String,
+        image = json['image']! as String,
+        days = (json["days"] as List<dynamic>?)?.map((e) => e as int).toList() ?? [];
+
+
+  Map<String, Object> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'location': location,
+      'firstMovieTime': firstMovieTime,
+      'lastMovieTime': lastMovieTime,
+      'image': image,
+      'days': days
+    };
+  }
+
+  Theater copyWith({
+    int? id,
+    String? name,
+    String? location,
+    String? firstMovieTime,
+    String? lastMovieTime,
+    String? image,
+    List<int>? days,
+  }) {
+    return Theater(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      location: location ?? this.location,
+      firstMovieTime: firstMovieTime ?? this.firstMovieTime,
+      lastMovieTime: lastMovieTime ?? this.lastMovieTime,
+      image: image ?? this.image,
+      days: days ?? this.days,
+    );
+  }
 }

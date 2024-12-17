@@ -119,27 +119,8 @@ TheaterDay CosmosB_friday =
   TheaterDay(
     theaterId: 1,
     date: DateTime(2024, 11,6),
-    schedules: [
-      Schedule(
-        id: 1,
-        movieId: 1,
-        startTime: DateTime(2024, 11,6, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 11,6, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 11,6, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 11,6, 21, 00),
-      ),
+    schedules: [14,6,9
+ 
     ],
   );
 
@@ -149,36 +130,7 @@ TheaterDay CosmosB_saturday =
     theaterId: 1,
     date: DateTime(2024, 11, 07),
     schedules: [
-      Schedule(
-        id: 1,
-        movieId: 1,
-        startTime: DateTime(2024, 11, 7, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 8,
-        startTime: DateTime(2024, 11,7, 13, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 3,
-        startTime: DateTime(2024, 11,7, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 3,
-        startTime: DateTime(2024, 11,7, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 11,7, 21, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 8,
-        startTime: DateTime(2024, 11,7, 23, 00),
-      ),
+      1,2,3
     ],
   );
 
@@ -187,36 +139,7 @@ TheaterDay CosmosB_sunday =
     theaterId: 1,
     date: DateTime(2024, 11,08),
     schedules: [
-      Schedule(
-        id: 1,
-        movieId: 4,
-        startTime: DateTime(2024, 11,08, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 9,
-        startTime: DateTime(2024, 11,08, 13, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 11,08, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 11,08, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 11,08, 21, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 7,
-        startTime: DateTime(2024, 11,08, 23, 00),
-      ),
+    12,3,4
     ],
   );
 
@@ -225,31 +148,7 @@ TheaterDay CosmosB_monday =
     theaterId: 1,
     date: DateTime(2024, 11,09),
     schedules: [
-      Schedule(
-        id: 1,
-        movieId: 4,
-        startTime: DateTime(2024, 11,09, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 11,09, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 5,
-        startTime: DateTime(2024, 11,09, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 11,09, 21, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 5,
-        startTime: DateTime(2024, 11,09, 23, 00),
-      ),
+      15,23
     ]
   );
 
@@ -268,7 +167,7 @@ Theater CosmosB =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/cosmos_beta.png",
-    days: CosmosB_days,
+    days: [1,2,3],
   );
  
 // all theaters have the same day schedule
@@ -281,7 +180,7 @@ Theater CosmosAlpha =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/cosmos_alpha.png",
-    days: CosmosB_days,
+    days: [1,3,54],
   );
 
 Theater Ibnzaydun = 
@@ -292,7 +191,7 @@ Theater Ibnzaydun =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ibn_zaydun.png",
-    days: CosmosB_days,
+    days: [1,5,9],
   );
 
 Theater IbnKhaldoun = 
@@ -303,8 +202,8 @@ Theater IbnKhaldoun =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ibn_khaldoun.png",
-    days: CosmosB_days,
-  );
+ days: [1,5,9],
+   );
 
 Theater AhmedBey = 
   Theater(
@@ -314,8 +213,7 @@ Theater AhmedBey =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ahmed_bey.png",
-    days: CosmosB_days,
-  );
+ days: [1,5,9],  );
 
 List<Theater> theaters = [
   CosmosB,
