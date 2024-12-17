@@ -120,7 +120,6 @@ TheaterDay CosmosB_friday =
     theaterId: 1,
     date: DateTime(2024, 11,6),
     schedules: [14,6,9
- 
     ],
   );
 
@@ -131,6 +130,7 @@ TheaterDay CosmosB_saturday =
     date: DateTime(2024, 11, 07),
     schedules: [
       1,2,3
+
     ],
   );
 
@@ -140,6 +140,7 @@ TheaterDay CosmosB_sunday =
     date: DateTime(2024, 11,08),
     schedules: [
     12,3,4
+
     ],
   );
 
@@ -149,6 +150,7 @@ TheaterDay CosmosB_monday =
     date: DateTime(2024, 11,09),
     schedules: [
       15,23
+
     ]
   );
 

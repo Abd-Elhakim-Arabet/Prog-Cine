@@ -46,7 +46,7 @@ class cinemaImageTitle extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(1),
                         spreadRadius: 1,
                         blurRadius: 5,
                         offset: Offset(0, 3),

@@ -27,11 +27,6 @@ class _homePageState extends State<homePage> {
 
 
   @override
-  void logOut() {
-    FirebaseAuth.instance.signOut();
-  }
-
-  @override
   void initState() {
     super.initState();
   }
@@ -147,7 +142,6 @@ class _homePageState extends State<homePage> {
             MovieSlider(
               movies: inTheaters ,
             ),
-            ElevatedButton(onPressed: logOut, child: Text("logout"))
           ],
         ),
       ),

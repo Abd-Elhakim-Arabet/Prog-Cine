@@ -4,6 +4,7 @@ import 'package:prog/assets/colors.dart';
 import 'package:prog/components/date_card.dart';
 
 class dateSlider extends StatefulWidget {
+
   final Color activeColor;
   final Color? inactiveBackgroundColor;
   final Color? inactiveTextColor;
@@ -12,7 +13,7 @@ class dateSlider extends StatefulWidget {
   final DateTime? lastDate;
   final Function(DateTime)? onDateChanged;
 
-  const dateSlider({
+  dateSlider({
     super.key, 
     this.activeColor = AppColors.myPrimary, 
     this.inactiveBackgroundColor = AppColors.myAccent,
@@ -20,7 +21,7 @@ class dateSlider extends StatefulWidget {
     this.initialDate,
     this.firstDate,
     this.lastDate,
-    this.onDateChanged,
+    this.onDateChanged, 
   });
 
   @override
@@ -39,6 +40,9 @@ class _DateSliderState extends State<dateSlider> {
   @override
   Widget build(BuildContext context) {
     return EasyDateTimeLinePicker.itemBuilder(
+      headerOptions: HeaderOptions(
+        headerType: HeaderType.none
+      ),
       firstDate: widget.firstDate ?? DateTime.now(),
       lastDate: widget.lastDate ?? DateTime(2024, 12, 12),
       focusedDate: _selectedDate,

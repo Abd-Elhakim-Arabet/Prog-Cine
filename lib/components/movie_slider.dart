@@ -6,8 +6,9 @@ import 'package:prog/data/models.dart';
 import 'package:prog/pages/movie_description.dart';
 
 class MovieSlider extends StatefulWidget {
-  const MovieSlider({super.key, required this.movies});
+  const MovieSlider({super.key, required this.movies, this.dates});
   final List<Movie> movies;
+  final List<DateTime>? dates;
   @override
   State<MovieSlider> createState() => _MovieSliderState();
 }
@@ -25,7 +26,7 @@ class _MovieSliderState extends State<MovieSlider> {
   Widget build(BuildContext context) {
       final PageController _pageController = PageController(viewportFraction: 0.5);
     return SizedBox(
-      height: 300,
+      height: 350,
       child: PageView.builder(
         controller: _pageController,
         itemCount: widget.movies.length,
@@ -49,6 +50,7 @@ class _MovieSliderState extends State<MovieSlider> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => movieDescription(movie: widget.movies[index])));
                     },
                     child: movieCard(
+                      date: widget.dates?[index],
                       movie:widget.movies[index],
                       value: value,
                     ),
