@@ -32,7 +32,7 @@ class _mainMovieMenuState extends State<mainMovieMenu> {
         ]),
         child: PageView.builder(
           controller: widget.pgController,
-          itemCount: allMovies.length,
+          itemCount: widget.movies.length,
           itemBuilder: (context, index) {
             return Container(
               margin: EdgeInsets.symmetric(horizontal: 8),
