@@ -27,8 +27,14 @@ class DatabaseService {
   late final CollectionReference<Schedule> _scheduleCollectionReference;
 
   DatabaseService(){
-   _movieCollectionReference = _firestore.collection(MOVIE_COLLECTION_REFERENCE).withConverter<Movie>
-    (fromFirestore: (snapshot, _) => Movie.fromJson(snapshot.data()!), toFirestore: (movie, _ ) => movie.toJson());
+   _movieCollectionReference = _firestore.
+   collection(MOVIE_COLLECTION_REFERENCE).
+   withConverter<Movie>(
+      fromFirestore: (snapshot, _) => Movie.fromJson(snapshot.data()!), 
+    toFirestore: (movie, _ ) => movie.toJson()
+    );
+
+
      _theaterCollectionReference = _firestore
         .collection(THEATER_COLLECTION_REFERENCE)
         .withConverter<Theater>(
