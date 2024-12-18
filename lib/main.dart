@@ -3,7 +3,7 @@ import 'package:prog/auth/auth_page.dart';
 import 'package:prog/auth/directing_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:prog/data/dummy_data.dart';
-import 'package:prog/pages/test_db.dart';
+import 'package:prog/pages/test_pages/test_db.dart';
 import 'package:prog/services/storage/shared_pref.dart';
 import 'firebase_options.dart';
 import 'package:prog/pages/cinema_description.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  directingPage(),
+      home:  TestDb(),
       routes: {
         "/resetPassword": (context) => resetPassword(),
         "/auth": (context) => authPage(),
