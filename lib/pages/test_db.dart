@@ -16,7 +16,7 @@ class _TestScheduleState extends State<TestDb> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.myBackground,
+      backgroundColor: Colors.grey,
       body: SingleChildScrollView(
         child: scheduleListTest(),  
       ),
