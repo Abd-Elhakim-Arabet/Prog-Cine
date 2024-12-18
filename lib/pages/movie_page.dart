@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/movie_matrix.dart';
-import 'package:prog/components/search_bar.dart';
-import 'package:prog/components/upper_section.dart';
+import 'package:prog/components/multiple_use/search_bar.dart';
+import 'package:prog/components/single_use/home_page/upper_section.dart';
 import 'package:prog/data/dummy_data.dart';
 
 class moviePage extends StatefulWidget {

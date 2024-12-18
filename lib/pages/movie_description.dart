@@ -4,7 +4,7 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/date_slider.dart';
 import 'package:prog/components/lower_section.dart';
 import 'package:prog/components/movie_image_title.dart';
-import 'package:prog/data/dummy_models.dart';
+import 'package:prog/data/models.dart';
 
 class movieDescription extends StatefulWidget {
   final Movie movie;

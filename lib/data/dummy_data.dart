@@ -1,11 +1,11 @@
 import 'dart:collection';
 
-import 'dummy_models.dart';
+import 'models.dart';
 
 
 List<Movie> allMovies = [
   Movie(
-    id:1,
+    id: 1,
     name: "196 meters",
     description: "The kidnapping of a little girl creates tension and suspicion in Algiers. Only Dounia, a brilliant psychiatrist, and Sami, a police inspector, can unearth the demons of the past.",
     genre: "Mistery, Thriller",
@@ -17,7 +17,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "/",
   ),
   Movie(
-    id:2,
+    id: 2,
     name: "Wicked",
     description: "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads.",
     genre: "Fantasy, Musical",
@@ -30,7 +30,7 @@ List<Movie> allMovies = [
 
     ),
   Movie(
-    id:3,
+    id: 3,
     name: "Moana 2",
     description:"After receiving an unexpected call from her wayfinding ancestors, Moana must journey to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
     genre: "Animation, Adventure",
@@ -42,7 +42,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "62",
     ),
   Movie(
-    id:4,
+    id: 4,
     name: "Monsieur Aznavour",
     description: "Follows the beginnings of the iconic French-Armenian singer, songwriter and actor, Charles Aznavour, from zero to fame.",
     genre: "Biography, Drama",
@@ -54,7 +54,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "/",
     ),
   Movie(
-    id:5,
+    id: 5,
     name: "Dr Frantz Fanon",
     imdbRating: "7.1",
     rottenTomatoesRating: "/",
@@ -66,7 +66,7 @@ List<Movie> allMovies = [
     year: 2024,
     ),
   Movie(
-    id:6,
+    id: 6,
     name: "Smile 2",
     description: "About to embark on a world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her past.",
     genre: "Horror, Mystery",
@@ -78,7 +78,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "86",
     ),
   Movie(
-    id:7,
+    id: 7,
     name: "Gladiator 2",
     description: "After his home is conquered by the tyrannical emperors who now lead Rome, Lucius is forced to enter the Colosseum and must look to his past to find strength to return the glory of Rome to its people.",
     genre: "Action, Adventure",
@@ -90,7 +90,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "83",
     ),
   Movie(
-    id:8,
+    id: 8,
     name: "Venom 3",
     description: "Eddie Brock and Venom must make a devastating decision as they're pursued by a mysterious military man and alien monsters from Venom's home world.",
     genre: "Action, Adventure",
@@ -102,7 +102,7 @@ List<Movie> allMovies = [
     smallImage: "lib/assets/images/movies/venom 3/small_image.png",
     ),
   Movie(
-    id:9,
+    id: 9,
     name: "The Wild Robot",
     description: "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
     duration: "1h 42min",
@@ -117,135 +117,40 @@ List<Movie> allMovies = [
 
 TheaterDay CosmosB_friday = 
   TheaterDay(
-    date: DateTime(2024, 12,6),
-    schedules: [
-      Schedule(
-        id: 1,
-        movieId: 1,
-        startTime: DateTime(2024, 12,6, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 12,6, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 12,6, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 12,6, 21, 00),
-      ),
+    theaterId: 1,
+    date: DateTime(2024, 11,6),
+    schedules: [14,6,9
     ],
   );
 
 
 TheaterDay CosmosB_saturday = 
   TheaterDay(
-    date: DateTime(2024, 12, 07),
+    theaterId: 1,
+    date: DateTime(2024, 11, 07),
     schedules: [
-      Schedule(
-        id: 1,
-        movieId: 1,
-        startTime: DateTime(2024, 12, 7, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 8,
-        startTime: DateTime(2024, 12,7, 13, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 3,
-        startTime: DateTime(2024, 12,7, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 3,
-        startTime: DateTime(2024, 12,7, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 12,7, 21, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 8,
-        startTime: DateTime(2024, 12,7, 23, 00),
-      ),
+      1,2,3
+
     ],
   );
 
 TheaterDay CosmosB_sunday =
   TheaterDay(
-    date: DateTime(2024, 12,08),
+    theaterId: 1,
+    date: DateTime(2024, 11,08),
     schedules: [
-      Schedule(
-        id: 1,
-        movieId: 4,
-        startTime: DateTime(2024, 12,08, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 9,
-        startTime: DateTime(2024, 12,08, 13, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 12,08, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 12,08, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 12,08, 21, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 7,
-        startTime: DateTime(2024, 12,08, 23, 00),
-      ),
+    12,3,4
+
     ],
   );
 
 TheaterDay CosmosB_monday = 
   TheaterDay(
-    date: DateTime(2024, 12,09),
+    theaterId: 1,
+    date: DateTime(2024, 11,09),
     schedules: [
-      Schedule(
-        id: 1,
-        movieId: 4,
-        startTime: DateTime(2024, 12,09, 11, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 2,
-        startTime: DateTime(2024, 12,09, 15, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 5,
-        startTime: DateTime(2024, 12,09, 18, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 1,
-        startTime: DateTime(2024, 12,09, 21, 00),
-      ),
-      Schedule(
-        id: 2,
-        movieId: 5,
-        startTime: DateTime(2024, 12,09, 23, 00),
-      ),
+      15,23
+
     ]
   );
 
@@ -264,7 +169,7 @@ Theater CosmosB =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/cosmos_beta.png",
-    days: CosmosB_days,
+    days: [1,2,3],
   );
  
 // all theaters have the same day schedule
@@ -277,7 +182,7 @@ Theater CosmosAlpha =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/cosmos_alpha.png",
-    days: CosmosB_days,
+    days: [1,3,54],
   );
 
 Theater Ibnzaydun = 
@@ -288,7 +193,7 @@ Theater Ibnzaydun =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ibn_zaydun.png",
-    days: CosmosB_days,
+    days: [1,5,9],
   );
 
 Theater IbnKhaldoun = 
@@ -299,8 +204,8 @@ Theater IbnKhaldoun =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ibn_khaldoun.png",
-    days: CosmosB_days,
-  );
+ days: [1,5,9],
+   );
 
 Theater AhmedBey = 
   Theater(
@@ -310,8 +215,7 @@ Theater AhmedBey =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ahmed_bey.png",
-    days: CosmosB_days,
-  );
+ days: [1,5,9],  );
 
 List<Theater> theaters = [
   CosmosB,

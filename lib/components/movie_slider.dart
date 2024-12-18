@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:prog/components/movie_card.dart';
 import 'package:prog/data/dummy_data.dart';
-import 'package:prog/data/dummy_models.dart';
+import 'package:prog/data/models.dart';
 import 'package:prog/pages/movie_description.dart';
 
 class MovieSlider extends StatefulWidget {
