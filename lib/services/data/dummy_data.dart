@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'models.dart';
+import '../models.dart';
 
 
 List<Movie> allMovies = [

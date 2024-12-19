@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/single_use/theatre_page/theatres_list.dart';
-import 'package:prog/data/dummy_data.dart';
-import 'package:prog/data/models.dart';
+import 'package:prog/services/data/dummy_data.dart';
+import 'package:prog/services/models.dart';
 import 'package:prog/services/storage/database_service.dart';
 
 class theatrePage extends StatefulWidget {

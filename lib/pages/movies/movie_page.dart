@@ -4,7 +4,7 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/single_use/movie_page/movie_matrix.dart';
 import 'package:prog/components/multiple_use/search_bar.dart';
 import 'package:prog/components/single_use/home_page/upper_section.dart';
-import 'package:prog/data/dummy_data.dart';
+import 'package:prog/services/data/dummy_data.dart';
 
 class moviePage extends StatefulWidget {
   const moviePage({super.key});

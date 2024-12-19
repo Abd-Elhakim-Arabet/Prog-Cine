@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/data/models.dart';
+import 'package:prog/services/models.dart';
 import 'package:prog/pages/movies/movie_description.dart';
 
 class movieCard2 extends StatelessWidget {

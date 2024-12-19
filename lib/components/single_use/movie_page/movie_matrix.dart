@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/multiple_use/movie_card_2.dart';
-import 'package:prog/data/models.dart';
+import 'package:prog/services/models.dart';
 
 class movieMatrix extends StatefulWidget {
   final List<Movie> movies;

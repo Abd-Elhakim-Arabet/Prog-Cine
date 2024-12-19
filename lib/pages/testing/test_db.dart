@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
-import 'package:prog/data/models.dart';
+import 'package:prog/services/models.dart';
 import 'package:prog/services/storage/database_service.dart';
 
 class TestDb extends StatefulWidget {

@@ -9,8 +9,8 @@ import 'package:prog/components/single_use/movie_page/movie_slider.dart';
 import 'package:prog/components/multiple_use/search_bar.dart';
 import 'package:prog/components/single_use/home_page/see_all.dart';
 import 'package:prog/components/single_use/home_page/upper_section.dart';
-import 'package:prog/data/dummy_data.dart';
-import 'package:prog/readData/get_name.dart';
+import 'package:prog/services/data/dummy_data.dart';
+import 'package:prog/utils/get_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class homePage extends StatefulWidget {
