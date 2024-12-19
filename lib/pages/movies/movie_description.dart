@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/date_slider.dart';
-import 'package:prog/components/lower_section.dart';
-import 'package:prog/components/movie_image_title.dart';
+import 'package:prog/components/multiple_use/date_slider.dart';
+import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
+import 'package:prog/components/single_use/movie_page/movie_image_title.dart';
 import 'package:prog/data/models.dart';
 
 class movieDescription extends StatefulWidget {

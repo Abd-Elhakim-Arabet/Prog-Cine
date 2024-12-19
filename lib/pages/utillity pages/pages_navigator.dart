@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
-import 'package:prog/components/lower_section.dart';
+import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
 import 'package:prog/pages/home_page.dart';
 import 'package:prog/pages/movies/movie_page.dart';
 import 'package:prog/pages/profile_page.dart';

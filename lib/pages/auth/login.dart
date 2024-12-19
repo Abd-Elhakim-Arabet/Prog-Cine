@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
-import 'package:prog/components/corner_square.dart';
-import 'package:prog/components/myTextField.dart';
+import 'package:prog/components/single_use/auth_pages/corner_square.dart';
+import 'package:prog/components/multiple_use/myTextField.dart';
 import 'package:prog/components/multiple_use/myTextFormField.dart';
-import 'package:prog/components/my_google_btn.dart';
-import 'package:prog/components/my_long_btn.dart';
+import 'package:prog/components/multiple_use/my_google_btn.dart';
+import 'package:prog/components/single_use/auth_pages/my_long_btn.dart';
 import 'package:prog/utils/myvalidator.dart';
 
 class loginPage extends StatefulWidget {

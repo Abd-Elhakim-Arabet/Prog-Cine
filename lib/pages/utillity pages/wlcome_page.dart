@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/my_long_btn.dart';
+import 'package:prog/components/single_use/auth_pages/my_long_btn.dart';
 
 class welcomePage extends StatelessWidget {
   final VoidCallback goToAtuh;

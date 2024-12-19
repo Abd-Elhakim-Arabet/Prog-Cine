@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:prog/assets/colors.dart';
-import 'package:prog/components/date_card.dart';
+import 'package:prog/components/multiple_use/date_card.dart';
 
 class dateSlider extends StatefulWidget {
 

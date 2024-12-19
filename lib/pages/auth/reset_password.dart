@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/myTextField.dart';
-import 'package:prog/components/my_long_btn.dart';
+import 'package:prog/components/multiple_use/myTextField.dart';
+import 'package:prog/components/single_use/auth_pages/my_long_btn.dart';
 
 class resetPassword extends StatefulWidget {
   const resetPassword({super.key});
