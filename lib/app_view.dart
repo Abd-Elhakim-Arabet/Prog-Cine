@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/data/dummy_data.dart';
-import 'package:prog/pages/pages_navigator.dart';
-import 'package:prog/pages/reset_password.dart';
-import 'package:prog/pages/movie_description.dart';
-import 'package:prog/pages/test_db.dart';
+import 'package:prog/pages/utillity%20pages/pages_navigator.dart';
+import 'package:prog/pages/auth/reset_password.dart';
+import 'package:prog/pages/movies/movie_description.dart';
+import 'package:prog/pages/testing/test_db.dart';
 
 class MyAppView extends StatelessWidget {
   const MyAppView({super.key});

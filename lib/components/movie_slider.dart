@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prog/components/movie_card.dart';
 import 'package:prog/data/dummy_data.dart';
 import 'package:prog/data/models.dart';
-import 'package:prog/pages/movie_description.dart';
+import 'package:prog/pages/movies/movie_description.dart';
 
 class MovieSlider extends StatefulWidget {
   const MovieSlider({super.key, required this.movies, this.dates});

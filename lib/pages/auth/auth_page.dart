@@ -5,7 +5,7 @@ import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:prog/blocs/sign_up_bloc/sign_up_bloc.dart';
 import 'package:prog/pages/auth/login.dart';
 import 'package:prog/pages/auth/signup.dart';
-import 'package:prog/pages/wlcome_page.dart';
+import 'package:prog/pages/utillity%20pages/wlcome_page.dart';
 
 class authPage extends StatefulWidget {
   const authPage({super.key});
