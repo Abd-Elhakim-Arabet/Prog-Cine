@@ -13,7 +13,7 @@ class MyUserEntity extends Equatable{
     this.photoUrl,
   });
 
-  Map<String, dynamic> toDocument() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'email': email,
@@ -22,7 +22,7 @@ class MyUserEntity extends Equatable{
     };
   }
 
-  static MyUserEntity fromDocument(Map<String, dynamic> doc) {
+  static MyUserEntity fromJson(Map<String, dynamic> doc) {
     return MyUserEntity(
       id: doc['id'],
       email: doc['email'],

@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:prog/auth/auth_page.dart';
-import 'package:prog/auth/directing_page.dart';
-import 'package:prog/data/dummy_data.dart';
-import 'package:prog/pages/reset_password.dart';
-import 'package:prog/pages/movie_description.dart';
-import 'package:prog/pages/test_db.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prog/app_view.dart';
+import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:user_repository/user_repository.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final UserRepository userRepository;
+  const MyApp(this.userRepository, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home:  TestDb(),
-      routes: {
-        "/resetPassword": (context) => resetPassword(),
-        "/auth": (context) => authPage(),
-        "/movieDescription":(context) => movieDescription(movie: allMovies[0],),
-        },
-    );
+    return MultiRepositoryProvider(providers: [
+      RepositoryProvider<AuthenticationBloc>(
+        create: (_) => AuthenticationBloc(myUserRepository: userRepository),
+      )
+    ], child: MyAppView());
   }
 }

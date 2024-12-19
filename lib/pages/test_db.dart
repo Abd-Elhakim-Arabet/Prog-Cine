@@ -39,7 +39,6 @@ class _TestScheduleState extends State<TestDb> {
           }
 
           List theaters = snapshot.data?.docs ?? [];
-          print(theaters);
         
 
           return ListView.builder(
