@@ -3,7 +3,6 @@ import 'package:prog/services/models.dart';
 
 const String MOVIE_COLLECTION_REFERENCE = 'movies';
 const String THEATER_COLLECTION_REFERENCE = 'theatre';
-const String THEATER_DAY_COLLECTION_REFERENCE = 'theatreday';
 const String SCHEDULE_COLLECTION_REFERENCE = 'schedule';
 
 
@@ -23,7 +22,6 @@ class DatabaseService {
 
   late final CollectionReference<Movie> _movieCollectionReference;
   late final CollectionReference<Theater> _theaterCollectionReference;
-  late final CollectionReference<TheaterDay> _theaterDayCollectionReference;
   late final CollectionReference<Schedule> _scheduleCollectionReference;
 
   DatabaseService(){
@@ -42,13 +40,6 @@ class DatabaseService {
           toFirestore: (theater, _) => theater.toJson(),
         );
 
-    _theaterDayCollectionReference = _firestore
-        .collection(THEATER_DAY_COLLECTION_REFERENCE)
-        .withConverter<TheaterDay>(
-          fromFirestore: (snapshot, _) => TheaterDay.fromJson(snapshot.data()!),
-          toFirestore: (theaterDay, _) => theaterDay.toJson(),
-        );
-
    _scheduleCollectionReference = _firestore
         .collection(SCHEDULE_COLLECTION_REFERENCE)
         .withConverter<Schedule>(
@@ -57,7 +48,7 @@ class DatabaseService {
         );
 
   }
-
+ 
   CollectionReference<T> _initializeCollection<T>(
     String collectionPath,
     T Function(Map<String, dynamic>) fromJson,
@@ -71,7 +62,6 @@ class DatabaseService {
 
   CollectionReference<Movie> get movieCollection => _movieCollectionReference;
   CollectionReference<Theater> get theaterCollection => _theaterCollectionReference;
-  CollectionReference<TheaterDay> get theaterDayCollection => _theaterDayCollectionReference;
   CollectionReference<Schedule> get scheduleCollection => _scheduleCollectionReference;
 
   Stream<QuerySnapshot> getMovies() {
@@ -90,15 +80,6 @@ class DatabaseService {
     _theaterCollectionReference.add(theater);
   }
 
-
-  Stream<QuerySnapshot> getTheaterDays() {
-    return _theaterDayCollectionReference.snapshots();
-  }
-
-  void addTheaterDay(TheaterDay theaterDay) async {
-    _theaterDayCollectionReference.add(theaterDay);
-  }
-
   Stream<QuerySnapshot> getSchedule() {
     return _scheduleCollectionReference.snapshots();
   }
@@ -106,4 +87,49 @@ class DatabaseService {
   void addSchedule(Schedule schedule) async {
     _scheduleCollectionReference.add(schedule);
   }
+
+  Future<List<Schedule>> getSchedulesByDateAndTheatreId(DateTime date, String theaterId) async {
+  try {
+    final startOfDay = Timestamp.fromDate(DateTime(date.year, date.month, date.day));
+    final endOfDay = Timestamp.fromDate(
+      DateTime(date.year, date.month, date.day, 23, 59, 59),
+    );
+
+    final querySnapshot = await _scheduleCollectionReference
+        .where('theaterId', isEqualTo: theaterId)  
+        .where('date', isGreaterThanOrEqualTo: startOfDay)
+        .where('date', isLessThanOrEqualTo: endOfDay)  
+        .get();
+
+    final schedules = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return schedules;
+  } catch (e) {
+    print('Error fetching schedules: $e');
+    return [];
+  }
+}
+
+Future<List<Schedule>> getSchedulesByDateAndMovieId(DateTime date, String movieId) async {
+  try {
+    // Define the start and end of the day
+    final startOfDay = Timestamp.fromDate(DateTime(date.year, date.month, date.day));
+    final endOfDay = Timestamp.fromDate(
+      DateTime(date.year, date.month, date.day, 23, 59, 59),
+    );
+
+    final querySnapshot = await _scheduleCollectionReference
+        .where('movieId', isEqualTo: movieId) 
+        .where('date', isGreaterThanOrEqualTo: startOfDay) 
+        .where('date', isLessThanOrEqualTo: endOfDay)      
+        .get();
+
+    final schedules = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    return schedules;
+  } catch (e) {
+    print('Error fetching schedules: $e');
+    return [];
+  }
+}
 }
