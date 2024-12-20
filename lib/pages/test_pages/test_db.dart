@@ -21,9 +21,10 @@ class _TestScheduleState extends State<TestDb> {
   final TextEditingController imdbRatingController = TextEditingController();
   final TextEditingController rottenTomatoesRatingController =
       TextEditingController();
-
+  final TextEditingController idConntroller = TextEditingController();
   final DatabaseService databaseService = DatabaseService();
-  final ScrollController _scrollController = ScrollController(); // Added ScrollController
+  final ScrollController _scrollController =
+      ScrollController(); // Added ScrollController
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,12 @@ class _TestScheduleState extends State<TestDb> {
               child: Column(
                 children: [
                   TextField(
+                    controller: idConntroller,
+                    decoration: InputDecoration(
+                        hintText: 'Enter id'),
+                    keyboardType: TextInputType.number,
+                  ),
+                  TextField(
                     controller: movieNameController,
                     decoration: InputDecoration(hintText: 'Enter Movie Name'),
                   ),
@@ -99,11 +106,13 @@ class _TestScheduleState extends State<TestDb> {
                   ),
                   TextField(
                     controller: bigImageController,
-                    decoration: InputDecoration(hintText: 'Enter Big Image URL'),
+                    decoration:
+                        InputDecoration(hintText: 'Enter Big Image URL'),
                   ),
                   TextField(
                     controller: smallImageController,
-                    decoration: InputDecoration(hintText: 'Enter Small Image URL'),
+                    decoration:
+                        InputDecoration(hintText: 'Enter Small Image URL'),
                   ),
                   TextField(
                     controller: yearController,
@@ -121,8 +130,8 @@ class _TestScheduleState extends State<TestDb> {
                   ),
                   TextField(
                     controller: rottenTomatoesRatingController,
-                    decoration:
-                        InputDecoration(hintText: 'Enter Rotten Tomatoes Rating'),
+                    decoration: InputDecoration(
+                        hintText: 'Enter Rotten Tomatoes Rating'),
                     keyboardType: TextInputType.number,
                   ),
                 ],
@@ -136,7 +145,7 @@ class _TestScheduleState extends State<TestDb> {
               onPressed: () {
                 Movie movie = Movie(
                   name: movieNameController.text,
-                  id: 0,
+                  id: int.tryParse(idConntroller.text) ?? 0,
                   duration: durationController.text,
                   genre: genreController.text,
                   bigImage: bigImageController.text,
@@ -158,6 +167,7 @@ class _TestScheduleState extends State<TestDb> {
                 descriptionController.clear();
                 imdbRatingController.clear();
                 rottenTomatoesRatingController.clear();
+                idConntroller.clear();
               },
             ),
           ],
