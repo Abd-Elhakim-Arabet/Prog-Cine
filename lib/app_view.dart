@@ -18,7 +18,7 @@ class MyAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TestFunctions()/*BlocBuilder<AuthenticationBloc, AuthenticationState>( 
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
             return StreamBuilder<User?>(
@@ -37,7 +37,7 @@ class MyAppView extends StatelessWidget {
             return authPage();
           }
         },
-      ),*/,
+      ),
       routes: {
         "/testDB": (context) => TestDb(),
         "/resetPassword": (context) => resetPassword(),
