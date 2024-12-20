@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:prog/dashboard/mini_dashboard.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/pages/testing/test_functions.dart';
 import 'package:prog/services/data/dummy_data.dart';
@@ -18,7 +19,7 @@ class MyAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
+      home: MiniDashboard()/*BlocBuilder<AuthenticationBloc, AuthenticationState>( 
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
             return StreamBuilder<User?>(
@@ -37,7 +38,7 @@ class MyAppView extends StatelessWidget {
             return authPage();
           }
         },
-      ),
+      ),*/,
       routes: {
         "/testDB": (context) => TestDb(),
         "/resetPassword": (context) => resetPassword(),
