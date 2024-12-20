@@ -94,22 +94,7 @@ class cinemaImageTitle extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
-            bottom: 65,
-            right: 20,
-            child: SizedBox(
-                height: 40,
-                width: 40,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.black,
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.play_arrow_rounded,
-                    size: 25,
-                    color: Colors.white,
-                  ),
-                )),
-          ),
+          
         ],
       ),
     );
