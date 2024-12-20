@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prog/assets/collections.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
@@ -129,14 +130,14 @@ class _homePageState extends State<homePage> {
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
               child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMovies(),
+                future: _dbService.getMoviesFromCollection(MovieCollections.popular),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No schedules found'));
+                    return Center(child: Text('No Movies found'));
                   }
 
                   List<Movie> movies = snapshot.data!;
@@ -163,14 +164,14 @@ class _homePageState extends State<homePage> {
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
               child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMovies(),
+                future: _dbService.getMoviesFromCollection(MovieCollections.in_theaters),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No schedules found'));
+                    return Center(child: Text('No Movies found'));
                   }
 
                   List<Movie> movies = snapshot.data!;

@@ -24,6 +24,8 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   String lastMovieTime = "7:30 pm";
   String location = "Algiers, Algeria";
   var selectedDate = DateTime.now();
+  final inputDate = DateTime(2024, 12, 20);
+  String cinemaId = "3";
   DatabaseService _dbService = DatabaseService();
   @override
   void initState() {
@@ -135,11 +137,10 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
             SizedBox(
               height: 10,
             ),
-
             SizedBox(
               width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMovies(),
+              child: FutureBuilder<List<Schedule>>(
+                future: _dbService.getSchedulesByDateAndTheatreId(selectedDate, cinemaId),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
@@ -149,11 +150,28 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
                     return Center(child: Text('No schedules found'));
                   }
 
-                  List<Movie> movies = snapshot.data!;
+                  List<Schedule> shedules = snapshot.data!;
+                  List<String> movieIds = [];
+                  for (var schedule in shedules) {
+                    movieIds.add(schedule.movieId);
+                  }
 
-                  return MovieSlider(
-                    movies: movies,
-                  );
+                  return FutureBuilder<List<Movie>>(
+                      future: _dbService.getMoviesByIds(movieIds),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                          return Center(child: Text('No Movies found'));
+                        }
+                        List<Movie> movies = snapshot.data!;
+                        return MovieSlider(
+                          movies: movies,
+                        );
+                      });
                 },
               ),
             )
