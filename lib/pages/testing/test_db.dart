@@ -18,17 +18,17 @@ class _TestScheduleState extends State<TestDb> {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SingleChildScrollView(
-        child: scheduleListTest(),  
+        child: ListTest(),
       ),
     );
   }
 
-  Widget scheduleListTest() {
+  Widget ListTest() {
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.50,
       width: MediaQuery.sizeOf(context).width,
       child: StreamBuilder(
-        stream: databaseService.getSchedule(),  
+        stream: databaseService.getTheaters(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
@@ -39,25 +39,16 @@ class _TestScheduleState extends State<TestDb> {
           }
 
           List theaters = snapshot.data?.docs ?? [];
+          print(theaters);
         
 
           return ListView.builder(
             itemCount: theaters.length,
-             
             itemBuilder: (context, index) {
-             // Theater theater=theaters[0].data();
-              Schedule THID=theaters[0].data();
-           
-         
-
+              // Theater theater=theaters[0].data();
+              Theater th = theaters[0].data();
               return Column(
-                children: [
-                  Text(THID.id.toString()),
-                  Text(THID.movieId.toString()),
-                  Text(THID.startTime.toString())
-                ],
-
-              
+                children: [Text("${th.days[0]}")],
               );
             },
           );
