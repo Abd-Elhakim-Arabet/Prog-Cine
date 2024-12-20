@@ -27,33 +27,33 @@ class _TestScheduleState extends State<TestDb> {
     return SizedBox(
       height: MediaQuery.sizeOf(context).height * 0.50,
       width: MediaQuery.sizeOf(context).width,
-      child: StreamBuilder(
-        stream: databaseService.getTheaters(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
+      child: FutureBuilder<List<Theater>>(
+      future: databaseService.getTheaters(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
 
-          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No theatersday found'));
-          }
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(child: Text('No schedules found'));
+        }
 
-          List theaters = snapshot.data?.docs ?? [];
-          print(theaters);
-        
+        List<Theater> theaters = snapshot.data!;
 
-          return ListView.builder(
-            itemCount: theaters.length,
-            itemBuilder: (context, index) {
-              // Theater theater=theaters[0].data();
-              Theater th = theaters[0].data();
-              return Column(
-                children: [Text("${th.days[0]}")],
-              );
-            },
-          );
-        },
-      ),
+        return ListView.builder(
+          itemCount: theaters.length,
+          itemBuilder: (context, index) {
+            Theater th = theaters[index];
+            return Column(
+              children: [
+                Text("First Time: ${th.firstMovieTime}"),
+                Text("Location: ${th.location}"),
+              ],
+            );
+          },
+        );
+      },
+    ),
     );
   }
 }

@@ -64,24 +64,42 @@ class DatabaseService {
   CollectionReference<Theater> get theaterCollection => _theaterCollectionReference;
   CollectionReference<Schedule> get scheduleCollection => _scheduleCollectionReference;
 
-  Stream<QuerySnapshot> getMovies() {
-    return _movieCollectionReference.snapshots();
+  Future<List<Movie>> getMovies() async {
+    try {
+      final querySnapshot = await _movieCollectionReference.get();
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
+    } catch (e) {
+      print('Error fetching theaters: $e');
+      return [];
+    }
   }
 
   Future< void>addMovie(Movie movie) async {
     _movieCollectionReference.add(movie);
   }
 
-  Stream<QuerySnapshot> getTheaters() {
-    return _theaterCollectionReference.snapshots();
+  Future<List<Theater>> getTheaters() async {
+    try {
+      final querySnapshot = await _theaterCollectionReference.get();
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
+    } catch (e) {
+      print('Error fetching theaters: $e');
+      return [];
+    }
   }
 
    Future< void> addTheater(Theater theater) async {
     _theaterCollectionReference.add(theater);
   }
 
-  Stream<QuerySnapshot> getSchedule() {
-    return _scheduleCollectionReference.snapshots();
+  Future<List<Schedule>> getSchedules() async {
+    try {
+      final querySnapshot = await _scheduleCollectionReference.get();
+      return querySnapshot.docs.map((doc) => doc.data()).toList();
+    } catch (e) {
+      print('Error fetching theaters: $e');
+      return [];
+    }
   }
 
   void addSchedule(Schedule schedule) async {

@@ -125,7 +125,6 @@ class Theater {
   final String firstMovieTime;
   final String lastMovieTime;
   final String image;
-  final List<int> days;
 
 
   Theater({
@@ -134,7 +133,6 @@ class Theater {
     required this.firstMovieTime,
     required this.lastMovieTime,
     required this.image,
-    required this.days,
   });
     Theater.fromJson(Map<String, dynamic> json)
       : 
@@ -142,8 +140,8 @@ class Theater {
         location = json['location']! as String,
         firstMovieTime = json['firstMovieTime']! as String,
         lastMovieTime = json['lastMovieTime']! as String,
-        image = json['image']! as String,
-        days = (json["days"] as List<dynamic>?)?.map((e) => e as int).toList() ?? [];
+        image = json['image']! as String
+        ;
 
 
   Map<String, Object> toJson() {
@@ -153,7 +151,6 @@ class Theater {
       'firstMovieTime': firstMovieTime,
       'lastMovieTime': lastMovieTime,
       'image': image,
-      'days': days
     };
   }
 
@@ -163,7 +160,6 @@ class Theater {
     String? firstMovieTime,
     String? lastMovieTime,
     String? image,
-    List<int>? days,
   }) {
     return Theater(
       name: name ?? this.name,
@@ -171,7 +167,6 @@ class Theater {
       firstMovieTime: firstMovieTime ?? this.firstMovieTime,
       lastMovieTime: lastMovieTime ?? this.lastMovieTime,
       image: image ?? this.image,
-      days: days ?? this.days,
     );
   }
 }

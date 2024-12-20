@@ -133,11 +133,29 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
               onDateChanged: _updateSelectedDate,
             ),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
-            MovieSlider(
-              movies: getMovies(theaters[0], selectedDate),
-              dates: getTimes(theaters[0], selectedDate),
+
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Movie>>(
+                future: _dbService.getMovies(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No schedules found'));
+                  }
+
+                  List<Movie> movies = snapshot.data!;
+
+                  return MovieSlider(
+                    movies: movies,
+                  );
+                },
+              ),
             )
           ],
         ),
@@ -148,7 +166,6 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   void _updateSelectedDate(DateTime date) {
     setState(() {
       selectedDate = date;
-      
     });
   }
 
