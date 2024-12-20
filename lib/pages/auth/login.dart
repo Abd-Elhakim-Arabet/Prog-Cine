@@ -140,7 +140,7 @@ class _loginPageState extends State<loginPage> {
                           width: 40,
                         ),
                         Text(
-                          "My Other Login",
+                          "Login",
                           style: TextStyle(
                             color: AppColors.myYellow,
                             fontFamily: AppFonts.yellowFont,
