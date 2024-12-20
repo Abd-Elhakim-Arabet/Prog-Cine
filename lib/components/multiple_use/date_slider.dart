@@ -3,6 +3,7 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/components/multiple_use/date_card.dart';
 
+
 class dateSlider extends StatefulWidget {
 
   final Color activeColor;
@@ -39,32 +40,39 @@ class _DateSliderState extends State<dateSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return EasyDateTimeLinePicker.itemBuilder(
-      headerOptions: HeaderOptions(
-        headerType: HeaderType.none
-      ),
-      firstDate: widget.firstDate ?? DateTime.now(),
-      lastDate: widget.lastDate ?? DateTime(2024, 12, 12),
-      focusedDate: _selectedDate,
-      itemExtent: 80.0, 
-      itemBuilder: (context, date, isSelected, isDisabled, isToday, onTap) {
-        return DateCard(
-          date: date,
-          isSelected: isSelected,
-          onTap: onTap,
-          activeColor: widget.activeColor,
-          inactiveBackgroundColor: widget.inactiveBackgroundColor,
-          inactiveTextColor: widget.inactiveTextColor,
+     try {
+      
+      return EasyDateTimeLinePicker.itemBuilder(
+        headerOptions: HeaderOptions(
+          headerType: HeaderType.none
+        ),
+        firstDate: widget.firstDate ?? DateTime.now(),
+        lastDate: widget.lastDate??DateTime(2024,12,23),
+        focusedDate: _selectedDate,
+        itemExtent: 80.0, 
+        itemBuilder: (context, date, isSelected, isDisabled, isToday, onTap) {
+          return DateCard(
+            date: date,
+            isSelected: isSelected,
+            onTap: onTap,
+            activeColor: widget.activeColor,
+            inactiveBackgroundColor: widget.inactiveBackgroundColor,
+            inactiveTextColor: widget.inactiveTextColor,
+          );
+        },
+        onDateChange: (date) {
+          setState(() {
+            _selectedDate = date;
+          });
           
-        );
-      },
-      onDateChange: (date) {
-        setState(() {
-          _selectedDate = date;
-        });
-        
-        widget.onDateChanged?.call(date);
-      },
-    );
+          widget.onDateChanged?.call(date);
+        },
+      );
+    } catch (e) {
+      
+      return Center(
+        child: Text("More programs will be available soon!", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      );
+    }
   }
 }
