@@ -6,7 +6,7 @@ import 'package:prog/components/multiple_use/date_slider.dart';
 import 'package:prog/components/single_use/movie_page/movie_slider.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/services/data/dummy_data.dart';
-
+import 'package:prog/services/storage/database_service.dart';
 
 class cinemaDescription extends StatefulWidget {
   final Theater cinema;
@@ -24,20 +24,20 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   String lastMovieTime = "7:30 pm";
   String location = "Algiers, Algeria";
   var selectedDate = DateTime.now();
+  DatabaseService _dbService = DatabaseService();
   @override
   void initState() {
     super.initState();
     title = widget.cinema.name;
-     url = widget.cinema.image;
-     cinemaColor = AppColors.myPrimary;
-     firstMovieTime = widget.cinema.firstMovieTime;
-     lastMovieTime =widget.cinema.lastMovieTime;
-     location = widget.cinema.location;
+    url = widget.cinema.image;
+    cinemaColor = AppColors.myPrimary;
+    firstMovieTime = widget.cinema.firstMovieTime;
+    lastMovieTime = widget.cinema.lastMovieTime;
+    location = widget.cinema.location;
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: AppColors.myBackground,
       appBar: AppBar(
@@ -47,10 +47,7 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            cinemaImageTitle(
-                imageUrl: url,
-                title: title,
-                color: cinemaColor),
+            cinemaImageTitle(imageUrl: url, title: title, color: cinemaColor),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
@@ -129,12 +126,15 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
                 ],
               ),
             ),
-
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             dateSlider(
               onDateChanged: _updateSelectedDate,
             ),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             MovieSlider(
               movies: getMovies(theaters[0], selectedDate),
               dates: getTimes(theaters[0], selectedDate),
@@ -148,10 +148,11 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   void _updateSelectedDate(DateTime date) {
     setState(() {
       selectedDate = date;
+      
     });
   }
 
-  List<Movie> getMovies(Theater theater,DateTime date) {
+  List<Movie> getMovies(Theater theater, DateTime date) {
     // implemetation to be adjusted
     /*for (var day in theater.days) {
       if(
@@ -167,10 +168,10 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
     }
   }*/
     return [];
-}
+  }
 
-List<DateTime> getTimes(Theater theater,DateTime date) {
-   // implemetation to be adjusted
+  List<DateTime> getTimes(Theater theater, DateTime date) {
+    // implemetation to be adjusted
     /*for (var day in theater.days) {
       if(
         day.date.weekday == selectedDate.weekday
@@ -185,6 +186,5 @@ List<DateTime> getTimes(Theater theater,DateTime date) {
     }
   }*/
     return [];
+  }
 }
-}
-
