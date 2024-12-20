@@ -2,15 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/lower_section.dart';
-import 'package:prog/components/main_movie_menu.dart';
-import 'package:prog/components/movie_card.dart';
-import 'package:prog/components/movie_slider.dart';
+import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
+import 'package:prog/components/single_use/home_page/main_movie_menu.dart';
+import 'package:prog/components/multiple_use/movie_card.dart';
+import 'package:prog/components/single_use/movie_page/movie_slider.dart';
 import 'package:prog/components/multiple_use/search_bar.dart';
 import 'package:prog/components/single_use/home_page/see_all.dart';
 import 'package:prog/components/single_use/home_page/upper_section.dart';
-import 'package:prog/data/dummy_data.dart';
-import 'package:prog/readData/get_name.dart';
+import 'package:prog/services/data/dummy_data.dart';
+import 'package:prog/utils/get_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class homePage extends StatefulWidget {

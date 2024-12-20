@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:prog/data/models.dart';
+import 'package:prog/services/models.dart';
 
 const String MOVIE_COLLECTION_REFERENCE = 'movies';
 const String THEATER_COLLECTION_REFERENCE = 'theatre';

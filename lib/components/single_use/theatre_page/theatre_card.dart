@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/components/cinemaPic.dart';
-import 'package:prog/data/models.dart';
+import 'package:prog/components/single_use/theatre_page/cinemaPic.dart';
+import 'package:prog/services/models.dart';
 
 class theatreCard extends StatelessWidget {
   final Theater theatre;

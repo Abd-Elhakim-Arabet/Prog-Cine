@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prog/components/single_use/theatre_page/theatre_card.dart';
-import 'package:prog/data/models.dart';
-import 'package:prog/pages/cinema_description.dart';
+import 'package:prog/services/models.dart';
+import 'package:prog/pages/theatres/cinema_description.dart';
 
 class theatresList extends StatefulWidget {
   final List<Theater> theatres;
