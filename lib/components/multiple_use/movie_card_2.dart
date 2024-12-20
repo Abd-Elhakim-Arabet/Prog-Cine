@@ -67,7 +67,7 @@ class movieCard2 extends StatelessWidget {
                               bottomLeft: Radius.circular(5),
                               bottomRight: Radius.circular(5),
                             ),
-                            child: Image.asset(
+                            child: Image.network(
                               movie.smallImage,
                               height: 100,
                               width: 190,

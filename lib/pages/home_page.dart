@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:prog/assets/collections.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
@@ -10,6 +11,8 @@ import 'package:prog/components/multiple_use/search_bar.dart';
 import 'package:prog/components/single_use/home_page/see_all.dart';
 import 'package:prog/components/single_use/home_page/upper_section.dart';
 import 'package:prog/services/data/dummy_data.dart';
+import 'package:prog/services/models.dart';
+import 'package:prog/services/storage/database_service.dart';
 import 'package:prog/utils/get_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -22,6 +25,7 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   final user = FirebaseAuth.instance.currentUser;
+  DatabaseService _dbService = DatabaseService();
   List<String> Ids = [];
 
 
@@ -123,8 +127,26 @@ class _homePageState extends State<homePage> {
               ),
             ),
             SizedBox(height: 10,),
-            MovieSlider(
-              movies: PopularMovies,
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Movie>>(
+                future: _dbService.getMoviesFromCollection(MovieCollections.popular),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No Movies found'));
+                  }
+
+                  List<Movie> movies = snapshot.data!;
+
+                  return MovieSlider(
+                    movies: movies,
+                  );
+                },
+              ),
             ),
             SizedBox(height: 10,),
             Padding(
@@ -139,9 +161,27 @@ class _homePageState extends State<homePage> {
               ),
             ),
             SizedBox(height: 10,),
-            MovieSlider(
-              movies: inTheaters ,
-            ),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Movie>>(
+                future: _dbService.getMoviesFromCollection(MovieCollections.in_theaters),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No Movies found'));
+                  }
+
+                  List<Movie> movies = snapshot.data!;
+
+                  return MovieSlider(
+                    movies: movies,
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

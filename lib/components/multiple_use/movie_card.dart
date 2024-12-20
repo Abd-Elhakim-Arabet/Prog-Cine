@@ -11,13 +11,16 @@ class movieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final smallImage = movie.smallImage != "0"
+        ? movie.smallImage
+        : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Solid_black.svg/1024px-Solid_black.svg.png";
     return Center(
       child: Transform.scale(
         scale: value,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            if(date != null)
+            if (date != null)
               Text(
                 // TODO
                 // Fix the time format
@@ -28,9 +31,7 @@ class movieCard extends StatelessWidget {
                   fontSize: 17,
                 ),
               ),
-            if(date != null)
-              SizedBox(height: 10),
-
+            if (date != null) SizedBox(height: 10),
             Container(
               width: 200,
               margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -75,19 +76,18 @@ class movieCard extends StatelessWidget {
                         ),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(40),
-                          topRight: Radius.circular(40),
-                          bottomLeft: Radius.circular(5),
-                          bottomRight: Radius.circular(5),
-                        ),
-                        child: Image.asset(
-                          movie.smallImage,
-                          height: 200,
-                          width: 190,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                            bottomLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(5),
+                          ),
+                          child: Image.network(
+                            smallImage,
+                            height: 200,
+                            width: 190,
+                            fit: BoxFit.cover,
+                          )),
                     ),
                   ),
                   SizedBox(

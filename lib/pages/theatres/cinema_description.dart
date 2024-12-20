@@ -24,6 +24,8 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   String lastMovieTime = "7:30 pm";
   String location = "Algiers, Algeria";
   var selectedDate = DateTime.now();
+  final inputDate = DateTime(2024, 12, 20);
+  String cinemaId = "3";
   DatabaseService _dbService = DatabaseService();
   @override
   void initState() {
@@ -133,11 +135,45 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
               onDateChanged: _updateSelectedDate,
             ),
             SizedBox(
-              height: 30,
+              height: 10,
             ),
-            MovieSlider(
-              movies: getMovies(theaters[0], selectedDate),
-              dates: getTimes(theaters[0], selectedDate),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Schedule>>(
+                future: _dbService.getSchedulesByDateAndTheatreId(selectedDate, cinemaId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No schedules found'));
+                  }
+
+                  List<Schedule> shedules = snapshot.data!;
+                  List<String> movieIds = [];
+                  for (var schedule in shedules) {
+                    movieIds.add(schedule.movieId);
+                  }
+
+                  return FutureBuilder<List<Movie>>(
+                      future: _dbService.getMoviesByIds(movieIds),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+
+                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                          return Center(child: Text('No Movies found'));
+                        }
+                        List<Movie> movies = snapshot.data!;
+                        return MovieSlider(
+                          movies: movies,
+                        );
+                      });
+                },
+              ),
             )
           ],
         ),
@@ -148,7 +184,6 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   void _updateSelectedDate(DateTime date) {
     setState(() {
       selectedDate = date;
-      
     });
   }
 

@@ -113,7 +113,6 @@ Theater CosmosB =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/cosmos_beta.png",
-    days: [1,2,3],
   );
  
 // all theaters have the same day schedule
@@ -125,7 +124,6 @@ Theater CosmosAlpha =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/cosmos_alpha.png",
-    days: [1,3,54],
   );
 
 Theater Ibnzaydun = 
@@ -135,7 +133,6 @@ Theater Ibnzaydun =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ibn_zaydun.png",
-    days: [1,5,9],
   );
 
 Theater IbnKhaldoun = 
@@ -145,7 +142,6 @@ Theater IbnKhaldoun =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ibn_khaldoun.png",
- days: [1,5,9],
    );
 
 Theater AhmedBey = 
@@ -155,7 +151,7 @@ Theater AhmedBey =
     firstMovieTime: "11:00 am",
     lastMovieTime: "22:00 pm",
     image: "lib/assets/images/ahmed_bey.png",
- days: [1,5,9],  );
+ );
 
 List<Theater> theaters = [
   CosmosB,
