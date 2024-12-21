@@ -18,7 +18,7 @@ class theatreCard extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(20)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(

@@ -72,11 +72,10 @@ class _theatrePageState extends State<theatrePage> {
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
+                    return Center(child: Text('No Theaters found'));
                   }
 
                   List<Theater> theaters = snapshot.data!;
-
                   return theatresList(
                     theatres:  theaters,
                   );
