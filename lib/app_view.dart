@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:prog/dashboard/mini_dashboard.dart';
+import 'package:prog/pages/dashboard/mini_dashboard.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/pages/testing/test_functions.dart';
 import 'package:prog/services/data/dummy_data.dart';
