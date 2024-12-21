@@ -132,8 +132,8 @@ Theater CosmosAlpha =
     id: "sd",
     name: "Cosmos Alpha",
     location: "Algiers, Algeria",
-    firstMovieTime: "11:00 am",
-    lastMovieTime: "22:00 pm",
+    firstMovieTime: "11:00",
+    lastMovieTime: "22:00",
     image: "lib/assets/images/cosmos_alpha.png",
   );
 

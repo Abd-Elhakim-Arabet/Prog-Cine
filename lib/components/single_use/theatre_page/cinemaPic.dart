@@ -17,7 +17,7 @@ class cinemaPic extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
+              Image.network(
                 cinemaPath,
                 width: awidth ?? 200,
               ),
