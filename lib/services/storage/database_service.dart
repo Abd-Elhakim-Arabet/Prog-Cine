@@ -69,7 +69,17 @@ class DatabaseService {
   }
 
   Future<void> addMovie(Movie movie) async {
-    _movieCollectionReference.add(movie);
+    try {
+      final docRef = await _movieCollectionReference.add(movie);
+
+      final generatedId = docRef.id;
+
+      movie.id = generatedId;
+
+      await docRef.update({'id': generatedId});
+    } catch (e) {
+      print('Error adding theater: $e');
+    }
   }
 
   Future<List<Theater>> getTheaters() async {
@@ -83,7 +93,17 @@ class DatabaseService {
   }
 
   Future<void> addTheater(Theater theater) async {
-    _theaterCollectionReference.add(theater);
+      try {
+      final docRef = await _theaterCollectionReference.add(theater);
+
+      final generatedId = docRef.id;
+
+      theater.id = generatedId;
+
+      await docRef.update({'id': generatedId});
+    } catch (e) {
+      print('Error adding theater: $e');
+    }
   }
 
   Future<List<Schedule>> getSchedules() async {
@@ -188,8 +208,8 @@ class DatabaseService {
       // Build the final list of movies, including duplicates, in the same order
       final movies = movieIds
           .map((id) => movieMap[id])
-          .where((movie) => movie != null) // Remove null entries
-          .cast<Movie>() // Cast to List<Movie>
+          .where((movie) => movie != null) 
+          .cast<Movie>() 
           .toList();
 
       return movies;

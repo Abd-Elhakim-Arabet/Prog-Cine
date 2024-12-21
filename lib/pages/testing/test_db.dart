@@ -134,6 +134,7 @@ class _TestScheduleState extends State<TestDb> {
               color: AppColors.myPrimary,
               onPressed: () {
                 Movie movie = Movie(
+                  id: "",
                   name: movieNameController.text,
                   duration: durationController.text,
                   genre: genreController.text,

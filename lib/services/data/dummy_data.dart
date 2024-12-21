@@ -5,6 +5,7 @@ import '../models.dart';
 
 List<Movie> allMovies = [
   Movie(
+    id: "sd",
     name: "196 meters",
     description: "The kidnapping of a little girl creates tension and suspicion in Algiers. Only Dounia, a brilliant psychiatrist, and Sami, a police inspector, can unearth the demons of the past.",
     genre: "Mistery, Thriller",
@@ -16,6 +17,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "/",
   ),
   Movie(
+    id: "sd",
     name: "Wicked",
     description: "Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads.",
     genre: "Fantasy, Musical",
@@ -28,6 +30,7 @@ List<Movie> allMovies = [
 
     ),
   Movie(
+    id: "sd",
     name: "Moana 2",
     description:"After receiving an unexpected call from her wayfinding ancestors, Moana must journey to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.",
     genre: "Animation, Adventure",
@@ -39,6 +42,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "62",
     ),
   Movie(
+    id: "sd",
     name: "Monsieur Aznavour",
     description: "Follows the beginnings of the iconic French-Armenian singer, songwriter and actor, Charles Aznavour, from zero to fame.",
     genre: "Biography, Drama",
@@ -50,6 +54,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "/",
     ),
   Movie(
+    id: "sd",
     name: "Dr Frantz Fanon",
     imdbRating: "7.1",
     rottenTomatoesRating: "/",
@@ -61,6 +66,7 @@ List<Movie> allMovies = [
     year: 2024,
     ),
   Movie(
+    id: "sd",
     name: "Smile 2",
     description: "About to embark on a world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her past.",
     genre: "Horror, Mystery",
@@ -72,6 +78,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "86",
     ),
   Movie(
+    id: "sd",
     name: "Gladiator 2",
     description: "After his home is conquered by the tyrannical emperors who now lead Rome, Lucius is forced to enter the Colosseum and must look to his past to find strength to return the glory of Rome to its people.",
     genre: "Action, Adventure",
@@ -83,6 +90,7 @@ List<Movie> allMovies = [
     rottenTomatoesRating: "83",
     ),
   Movie(
+    id: "sd",
     name: "Venom 3",
     description: "Eddie Brock and Venom must make a devastating decision as they're pursued by a mysterious military man and alien monsters from Venom's home world.",
     genre: "Action, Adventure",
@@ -94,6 +102,7 @@ List<Movie> allMovies = [
     smallImage: "lib/assets/images/movies/venom 3/small_image.png",
     ),
   Movie(
+    id: "sd",
     name: "The Wild Robot",
     description: "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
     duration: "1h 42min",
@@ -108,6 +117,7 @@ List<Movie> allMovies = [
 
 Theater CosmosB = 
   Theater(
+    id: "sd",
     name: "Cosmos Beta",
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
@@ -118,7 +128,8 @@ Theater CosmosB =
 // all theaters have the same day schedule
 
 Theater CosmosAlpha = 
-  Theater(
+  Theater( 
+    id: "sd",
     name: "Cosmos Alpha",
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
@@ -128,6 +139,7 @@ Theater CosmosAlpha =
 
 Theater Ibnzaydun = 
   Theater(
+    id: "sd",
     name: "Ibn Zaydun",
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
@@ -137,6 +149,7 @@ Theater Ibnzaydun =
 
 Theater IbnKhaldoun = 
   Theater(
+    id: "sd",
     name: "Ibn Khaldoun",
     location: "Algiers, Algeria",
     firstMovieTime: "11:00 am",
@@ -146,6 +159,7 @@ Theater IbnKhaldoun =
 
 Theater AhmedBey = 
   Theater(
+    id: "sd",
     name: "Ahmed Bey",
     location: "Constantine, Algeria",
     firstMovieTime: "11:00 am",
