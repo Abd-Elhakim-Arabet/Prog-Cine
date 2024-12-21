@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/multiple_use/date_slider.dart';
+import 'package:prog/components/single_use/theatre_page/cinemaPic.dart';
 import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
 import 'package:prog/components/single_use/movie_page/movie_image_title.dart';
 import 'package:prog/services/models.dart';
+import 'package:prog/services/storage/database_service.dart';
 
 class movieDescription extends StatefulWidget {
   final Movie movie;
@@ -15,6 +17,7 @@ class movieDescription extends StatefulWidget {
 }
 
 class _movieDescriptionState extends State<movieDescription> {
+  DatabaseService _dbService = DatabaseService();
   late int years;
   String genres = " Genre1/Genre2";
   String duration = "2h 15min";
@@ -25,6 +28,7 @@ class _movieDescriptionState extends State<movieDescription> {
   String tomatoesPercent = "98";
   String description =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc";
+var selectedDate = DateTime.now();
 
   @override
   void initState() {
@@ -150,14 +154,113 @@ class _movieDescriptionState extends State<movieDescription> {
               padding: const EdgeInsets.only(left: 25.0),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: dateSlider()),
+                child: dateSlider(
+                  onDateChanged: _updateSelectedDate,
+                )),
             ),
-            Text("Cosmos Alpha", style: TextStyle(
-              
-            ))
+            SizedBox(height: 30,),
+            fun()
           ],
         ),
       ),
     );
   }
+Widget TheatersList(var theaterSchedules) {
+  return ListView.builder(
+    itemBuilder: (context, index) {
+      String theaterId = theaterSchedules.keys.elementAt(index);
+      List<DateTime> schedules_starttime = theaterSchedules[theaterId];
+      return Container(
+        width: MediaQuery.of(context).size.width * 0.9,
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: AppColors.myPrimary,
+              width: 3,
+            ),
+            borderRadius: BorderRadius.circular(20)),
+        child: FutureBuilder<Theater?>(
+          future: _dbService.getTheaterById(theaterId),
+          builder: (context, theaterSnapshot) {
+            if (theaterSnapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+  
+            if (!theaterSnapshot.hasData || theaterSnapshot.data == null) {
+              //TODO: handle this case correctly
+              return Center(child: Text('Theater not found'));
+            }
+  
+            Theater theater = theaterSnapshot.data!;
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+          Container(
+            child: cinemaPic(
+              cinemaPath: theater.image,
+              location: theater.location,
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Wrap(
+              spacing: 8.0,
+              children: schedules_starttime.map((startTime) {
+                return Chip(
+            backgroundColor: AppColors.myPrimary,
+            label: Text(
+              "${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}",
+              style: TextStyle(
+                color: AppColors.myAccent,
+                fontFamily: AppFonts.mainFont,
+                fontSize: 16,
+              ),
+            ),
+                );
+              }).toList(),
+            ),
+          ),
+              ],
+            );
+          },
+        ),
+      );
+    },
+    
+  );
+}
+
+void _updateSelectedDate(DateTime date) {
+    setState(() {
+      selectedDate = date;
+    });
+  }
+
+Widget fun(){
+  return SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Schedule>>(
+                future: _dbService.getSchedulesByDateAndMovieId(selectedDate, widget.movie.id),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No schedules found'));
+                  }
+                    Map<String, List<DateTime>> theaterSchedules = {};
+                    for (var schedule in snapshot.data!) {
+                    if (!theaterSchedules.containsKey(schedule.theaterId)) {
+                      theaterSchedules[schedule.theaterId] = [];
+                    }
+                    theaterSchedules[schedule.theaterId]!.add(schedule.startTime);
+                    }
+                  
+                  return TheatersList(theaterSchedules) ;
+                },
+              ),
+            );
+}
+
 }
