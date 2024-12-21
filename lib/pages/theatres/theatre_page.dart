@@ -83,7 +83,7 @@ class _theatrePageState extends State<theatrePage> {
                 },
               ),
             ),
-                theatresList(theatres: theaters,),],
+               ],
 
             ),
       ),

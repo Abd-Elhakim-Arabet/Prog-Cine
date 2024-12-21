@@ -36,6 +36,7 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
     firstMovieTime = widget.cinema.firstMovieTime;
     lastMovieTime = widget.cinema.lastMovieTime;
     location = widget.cinema.location;
+    cinemaId = widget.cinema.id;
   }
 
   @override
