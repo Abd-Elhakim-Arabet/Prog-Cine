@@ -155,6 +155,7 @@ var selectedDate = DateTime.now();
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: dateSlider(
+                  firstDate: DateTime(2024,12,20),
                   onDateChanged: _updateSelectedDate,
                 )),
             ),
@@ -167,10 +168,14 @@ var selectedDate = DateTime.now();
   }
 Widget TheatersList(var theaterSchedules) {
   return ListView.builder(
+    shrinkWrap: true,
+    itemCount: theaterSchedules.length,
     itemBuilder: (context, index) {
+      print(theaterSchedules);
       String theaterId = theaterSchedules.keys.elementAt(index);
       List<DateTime> schedules_starttime = theaterSchedules[theaterId];
       return Container(
+        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
             border: Border.all(
@@ -194,6 +199,7 @@ Widget TheatersList(var theaterSchedules) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
           Container(
             child: cinemaPic(
@@ -201,9 +207,10 @@ Widget TheatersList(var theaterSchedules) {
               location: theater.location,
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Wrap(
+              alignment: WrapAlignment.start,
               spacing: 8.0,
               children: schedules_starttime.map((startTime) {
                 return Chip(
@@ -237,30 +244,27 @@ void _updateSelectedDate(DateTime date) {
   }
 
 Widget fun(){
-  return SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Schedule>>(
-                future: _dbService.getSchedulesByDateAndMovieId(selectedDate, widget.movie.id),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No schedules found'));
-                  }
-                    Map<String, List<DateTime>> theaterSchedules = {};
-                    for (var schedule in snapshot.data!) {
-                    if (!theaterSchedules.containsKey(schedule.theaterId)) {
-                      theaterSchedules[schedule.theaterId] = [];
-                    }
-                    theaterSchedules[schedule.theaterId]!.add(schedule.startTime);
-                    }
-                  
-                  return TheatersList(theaterSchedules) ;
-                },
-              ),
-            );
+  return FutureBuilder<List<Schedule>>(
+    future: _dbService.getSchedulesByDateAndMovieId(selectedDate, widget.movie.id),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      }
+  
+      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        return Center(child: Text('No schedules found'));
+      }
+        Map<String, List<DateTime>> theaterSchedules = {};
+        for (var schedule in snapshot.data!) {
+        if (!theaterSchedules.containsKey(schedule.theaterId)) {
+          theaterSchedules[schedule.theaterId] = [];
+        }
+        theaterSchedules[schedule.theaterId]!.add(schedule.startTime);
+        }
+      
+      return TheatersList(theaterSchedules) ;
+    },
+  );
 }
 
 }
