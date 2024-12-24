@@ -4,8 +4,10 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/multiple_use/date_slider.dart';
 import 'package:prog/components/single_use/movie_description/Showtime.dart';
 import 'package:prog/components/single_use/theatre_page/cinemaPic.dart';
+import 'package:prog/components/single_use/movie_page/movie_slider.dart';
 import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
 import 'package:prog/components/single_use/movie_page/movie_image_title.dart';
+import 'package:prog/pages/utillity%20pages/convert_time.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/services/storage/database_service.dart';
 
@@ -21,7 +23,7 @@ class _movieDescriptionState extends State<movieDescription> {
   DatabaseService _dbService = DatabaseService();
   late int years;
   String genres = " Genre1/Genre2";
-  String duration = "2h 15min";
+  String duration = "90";
   String title = "Titles";
   String url =
       "https://platform.polygon.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/23883921/Cover_2.png?quality=90&strip=all&crop=0%2C5.4405630865485%2C100%2C89.676746611053&w=2400";
@@ -31,6 +33,9 @@ class _movieDescriptionState extends State<movieDescription> {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc";
   var selectedDate = DateTime.now();
 
+  final DatabaseService _dbservice = DatabaseService();
+  var selectedDate = DateTime.now();
+  String movieId = "1";
   @override
   void initState() {
     super.initState();
@@ -42,6 +47,7 @@ class _movieDescriptionState extends State<movieDescription> {
     genres = widget.movie.genre;
     duration = widget.movie.duration;
     years = widget.movie.year;
+    movieId = widget.movie.id;
   }
 
   @override
@@ -81,7 +87,7 @@ class _movieDescriptionState extends State<movieDescription> {
                     ),
                   ),
                   Text(
-                    duration,
+                    minutesToHours(int.parse(duration)),
                     style: TextStyle(
                       color: AppColors.myAccent,
                       fontFamily: AppFonts.mainFont,
