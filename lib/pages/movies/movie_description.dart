@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/multiple_use/date_slider.dart';
+import 'package:prog/components/single_use/movie_description/Showtime.dart';
+import 'package:prog/components/single_use/theatre_page/cinemaPic.dart';
 import 'package:prog/components/single_use/movie_page/movie_slider.dart';
 import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
 import 'package:prog/components/single_use/movie_page/movie_image_title.dart';
@@ -18,6 +20,7 @@ class movieDescription extends StatefulWidget {
 }
 
 class _movieDescriptionState extends State<movieDescription> {
+  DatabaseService _dbService = DatabaseService();
   late int years;
   String genres = " Genre1/Genre2";
   String duration = "90";
@@ -28,6 +31,8 @@ class _movieDescriptionState extends State<movieDescription> {
   String tomatoesPercent = "98";
   String description =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec purus nec nunc";
+  var selectedDate = DateTime.now();
+
   final DatabaseService _dbservice = DatabaseService();
   var selectedDate = DateTime.now();
   String movieId = "1";
@@ -160,37 +165,26 @@ class _movieDescriptionState extends State<movieDescription> {
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
               child: Align(
-                alignment: Alignment.centerLeft,
-                child: dateSlider(
-                  onDateChanged: _updateSelectedDate,
-                ),
-              ),
+                  alignment: Alignment.centerLeft,
+                  child: dateSlider(
+                    firstDate: DateTime(2024, 12, 20),
+                    onDateChanged: _updateSelectedDate,
+                  )),
             ),
             SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Schedule>>(
-                future: _dbservice.getSchedulesByDateAndMovieId(
-                    selectedDate, movieId),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No schedules found'));
-                  }
-
-                  List<Schedule> shedules = snapshot.data!;
-
-                  return Center(child: Text("${shedules[0].startTime.hour}"));
-                },
-              ),
+              height: 30,
+            ),
+            ShowtimeWidget(
+              dbService: _dbService,
+              selectedDate: selectedDate,
+              movieId: widget.movie.id,
             )
           ],
         ),
       ),
     );
   }
+
 
   void _updateSelectedDate(DateTime date) {
     setState(() {

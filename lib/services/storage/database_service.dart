@@ -218,4 +218,41 @@ class DatabaseService {
       return [];
     }
   }
+
+  Future<List<Movie>> getTheatersByIds(List<String> theaterIds) async {
+    try {
+      final querySnapshot = await _theaterCollectionReference
+          .where(FieldPath.documentId, whereIn: theaterIds)
+          .get();
+
+      final theaterMap = {for (var doc in querySnapshot.docs) doc.id: doc.data()};
+
+      // Build the final list of movies, including duplicates, in the same order
+      final theaters = theaterIds
+          .map((id) => theaterMap[id])
+          .where((movie) => movie != null) 
+          .cast<Movie>() 
+          .toList();
+
+      return theaters;
+    } catch (e) {
+      print('Error fetching movies: $e');
+      return [];
+    }
+  }
+
+  Future<Theater?> getTheaterById(String theaterId) async {
+    try {
+      final docSnapshot = await _theaterCollectionReference.doc(theaterId).get();
+      if (docSnapshot.exists) {
+        return docSnapshot.data();
+      } else {
+        print('No theater found with ID: $theaterId');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching theater: $e');
+      return null;
+    }
+  }
 }
