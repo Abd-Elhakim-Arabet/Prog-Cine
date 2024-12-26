@@ -34,7 +34,6 @@ class _movieDescriptionState extends State<movieDescription> {
   var selectedDate = DateTime.now();
 
   final DatabaseService _dbservice = DatabaseService();
-  var selectedDate = DateTime.now();
   String movieId = "1";
   @override
   void initState() {
@@ -184,7 +183,6 @@ class _movieDescriptionState extends State<movieDescription> {
       ),
     );
   }
-
 
   void _updateSelectedDate(DateTime date) {
     setState(() {
