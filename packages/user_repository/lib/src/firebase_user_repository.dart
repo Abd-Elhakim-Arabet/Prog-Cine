@@ -78,6 +78,7 @@ class FirebaseUserRepository implements UserRepository {
   Future<MyUser> getUserData(String myUserId) async {
     try {
       final doc = await userCollection.doc(myUserId).get();
+
       return MyUser.fromEntity(MyUserEntity.fromJson(doc.data()!));
     } catch (e) {
       print(e.toString());
@@ -86,24 +87,20 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-	 Future<String> uploadPicture(String file, String userId) async {
-		try {
-		  File imageFile = File(file);
-			Reference firebaseStoreRef = FirebaseStorage
-				.instance
-				.ref()
-				.child('$userId/PP/${userId}_lead');
-			await firebaseStoreRef.putFile(
+  Future<String> uploadPicture(String file, String userId) async {
+    try {
+      File imageFile = File(file);
+      Reference firebaseStoreRef =
+          FirebaseStorage.instance.ref().child('$userId/PP/${userId}_lead');
+      await firebaseStoreRef.putFile(
         imageFile,
       );
-			String url = await firebaseStoreRef.getDownloadURL();
-			await userCollection
-				.doc(userId)
-				.update({'picture': url});
-			return url;
-		} catch (e) {
-		  log(e.toString());
-			rethrow;
-		}
-	}
+      String url = await firebaseStoreRef.getDownloadURL();
+      await userCollection.doc(userId).update({'picture': url});
+      return url;
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }
