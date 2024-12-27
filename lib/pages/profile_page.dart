@@ -4,8 +4,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:prog/components/multiple_use/surfer.dart';
 import 'package:prog/services/storage/database_service.dart';
 import 'settings/privacy_page.dart';
@@ -23,9 +25,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final DatabaseService databaseService = DatabaseService();
-  void logOut() {
-      FirebaseAuth.instance.signOut();
-    }
+
   @override
   Widget build(BuildContext context) {
     var profileInfo = Flexible(
@@ -148,7 +148,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   icon: Icons.logout_rounded,
                   text: 'Logout',
                   hasNavigation: false,
-                  onTap: logOut,
+                  onTap: () {
+                    context.read<SignInBloc>().add(SignOutRequired());
+                  },
                 ),
               ],
             ),
@@ -156,8 +158,6 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
     );
-
-    
   }
 }
 

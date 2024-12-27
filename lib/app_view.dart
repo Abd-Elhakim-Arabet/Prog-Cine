@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:prog/pages/dashboard/mini_dashboard.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/pages/testing/test_functions.dart';
@@ -28,7 +29,33 @@ class MyAppView extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
-                  return pagesNavigator();
+                  return  MultiBlocProvider(
+								providers: [
+									BlocProvider(
+										create: (context) => SignInBloc(
+											myUserRepository: context.read<AuthenticationBloc>().userRepository, myUserRepository: null
+										),
+									),
+									BlocProvider(
+										create: (context) => UpdateUserInfoBloc(
+											userRepository: context.read<AuthenticationBloc>().userRepository
+										),
+									),
+									BlocProvider(
+										create: (context) => MyUserBloc(
+											myUserRepository: context.read<AuthenticationBloc>().userRepository
+										)..add(GetMyUser(
+											myUserId: context.read<AuthenticationBloc>().state.user!.uid
+										)),
+									),
+									BlocProvider(
+										create: (context) => GetPostBloc(
+											postRepository: FirebasePostRepository()
+										)..add(GetPosts())
+									)
+								],
+							child: const HomeScreen(),
+						);
                 } else {
                   return authPage();
                 }
