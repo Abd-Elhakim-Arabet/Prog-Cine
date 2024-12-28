@@ -9,6 +9,7 @@ import 'package:prog/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:prog/pages/dashboard/mini_dashboard.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/pages/testing/test_functions.dart';
+import 'package:prog/pages/testing/test_reviews.dart';
 import 'package:prog/services/data/dummy_data.dart';
 import 'package:prog/pages/utillity%20pages/pages_navigator.dart';
 import 'package:prog/pages/auth/reset_password.dart';
@@ -68,7 +69,6 @@ class MyAppView extends StatelessWidget {
         "/testDB": (context) => TestDb(),
         "/resetPassword": (context) => resetPassword(),
         "/auth": (context) => authPage(),
-        "/movieDescription": (context) => movieDescription(movie: allMovies[0]),
       },
     );
   }
