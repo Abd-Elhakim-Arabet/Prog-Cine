@@ -255,4 +255,13 @@ class DatabaseService {
       return null;
     }
   }
+Stream<QuerySnapshot<Movie>> searchMoviesByName(String searchTerm) {
+
+
+  return _movieCollectionReference
+      .where('name', isGreaterThanOrEqualTo: searchTerm)
+      .where('name', isLessThan: searchTerm +'\uf8ff')
+      .snapshots();
+}
+
 }
