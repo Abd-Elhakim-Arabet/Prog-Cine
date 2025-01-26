@@ -24,8 +24,7 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   String lastMovieTime = "7:30 pm";
   String location = "Algiers, Algeria";
   var selectedDate = DateTime.now();
-  final inputDate = DateTime(2024, 12, 20);
-  String cinemaId = "3";
+  String cinemaId = "1";
   DatabaseService _dbService = DatabaseService();
   @override
   void initState() {
@@ -36,6 +35,7 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
     firstMovieTime = widget.cinema.firstMovieTime;
     lastMovieTime = widget.cinema.lastMovieTime;
     location = widget.cinema.location;
+    cinemaId = widget.cinema.id;
   }
 
   @override

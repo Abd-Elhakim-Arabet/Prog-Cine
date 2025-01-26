@@ -1,115 +1,76 @@
 import 'package:flutter/material.dart';
-import 'package:prog/assets/collections.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/blocs/movie_page_bloc/movie_cubit.dart';
+import 'package:prog/blocs/movie_page_bloc/movie_state.dart';
+import 'package:prog/components/multiple_use/search_bar2.dart';
 import 'package:prog/components/single_use/movie_page/movie_matrix.dart';
-import 'package:prog/components/multiple_use/search_bar.dart';
-import 'package:prog/components/single_use/home_page/upper_section.dart';
-import 'package:prog/services/data/dummy_data.dart';
-import 'package:prog/services/models.dart';
-import 'package:prog/services/storage/database_service.dart';
 
-class moviePage extends StatefulWidget {
+class moviePage extends StatelessWidget {
   const moviePage({super.key});
 
   @override
-  State<moviePage> createState() => _moviePageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => MovieCubit()..loadInitialData(),
+      child: const MoviePageView(),
+    );
+  }
 }
 
-class _moviePageState extends State<moviePage> {
-  String filter = "Popular";
-  String movieType = "Algerian Movies";
-  DatabaseService _dbService = DatabaseService();
+class MoviePageView extends StatelessWidget {
+  const MoviePageView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.myBackground,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 70,
+      body: BlocBuilder<MovieCubit, MovieState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state.error != null) {
+            return Center(child: Text('Error: ${state.error}'));
+          }
+
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 70),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: mySearchBare(
+                    onSearchResults: (results) {
+                      context.read<MovieCubit>().updateSearchResults(results);
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (state.isSearching) ...[
+                  const Section(filter: "Search Results"),
+                  movieMatrix(movies: state.searchResults),
+                ] else ...[
+                  const Section(filter: "Popular"),
+                  movieMatrix(movies: state.popularMovies),
+                  const SizedBox(height: 20),
+                  const Section(filter: "This Weekend"),
+                  movieMatrix(movies: state.weekendMovies),
+                  const SizedBox(height: 20),
+                  const Section(filter: "In Theatres"),
+                  movieMatrix(movies: state.inTheatreMovies),
+                ],
+              ],
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: mySearchBar(),
-            ),
-            const SizedBox(height: 20),
-            Section(filter: "Popular"),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMoviesFromCollection(MovieCollections.popular),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
-                  }
-
-                  List<Movie> movies = snapshot.data!;
-
-                  return movieMatrix(
-                    movies: movies,
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            Section(filter: "This Weekend"),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMoviesFromCollection(MovieCollections.this_weekend),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
-                  }
-
-                  List<Movie> movies = snapshot.data!;
-
-                  return movieMatrix(
-                    movies: movies,
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            Section(filter: "In Theatres"),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMoviesFromCollection(MovieCollections.in_theaters),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
-                  }
-
-                  List<Movie> movies = snapshot.data!;
-
-                  return movieMatrix(
-                    movies: movies,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 }
+
 
 class Section extends StatelessWidget {
   const Section({
@@ -135,12 +96,7 @@ class Section extends StatelessWidget {
             ),
           ),
           const Row(
-            children: [
-              /* Icon(
-                Icons.tune,
-                color: AppColors.myAccent,
-              ) */
-            ],
+            children: [],
           )
         ],
       ),

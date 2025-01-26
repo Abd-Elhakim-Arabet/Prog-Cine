@@ -27,7 +27,7 @@ class _MiniDashboardState extends State<MiniDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.myBackground,
+      backgroundColor: Colors.grey,
       bottomNavigationBar: DashboardNavBar(
         
         onTabChange: (index) => navigateBottomBar(index),

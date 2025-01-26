@@ -62,7 +62,27 @@ class _theatrePageState extends State<theatrePage> {
                   ),
                 ),
                 SizedBox(height: 10,),
-                theatresList(theatres: theaters,),],
+                SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Theater>>(
+                future: _dbService.getTheaters(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('No Theaters found'));
+                  }
+
+                  List<Theater> theaters = snapshot.data!;
+                  return theatresList(
+                    theatres:  theaters,
+                  );
+                },
+              ),
+            ),
+               ],
 
             ),
       ),

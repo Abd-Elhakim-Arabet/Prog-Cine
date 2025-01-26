@@ -10,27 +10,26 @@ class cinemaPic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                cinemaPath,
-                width: awidth ?? 200,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              cinemaPath,
+              width: awidth ?? 200,
+            ),
+            Text(
+              location,
+              style: TextStyle(
+                color: AppColors.myAccent,
+                fontFamily: AppFonts.mainFont,
+                fontSize: 16,
               ),
-              Text(
-                location,
-                style: TextStyle(
-                  color: AppColors.myAccent,
-                  fontFamily: AppFonts.mainFont,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

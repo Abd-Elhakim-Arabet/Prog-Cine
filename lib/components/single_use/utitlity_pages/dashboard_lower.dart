@@ -31,7 +31,6 @@ class DashboardNavBar extends StatelessWidget {
               text: "Schedules",
               
               textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
-              iconColor: Colors.black,
             ),
             GButton(
               icon: Icons.movie,
