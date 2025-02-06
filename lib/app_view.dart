@@ -50,7 +50,7 @@ class MyAppView extends StatelessWidget {
 										)..add(GetMyUser(
                       myUserId: context.read<AuthenticationBloc>().state.user!.uid
 										)),
-									),
+									), 
 									
 								],
 							child: const pagesNavigator(),
