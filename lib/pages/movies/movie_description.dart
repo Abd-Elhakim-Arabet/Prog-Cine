@@ -68,7 +68,6 @@ class _movieDescriptionState extends State<movieDescription> {
 
   @override
   Widget build(BuildContext context) {
-    print(review);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.myAccent),
@@ -245,7 +244,6 @@ class _movieDescriptionState extends State<movieDescription> {
                             context
                                 .read<ReviewCreateBloc>()
                                 .add(CreateReview(review));
-                            print(review.toString());
                           }
                         },
                         child: Container(
@@ -295,39 +293,7 @@ class _movieDescriptionState extends State<movieDescription> {
         itemCount: state.reviews.length,
         itemBuilder: (context, index) {
           final review = state.reviews[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: AppColors.myPrimary,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    review.user.name,
-                    style: TextStyle(
-                      color: AppColors.myAccent,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      fontFamily: AppFonts.mainFont,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    review.comment,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 13,
-                      fontFamily: AppFonts.mainFont,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+          return reviewComment(review);
         },
       );
     } else if (state is ReviewGetLoading) {
@@ -359,4 +325,54 @@ class _movieDescriptionState extends State<movieDescription> {
     setState(() {
     });
   }
+}
+
+Widget reviewComment(Review review) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8.0),
+    child: Container(
+      decoration: BoxDecoration(
+        color: AppColors.myPrimary,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: const EdgeInsets.all(12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                review.user.name,
+                style: TextStyle(
+                  color: AppColors.myAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  fontFamily: AppFonts.mainFont,
+                ),
+              ),
+              SizedBox(height: 4),
+              Text(
+                review.comment,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontFamily: AppFonts.mainFont,
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap:() {
+              print("Hi");
+            },
+            child: Container(
+              child: Text("Delete"),
+            ),
+          )
+        ],
+      ),
+      
+    ),
+  );
 }
