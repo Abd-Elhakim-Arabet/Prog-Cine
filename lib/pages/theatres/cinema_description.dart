@@ -147,7 +147,14 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No schedules found'));
+                    return Center(child: Text(
+            "No Schedules Found.",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ));
                   }
 
                   List<Schedule> shedules = snapshot.data!;
