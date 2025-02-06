@@ -357,7 +357,6 @@ class _movieDescriptionState extends State<movieDescription> {
 
   void _updateSelectedDate(DateTime date) {
     setState(() {
-      selectedDate = date;
     });
   }
 }

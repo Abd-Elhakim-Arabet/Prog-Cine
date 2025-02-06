@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prog/api/firebase_api.dart';
 import 'package:prog/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:prog/services/storage/shared_pref.dart';
@@ -14,7 +16,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseApi().initNotifications();
   Bloc.observer = SimpleBlocObserver();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp( MyApp(FirebaseUserRepository()));
+  runApp(MyApp(FirebaseUserRepository()));
 }
