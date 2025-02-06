@@ -13,7 +13,7 @@ class dateSlider extends StatefulWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
   final Function(DateTime)? onDateChanged;
- 
+
   dateSlider({
     super.key, 
     this.activeColor = AppColors.myPrimary, 
