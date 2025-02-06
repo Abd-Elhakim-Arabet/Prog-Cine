@@ -5,7 +5,7 @@ class MyUser extends Equatable {
   final String id;
   final String email;
   final String name;
-  String? photoUrl;
+  final String? photoUrl;
 
   MyUser({
     required this.id,
@@ -45,7 +45,6 @@ class MyUser extends Equatable {
   }
 
   static MyUser fromEntity(MyUserEntity entity) {
-
     return MyUser(
       id: entity.id,
       email: entity.email,

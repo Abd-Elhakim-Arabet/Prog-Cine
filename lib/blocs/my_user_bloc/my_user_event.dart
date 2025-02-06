@@ -11,7 +11,7 @@ abstract class MyUserEvent extends Equatable {
 class GetMyUser extends MyUserEvent {
   final String myUserId;
 
-const GetMyUser({required this.myUserId});
+  GetMyUser(this.myUserId);
 
   @override
   List<Object> get props => [myUserId];

@@ -255,4 +255,23 @@ class DatabaseService {
       return null;
     }
   }
+Stream<QuerySnapshot<Movie>> searchMoviesByName(String searchTerm) {
+  String lowercase = searchTerm.toLowerCase();
+  return _movieCollectionReference
+      .where('lowercase', isGreaterThanOrEqualTo: lowercase)
+      .where('lowercase', isLessThan: lowercase + '\uf8ff')
+      .snapshots();
+}
+Stream<QuerySnapshot<Movie>> searchMoviesByGenre(String genre) {
+  return _movieCollectionReference
+      .where('genre', isEqualTo: genre)
+      .snapshots();
+}
+
+Stream<QuerySnapshot<Movie>> searchMoviesByYear(int year) {
+  return _movieCollectionReference
+      .where('year', isEqualTo: year)
+      .snapshots();
+}
+
 }
