@@ -18,7 +18,7 @@ import 'package:prog/pages/testing/test_db.dart';
 
 class MyAppView extends StatelessWidget {
   const MyAppView({super.key});
-
+ 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
