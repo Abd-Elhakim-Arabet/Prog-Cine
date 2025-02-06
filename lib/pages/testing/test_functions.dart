@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prog/assets/fonts.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/services/storage/database_service.dart';
 
@@ -33,7 +34,14 @@ class _TestFunctionsState extends State<TestFunctions> {
                   }
 
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No schedules found'));
+                    return Center(child: Text(
+            "No Schedules Found.",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ));
                   }
 
                   List<Schedule> shedules = snapshot.data!;

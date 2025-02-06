@@ -80,6 +80,17 @@ class DatabaseService {
     } catch (e) {
       print('Error adding theater: $e');
     }
+    try {
+      final docRef = await _movieCollectionReference.add(movie);
+
+      final generatedId = docRef.id;
+
+      movie.id = generatedId;
+
+      await docRef.update({'id': generatedId});
+    } catch (e) {
+      print('Error adding theater: $e');
+    }
   }
 
   Future<List<Theater>> getTheaters() async {
@@ -93,6 +104,17 @@ class DatabaseService {
   }
 
   Future<void> addTheater(Theater theater) async {
+      try {
+      final docRef = await _theaterCollectionReference.add(theater);
+
+      final generatedId = docRef.id;
+
+      theater.id = generatedId;
+
+      await docRef.update({'id': generatedId});
+    } catch (e) {
+      print('Error adding theater: $e');
+    }
       try {
       final docRef = await _theaterCollectionReference.add(theater);
 
@@ -210,6 +232,8 @@ class DatabaseService {
           .map((id) => movieMap[id])
           .where((movie) => movie != null) 
           .cast<Movie>() 
+          .where((movie) => movie != null) 
+          .cast<Movie>() 
           .toList();
 
       return movies;
@@ -255,23 +279,4 @@ class DatabaseService {
       return null;
     }
   }
-Stream<QuerySnapshot<Movie>> searchMoviesByName(String searchTerm) {
-  String lowercase = searchTerm.toLowerCase();
-  return _movieCollectionReference
-      .where('lowercase', isGreaterThanOrEqualTo: lowercase)
-      .where('lowercase', isLessThan: lowercase + '\uf8ff')
-      .snapshots();
-}
-Stream<QuerySnapshot<Movie>> searchMoviesByGenre(String genre) {
-  return _movieCollectionReference
-      .where('genre', isEqualTo: genre)
-      .snapshots();
-}
-
-Stream<QuerySnapshot<Movie>> searchMoviesByYear(int year) {
-  return _movieCollectionReference
-      .where('year', isEqualTo: year)
-      .snapshots();
-}
-
 }

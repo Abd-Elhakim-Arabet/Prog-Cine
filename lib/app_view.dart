@@ -4,8 +4,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:prog/pages/dashboard/mini_dashboard.dart';
+import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
+import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
+import 'package:prog/blocs/update_user_info_bloc/update_user_info_bloc.dart';
+import 'package:prog/pages/dashboard/mini_dashboard.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/pages/testing/test_functions.dart';
+import 'package:prog/pages/testing/test_reviews.dart';
 import 'package:prog/services/data/dummy_data.dart';
 import 'package:prog/pages/utillity%20pages/pages_navigator.dart';
 import 'package:prog/pages/auth/reset_password.dart';
@@ -20,6 +25,7 @@ class MyAppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
             return StreamBuilder<User?>(
@@ -28,7 +34,29 @@ class MyAppView extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
-                  return pagesNavigator();
+                  return  MultiBlocProvider(
+								providers: [
+									BlocProvider(
+										create: (context) => SignInBloc(
+											myUserRepository: context.read<AuthenticationBloc>().userRepository,
+										),
+									),
+									BlocProvider(
+										create: (context) => UpdateUserInfoBloc(
+											userRepository: context.read<AuthenticationBloc>().userRepository
+										),
+									),
+									BlocProvider(
+										create: (context) => MyUserBloc(
+											myUserRepository: context.read<AuthenticationBloc>().userRepository
+										)..add(GetMyUser(
+                      myUserId: context.read<AuthenticationBloc>().state.user!.uid
+										)),
+									),
+									
+								],
+							child: const pagesNavigator(),
+						);
                 } else {
                   return authPage();
                 }
@@ -39,11 +67,11 @@ class MyAppView extends StatelessWidget {
           }
         },
       ),
+      ),
       routes: {
         "/testDB": (context) => TestDb(),
         "/resetPassword": (context) => resetPassword(),
         "/auth": (context) => authPage(),
-        "/movieDescription": (context) => movieDescription(movie: allMovies[0]),
       },
     );
   }
