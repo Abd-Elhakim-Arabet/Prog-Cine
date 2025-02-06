@@ -27,14 +27,7 @@ class ShowtimeWidget extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text(
-            "No Schedules Found.",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: AppFonts.mainFont,
-            ),
-          ),);
+          return const Center(child: Text('No schedules found'));
         }
 
         final theaterSchedules = <String, List<DateTime>>{};

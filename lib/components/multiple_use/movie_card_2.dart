@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
-import 'package:prog/blocs/review_create_bloc/review_create_bloc.dart';
-import 'package:prog/blocs/review_get_bloc/review_get_bloc.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/pages/movies/movie_description.dart';
-import 'package:review_repository/review_repository.dart';
 
 class movieCard2 extends StatelessWidget {
   final Movie movie;
@@ -15,20 +10,18 @@ class movieCard2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyUserBloc, MyUserState>(
-      builder: (context, state) {
-        return InkWell(
-          
-          child: Container(
-            width: 200,
-            child: Column(
-              children: [
-                Container(
+    return InkWell(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => movieDescription(movie: movie)));
+      },
+      child: Container(
+        width: 200,
+        child: Column(
+          children: [
+            Container(
                   width: 200,
                   height: 240,
-                  margin: EdgeInsets.symmetric(
-                    horizontal: 10,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 10,),
                   decoration: BoxDecoration(
                     color: AppColors.myPrimary,
                     borderRadius: BorderRadius.only(
@@ -46,64 +39,59 @@ class movieCard2 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.7),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
+                  child: 
+                      Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: Container(
+                          
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.7),
+                                spreadRadius: 1,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                              bottomLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(5),
+                            ),
                           ),
-                        ],
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5),
-                          bottomLeft: Radius.circular(5),
-                          bottomRight: Radius.circular(5),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              topRight: Radius.circular(5),
+                              bottomLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(5),
+                            ),
+                            child: Image.network(
+                              movie.smallImage,
+                              height: 100,
+                              width: 190,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         ),
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5),
-                          bottomLeft: Radius.circular(5),
-                          bottomRight: Radius.circular(5),
-                        ),
-                        child: Image.network(
-                          movie.smallImage,
-                          height: 100,
-                          width: 190,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
+                SizedBox(height: 5,),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20.0,
-                  ),
-                  child: Text(
-                    movie.name,
-                    maxLines: 1,
-                    style: TextStyle(
-                        overflow: TextOverflow.ellipsis,
-                        color: Colors.white,
-                        fontFamily: AppFonts.mainFont,
-                        fontSize: 16),
-                  ),
+                  padding: const EdgeInsets.only(left:  20.0,),
+                  child: Text(movie.name,
+                  maxLines: 1, 
+                  style: TextStyle(
+                    overflow: TextOverflow.ellipsis,
+                    color: Colors.white,
+                    fontFamily: AppFonts.mainFont,
+                    fontSize: 16
+                  ),),
                 )
-              ],
-            ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }
