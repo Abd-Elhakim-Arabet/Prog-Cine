@@ -1,15 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
-import 'package:prog/blocs/review_create_bloc/review_create_bloc.dart';
-import 'package:prog/blocs/review_delete_bloc/review_delete_bloc.dart';
-import 'package:prog/blocs/review_get_bloc/review_get_bloc.dart';
 import 'package:prog/components/multiple_use/movie_card.dart';
 import 'package:prog/services/data/dummy_data.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/pages/movies/movie_description.dart';
-import 'package:review_repository/review_repository.dart';
 
 class MovieSlider extends StatefulWidget {
   const MovieSlider({super.key, required this.movies, this.dates});
@@ -30,8 +24,7 @@ class _MovieSliderState extends State<MovieSlider> {
 
   @override
   Widget build(BuildContext context) {
-    final PageController _pageController =
-        PageController(viewportFraction: 0.5);
+      final PageController _pageController = PageController(viewportFraction: 0.5);
     return SizedBox(
       height: 350,
       child: PageView.builder(
@@ -45,52 +38,24 @@ class _MovieSliderState extends State<MovieSlider> {
               if (_pageController.position.haveDimensions) {
                 value = _pageController.page! - index;
                 value = (1 - (value.abs() * 0.3)).clamp(0.8, 1.0);
-              } else {
+              }
+              else {
                 value = index == 0 ? 1.0 : 0.8;
               }
-              return BlocBuilder<MyUserBloc, MyUserState>(
-                builder: (context, state) {
-                  return Center(
-                    child: Transform.scale(
-                      scale: value,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MultiBlocProvider(
-                                        providers: [
-                                        
-                                          BlocProvider(
-                                            create: (context) => ReviewCreateBloc(
-                                                reviewRepository:
-                                                    FirebaseReviewRepository()),
-                                          ),
-                                          BlocProvider(
-                                            create: (context) => ReviewGetBloc(
-                                                reviewRepository:
-                                                    FirebaseReviewRepository())..add(GetReviews()),
-                                          ),
-
-                                          BlocProvider(
-                                            create: (context) => ReviewDeleteBloc(
-                                              reviewRepository: FirebaseReviewRepository()))
-                                        ],
-                                        child: movieDescription(
-                                          user: state.user!,
-                                          movie: widget.movies[index],
-                                        ),
-                                      )));
-                        },
-                        child: movieCard(
-                          date: widget.dates?[index],
-                          movie: widget.movies[index],
-                          value: value,
-                        ),
-                      ),
+              return Center(
+                child: Transform.scale(
+                  scale: value,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => movieDescription(movie: widget.movies[index])));
+                    },
+                    child: movieCard(
+                      date: widget.dates?[index],
+                      movie:widget.movies[index],
+                      value: value,
                     ),
-                  );
-                },
+                  ),
+                ),
               );
             },
           );

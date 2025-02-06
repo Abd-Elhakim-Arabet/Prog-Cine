@@ -4,14 +4,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
-import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
-import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
-import 'package:prog/blocs/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:prog/components/multiple_use/surfer.dart';
 import 'package:prog/services/storage/database_service.dart';
 import 'settings/privacy_page.dart';
@@ -29,7 +23,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final DatabaseService databaseService = DatabaseService();
-
+  void logOut() {
+      FirebaseAuth.instance.signOut();
+    }
   @override
   Widget build(BuildContext context) {
     var profileInfo = Flexible(
@@ -81,96 +77,87 @@ class _ProfilePageState extends State<ProfilePage> {
         SizedBox(width: 20), */
       ],
     );
-    return BlocListener<UpdateUserInfoBloc, UpdateUserInfoState>(
-      listener: (context, state) {
-        if (state is UploadPictureSuccess) {
-          setState(() {
-            context.read<MyUserBloc>().state.user!.photoUrl = state.userImage;
-          });
-        }
-      },
-      child: Scaffold(
-        backgroundColor: AppColors.myBackground,
-        body: Column(
-          children: <Widget>[
-            SizedBox(height: 60),
-            profileInfo,
-            SizedBox(height: 20),
-            Expanded(
-              child: ListView(
-                children: [
-                  ProfileListItem(
-                    icon: Icons.verified_user,
-                    text: 'Privacy',
-                    hasNavigation: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PrivacyPage()),
-                      );
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: Icons.location_on_outlined,
-                    text: 'Location',
-                    hasNavigation: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LocationPage()),
-                      );
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: Icons.help_outline,
-                    text: 'Help and Support',
-                    hasNavigation: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HelpSupportPage()),
-                      );
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: Icons.settings,
-                    text: 'Settings',
-                    hasNavigation: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SettingsPage()),
-                      );
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: Icons.group_add_outlined,
-                    text: 'Invite a Friend',
-                    hasNavigation: true,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => InviteFriendPage()),
-                      );
-                    },
-                  ),
-                  ProfileListItem(
-                    icon: Icons.logout_rounded,
-                    text: 'Logout',
-                    hasNavigation: false,
-                    onTap: () {
-                      context.read<SignInBloc>().add(SignOutRequired());
-                    },
-                  ),
-                ],
-              ),
+    return Scaffold(
+      backgroundColor: AppColors.myBackground,
+      body: Column(
+        children: <Widget>[
+          SizedBox(height: 60),
+          profileInfo,
+          SizedBox(height: 60),
+          Expanded(
+            child: ListView(
+              children: [
+                ProfileListItem(
+                  icon: Icons.verified_user,
+                  text: 'Privacy',
+                  hasNavigation: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PrivacyPage()),
+                    );
+                  },
+                ),
+                ProfileListItem(
+                  icon: Icons.location_on_outlined,
+                  text: 'Location',
+                  hasNavigation: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LocationPage()),
+                    );
+                  },
+                ),
+                ProfileListItem(
+                  icon: Icons.help_outline,
+                  text: 'Help and Support',
+                  hasNavigation: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HelpSupportPage()),
+                    );
+                  },
+                ),
+                ProfileListItem(
+                  icon: Icons.settings,
+                  text: 'Settings',
+                  hasNavigation: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
+                    );
+                  },
+                ),
+                ProfileListItem(
+                  icon: Icons.group_add_outlined,
+                  text: 'Invite a Friend',
+                  hasNavigation: true,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InviteFriendPage()),
+                    );
+                  },
+                ),
+                ProfileListItem(
+                  icon: Icons.logout_rounded,
+                  text: 'Logout',
+                  hasNavigation: false,
+                  onTap: logOut,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+
+    
   }
 }
 

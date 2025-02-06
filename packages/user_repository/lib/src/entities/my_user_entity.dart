@@ -23,7 +23,6 @@ class MyUserEntity extends Equatable{
   }
 
   static MyUserEntity fromJson(Map<String, dynamic> doc) {
-
     return MyUserEntity(
       id: doc['id'],
       email: doc['email'],
