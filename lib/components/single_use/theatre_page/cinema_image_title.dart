@@ -66,7 +66,7 @@ class cinemaImageTitle extends StatelessWidget {
                       bottomLeft: Radius.circular(40),
                       bottomRight: Radius.circular(40),
                     ),
-                    child: Image.asset(
+                    child: Image.network(
                       imageUrl,
                       height: 320,
                       width: double.infinity,

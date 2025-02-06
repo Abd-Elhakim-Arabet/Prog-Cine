@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Movie {
+  String id;
   final String name;
   final int year;
   final String bigImage;
@@ -12,6 +13,7 @@ class Movie {
   final String rottenTomatoesRating;
 
   Movie({
+    required this.id,
     required this.name,
     required this.year,
     required this.bigImage,
@@ -25,6 +27,7 @@ class Movie {
 
   Movie.fromJson(Map<String, dynamic> json)
       : this(
+          id: json['id']! as String,
           name: json['name']! as String,
           year: json['year']! as int,
           bigImage: json['bigImage']! as String,
@@ -37,6 +40,7 @@ class Movie {
         );
 
   Movie copyWith({
+    String? id,
     String? name,
     int? year,
     String? bigImage,
@@ -48,6 +52,7 @@ class Movie {
     String? rottenTomatoesRating,
   }) {
     return Movie(
+      id: id ?? this.id,
       name: name ?? this.name,
       year: year ?? this.year,
       bigImage: bigImage ?? this.bigImage,
@@ -62,6 +67,7 @@ class Movie {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'name': name,
       'year': year,
       'bigImage': bigImage,
@@ -71,6 +77,7 @@ class Movie {
       'duration': duration,
       'imdbRating': imdbRating,
       'rottenTomatoesRating': rottenTomatoesRating,
+      'lowercase':name.toLowerCase()
     };
   }
 }
@@ -88,64 +95,62 @@ class Schedule {
     required this.date,
   });
 
-  Schedule.fromJson(Map<String,dynamic> json):
-  this (
-    theaterId: json["theaterId"]! as String ,
-    movieId: json["movieId"]! as String,
-    startTime: (json["startTime"]! as Timestamp).toDate(),
-    date: (json["date"]! as Timestamp).toDate()
-    );
+  Schedule.fromJson(Map<String, dynamic> json)
+      : this(
+            theaterId: json["theaterId"]! as String,
+            movieId: json["movieId"]! as String,
+            startTime: (json["startTime"]! as Timestamp).toDate(),
+            date: (json["date"]! as Timestamp).toDate());
 
-
-  Schedule Copy({String ? theaterId,String ? movieId,DateTime?startTime, DateTime?date}){
+  Schedule Copy(
+      {String? theaterId,
+      String? movieId,
+      DateTime? startTime,
+      DateTime? date}) {
     return Schedule(
-      theaterId: theaterId?? this.theaterId
-    , movieId: movieId?? this.movieId
-    , startTime: startTime?? this.startTime,
-    date: date?? this.date
-    );
-
+        theaterId: theaterId ?? this.theaterId,
+        movieId: movieId ?? this.movieId,
+        startTime: startTime ?? this.startTime,
+        date: date ?? this.date);
   }
-  Map<String,dynamic> toJson(){
-    return{
-      "theaterId":theaterId,
-      "movieId":movieId,
+
+  Map<String, dynamic> toJson() {
+    return {
+      "theaterId": theaterId,
+      "movieId": movieId,
       "startTime": startTime,
       "date": date
     };
   }
-  
-  
 }
-  
 
 class Theater {
+  String id;
   final String name;
   final String location;
   final String firstMovieTime;
   final String lastMovieTime;
   final String image;
 
-
   Theater({
+    required this.id,
     required this.name,
     required this.location,
     required this.firstMovieTime,
     required this.lastMovieTime,
     required this.image,
   });
-    Theater.fromJson(Map<String, dynamic> json)
-      : 
+  Theater.fromJson(Map<String, dynamic> json)
+      : id = json['id']! as String,
         name = json['name']! as String,
         location = json['location']! as String,
         firstMovieTime = json['firstMovieTime']! as String,
         lastMovieTime = json['lastMovieTime']! as String,
-        image = json['image']! as String
-        ;
-
+        image = json['image']! as String;
 
   Map<String, Object> toJson() {
     return {
+      'id': id,
       'name': name,
       'location': location,
       'firstMovieTime': firstMovieTime,
@@ -155,6 +160,7 @@ class Theater {
   }
 
   Theater copyWith({
+    String? id,
     String? name,
     String? location,
     String? firstMovieTime,
@@ -162,6 +168,7 @@ class Theater {
     String? image,
   }) {
     return Theater(
+      id: id ?? this.id,
       name: name ?? this.name,
       location: location ?? this.location,
       firstMovieTime: firstMovieTime ?? this.firstMovieTime,

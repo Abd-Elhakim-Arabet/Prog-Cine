@@ -69,7 +69,17 @@ class DatabaseService {
   }
 
   Future<void> addMovie(Movie movie) async {
-    _movieCollectionReference.add(movie);
+    try {
+      final docRef = await _movieCollectionReference.add(movie);
+
+      final generatedId = docRef.id;
+
+      movie.id = generatedId;
+
+      await docRef.update({'id': generatedId});
+    } catch (e) {
+      print('Error adding theater: $e');
+    }
   }
 
   Future<List<Theater>> getTheaters() async {
@@ -83,7 +93,17 @@ class DatabaseService {
   }
 
   Future<void> addTheater(Theater theater) async {
-    _theaterCollectionReference.add(theater);
+      try {
+      final docRef = await _theaterCollectionReference.add(theater);
+
+      final generatedId = docRef.id;
+
+      theater.id = generatedId;
+
+      await docRef.update({'id': generatedId});
+    } catch (e) {
+      print('Error adding theater: $e');
+    }
   }
 
   Future<List<Schedule>> getSchedules() async {
@@ -188,8 +208,8 @@ class DatabaseService {
       // Build the final list of movies, including duplicates, in the same order
       final movies = movieIds
           .map((id) => movieMap[id])
-          .where((movie) => movie != null) // Remove null entries
-          .cast<Movie>() // Cast to List<Movie>
+          .where((movie) => movie != null) 
+          .cast<Movie>() 
           .toList();
 
       return movies;
@@ -198,4 +218,60 @@ class DatabaseService {
       return [];
     }
   }
+
+  Future<List<Movie>> getTheatersByIds(List<String> theaterIds) async {
+    try {
+      final querySnapshot = await _theaterCollectionReference
+          .where(FieldPath.documentId, whereIn: theaterIds)
+          .get();
+
+      final theaterMap = {for (var doc in querySnapshot.docs) doc.id: doc.data()};
+
+      // Build the final list of movies, including duplicates, in the same order
+      final theaters = theaterIds
+          .map((id) => theaterMap[id])
+          .where((movie) => movie != null) 
+          .cast<Movie>() 
+          .toList();
+
+      return theaters;
+    } catch (e) {
+      print('Error fetching movies: $e');
+      return [];
+    }
+  }
+
+  Future<Theater?> getTheaterById(String theaterId) async {
+    try {
+      final docSnapshot = await _theaterCollectionReference.doc(theaterId).get();
+      if (docSnapshot.exists) {
+        return docSnapshot.data();
+      } else {
+        print('No theater found with ID: $theaterId');
+        return null;
+      }
+    } catch (e) {
+      print('Error fetching theater: $e');
+      return null;
+    }
+  }
+Stream<QuerySnapshot<Movie>> searchMoviesByName(String searchTerm) {
+  String lowercase = searchTerm.toLowerCase();
+  return _movieCollectionReference
+      .where('lowercase', isGreaterThanOrEqualTo: lowercase)
+      .where('lowercase', isLessThan: lowercase + '\uf8ff')
+      .snapshots();
+}
+Stream<QuerySnapshot<Movie>> searchMoviesByGenre(String genre) {
+  return _movieCollectionReference
+      .where('genre', isEqualTo: genre)
+      .snapshots();
+}
+
+Stream<QuerySnapshot<Movie>> searchMoviesByYear(int year) {
+  return _movieCollectionReference
+      .where('year', isEqualTo: year)
+      .snapshots();
+}
+
 }
