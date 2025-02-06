@@ -22,6 +22,15 @@ class _AddSchedulesState extends State<AddSchedules> {
   DateTime? selectedDate;
   TimeOfDay? selectedStartTime;
 
+  final DatabaseService _dbService = DatabaseService();
+  final ScrollController _scrollController = ScrollController();
+
+  String? movieDropDownValue;
+  String? theaterDropDownValue;
+
+  DateTime? selectedDate;
+  TimeOfDay? selectedStartTime;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

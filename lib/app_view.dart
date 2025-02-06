@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:prog/pages/dashboard/mini_dashboard.dart';
 import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:prog/blocs/update_user_info_bloc/update_user_info_bloc.dart';
@@ -23,6 +24,7 @@ class MyAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
         builder: (context, state) {
           if (state.status == AuthenticationStatus.authenticated) {
@@ -64,6 +66,7 @@ class MyAppView extends StatelessWidget {
             return authPage();
           }
         },
+      ),
       ),
       routes: {
         "/testDB": (context) => TestDb(),

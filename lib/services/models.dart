@@ -77,6 +77,7 @@ class Movie {
       'duration': duration,
       'imdbRating': imdbRating,
       'rottenTomatoesRating': rottenTomatoesRating,
+      'lowercase':name.toLowerCase()
     };
   }
 }
