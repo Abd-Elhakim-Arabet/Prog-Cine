@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
-import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
-import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
-import 'package:prog/blocs/update_user_info_bloc/update_user_info_bloc.dart';
-
 import 'package:prog/pages/dashboard/mini_dashboard.dart';
 import 'package:prog/pages/auth/auth_page.dart';
 import 'package:prog/pages/testing/test_functions.dart';
