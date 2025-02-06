@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prog/assets/colors.dart';
+import 'package:prog/assets/fonts.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/services/storage/database_service.dart';
 import 'package:intl/intl.dart'; // Import for formatting DateTime
@@ -52,7 +53,14 @@ class _AddSchedulesState extends State<AddSchedules> {
         }
 
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Text('No schedules found'));
+          return Center(child: Text(
+            "No Schedules Found.",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ));
         }
 
         List<Schedule> schedules = snapshot.data!;

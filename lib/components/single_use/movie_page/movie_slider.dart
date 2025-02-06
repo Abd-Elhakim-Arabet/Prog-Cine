@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:prog/blocs/review_create_bloc/review_create_bloc.dart';
+import 'package:prog/blocs/review_delete_bloc/review_delete_bloc.dart';
 import 'package:prog/blocs/review_get_bloc/review_get_bloc.dart';
 import 'package:prog/components/multiple_use/movie_card.dart';
 import 'package:prog/services/data/dummy_data.dart';
@@ -59,6 +60,7 @@ class _MovieSliderState extends State<MovieSlider> {
                               MaterialPageRoute(
                                   builder: (context) => MultiBlocProvider(
                                         providers: [
+                                        
                                           BlocProvider(
                                             create: (context) => ReviewCreateBloc(
                                                 reviewRepository:
@@ -69,6 +71,10 @@ class _MovieSliderState extends State<MovieSlider> {
                                                 reviewRepository:
                                                     FirebaseReviewRepository())..add(GetReviews()),
                                           ),
+
+                                          BlocProvider(
+                                            create: (context) => ReviewDeleteBloc(
+                                              reviewRepository: FirebaseReviewRepository()))
                                         ],
                                         child: movieDescription(
                                           user: state.user!,

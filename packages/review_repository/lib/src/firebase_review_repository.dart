@@ -29,4 +29,18 @@ class FirebaseReviewRepository implements ReviewRepository {
       rethrow;
     }
   }
+
+  Future<String> deleteReview(
+      String reviewId, String commenterId, String userId) {
+    try {
+      if (commenterId == userId) {
+        reviewCollection.doc(reviewId).delete();
+        return Future.value(reviewId);
+      }
+      return Future.error('You are not authorized to delete this review');
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
 }

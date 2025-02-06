@@ -6,4 +6,5 @@ abstract class ReviewRepository {
 
   Future<List<Review>> getReviews();
 
+  Future<String> deleteReview(String reviewId, String reviewerId, String userId);
 }
