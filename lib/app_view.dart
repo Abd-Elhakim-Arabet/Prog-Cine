@@ -32,7 +32,30 @@ class MyAppView extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
-                  return pagesNavigator();
+                  return  MultiBlocProvider(
+								providers: [
+									BlocProvider(
+										create: (context) => SignInBloc(
+											myUserRepository: context.read<AuthenticationBloc>().userRepository,
+										),
+									),
+									BlocProvider(
+										create: (context) => UpdateUserInfoBloc(
+											userRepository: context.read<AuthenticationBloc>().userRepository
+										),
+									),
+									BlocProvider(
+										create: (context) => MyUserBloc(
+											myUserRepository: context.read<AuthenticationBloc>().userRepository
+										)..add(GetMyUser(
+                      myUserId: context.read<AuthenticationBloc>().state.user!.uid
+										)),
+									), 
+									
+								],
+							child: const pagesNavigator(),
+						);
+
                 } else {
                   return authPage();
                 }
