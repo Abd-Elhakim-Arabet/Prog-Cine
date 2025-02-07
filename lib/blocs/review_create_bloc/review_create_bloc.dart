@@ -15,6 +15,8 @@ class ReviewCreateBloc extends Bloc<ReviewCreateEvent, ReviewCreateState> {
       try {
         Review review = await _reviewRepository.createReview(event.review);
         emit(ReviewCreateSuccess(review));
+        await Future.delayed(Duration(milliseconds: 100)); // Allow UI updates
+        emit(ReviewCreateInitial()); 
       } catch (e) {
         emit(ReviewCreateFailure());
       }

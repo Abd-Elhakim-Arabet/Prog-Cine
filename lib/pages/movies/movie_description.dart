@@ -271,56 +271,73 @@ class _movieDescriptionState extends State<movieDescription> {
               ),
             ),
 
-            BlocBuilder<ReviewGetBloc, ReviewGetState>(
-              builder: (context, state) {
-                if (state is ReviewGetSuccess) {
-                  if (state.reviews.isEmpty) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text(
-                        "No reviews available.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontFamily: AppFonts.mainFont,
-                        ),
-                      ),
-                    );
+           MultiBlocListener(
+            listeners: [
+              BlocListener<ReviewDeleteBloc, ReviewDeleteState>(
+                listener: (context, state) {
+                  if (state is ReviewDeleteSuccess) {
+                    context.read<ReviewGetBloc>().add(GetReviews());
                   }
+                },
+              ),
+              BlocListener<ReviewCreateBloc, ReviewCreateState>(
+                listener: (context, state) {
+                  if (state is ReviewCreateSuccess) {
+                    context.read<ReviewGetBloc>().add(GetReviews());
+                  }
+                },
+              ),
+            ],
+  child: BlocBuilder<ReviewGetBloc, ReviewGetState>(
+    builder: (context, state) {
+      if (state is ReviewGetSuccess) {
+        if (state.reviews.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Text(
+              "No reviews available.",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontFamily: AppFonts.mainFont,
+              ),
+            ),
+          );
+        }
 
-                  var movieReviews  = getMovieReviews(state.reviews, movieId);
-                  return ListView.builder(
-                    shrinkWrap: true, // Let ListView fit its content
-                    physics:
-                        NeverScrollableScrollPhysics(), // Disable its own scrolling
-                    itemCount: movieReviews.length,
-                    itemBuilder: (context, index) {
-                      final review = movieReviews[index];
-                      return ReviewComment(
-                        review: review,
-                        userId: widget.user.id,
-                      );
-                    },
-                  );
-                } else if (state is ReviewGetLoading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Text(
-                      "Cannot get reviews at this time.",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: AppFonts.mainFont,
-                      ),
-                    ),
-                  );
-                }
-              },
-            )
+        var movieReviews = getMovieReviews(state.reviews, movieId);
+        return ListView.builder(
+          shrinkWrap: true, 
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: movieReviews.length,
+          itemBuilder: (context, index) {
+            final review = movieReviews[index];
+            return ReviewComment(
+              review: review,
+              userId: widget.user.id,
+            );
+          },
+        );
+      } else if (state is ReviewGetLoading) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      } else {
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: Text(
+            "Cannot get reviews at this time.",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ),
+        );
+      }
+    },
+  ),
+)
           ],
         ),
       ),
@@ -340,60 +357,103 @@ class ReviewComment extends StatelessWidget {
       : super(key: key);
 
   @override
+
+  
   Widget build(BuildContext context) {
      bool visibleDelete = review.user.id == userId;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 13.0),
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.myPrimary,
-          borderRadius: BorderRadius.circular(10),
+          color: AppColors.myBackground,
         ),
         padding: const EdgeInsets.all(12.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    Expanded( 
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              profilePicture(review.user.name),
+              SizedBox(width: 10),
+              Expanded( 
+                child: Text(
                   review.user.name,
                   style: TextStyle(
-                    color: AppColors.myAccent,
+                    color: Color(0xFFCBAAC5),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                     fontFamily: AppFonts.mainFont,
                   ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  review.comment,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 13,
-                    fontFamily: AppFonts.mainFont,
-                  ),
-                ),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {
-                context
-                    .read<ReviewDeleteBloc>()
-                    .add(DeleteReview(review.id, review.user.id, userId));
-              },
-              child: Visibility(
-                visible: visibleDelete,
-                child: Container(
-                  child: Text("Delete", style: TextStyle(color: Colors.white,
-                  fontSize: 11,
-                    fontFamily: AppFonts.mainFont,
-                  )),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
                 ),
               ),
-            )
-          ],
+            ],
+          ),
+          SizedBox(height: 15),
+          Row(
+            children: [
+              SizedBox(width: 10,),
+              Text(
+                review.comment,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 13,
+                  fontFamily: AppFonts.mainFont,
+                ),
+                softWrap: true,
+              ),
+            ],
+          ),
+          SizedBox(height: 10,),
+          Row(
+            children: [
+              SizedBox(width: 10,),
+              RatingBar.builder(
+              initialRating: review.stars.toDouble(),
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true, 
+              itemCount: 5, 
+              itemSize: 17, 
+              ignoreGestures: true, 
+              itemBuilder: (context, _) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {},  
+                                  ),
+            ],
+          )
+        ],
+      ),
+    ),
+    
+    GestureDetector(
+      onTap: () {
+        
+        context
+            .read<ReviewDeleteBloc>()
+            .add(DeleteReview(review.id, review.user.id, userId));
+      },
+      child: Visibility(
+        visible: visibleDelete,
+        child: Text(
+          "Delete",
+          style: TextStyle(
+            color: Color(0xFFCBAAC5),
+            fontSize: 11,
+            fontFamily: AppFonts.mainFont,
+          ),
         ),
+      ),
+    ),
+  ],
+)
       ),
     );
   }
@@ -401,4 +461,23 @@ class ReviewComment extends StatelessWidget {
 
 List<Review> getMovieReviews(List<Review> reviews, String movieId) {
   return reviews.where((review) => review.movieId == movieId ).toList();
+}
+
+Widget profilePicture(String name, {double size = 40}) {
+  String initials = name.trim().isNotEmpty
+      ? name.trim().split(" ").map((e) => e[0]).take(2).join().toUpperCase()
+      : "?";
+
+  return CircleAvatar(
+    radius: size / 2,
+    backgroundColor: Colors.black, 
+    child: Text(
+      initials,
+      style: TextStyle(
+        color: Color(0xFFCBAAC5),
+        fontSize: size / 2.5,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
 }

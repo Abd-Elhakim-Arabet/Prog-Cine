@@ -9,12 +9,15 @@ class ReviewDeleteBloc extends Bloc<ReviewDeleteEvent, ReviewDeleteState> {
   ReviewRepository _reviewRepository;
   ReviewDeleteBloc({
     required ReviewRepository reviewRepository,
-  }) : _reviewRepository = reviewRepository,
-  super(ReviewDeleteInitial()) {
+  })  : _reviewRepository = reviewRepository,
+        super(ReviewDeleteInitial()) {
     on<DeleteReview>((event, emit) async {
       try {
-        String deleterId = await _reviewRepository.deleteReview(event.reviweId, event.commenterId, event.userId);
+        String deleterId = await _reviewRepository.deleteReview(
+            event.reviweId, event.commenterId, event.userId);
         emit(ReviewDeleteSuccess(deleterId));
+        await Future.delayed(Duration(milliseconds: 100));
+    emit(ReviewDeleteInitial()); 
       } catch (e) {
         emit(ReviewDeleteFailure());
       }
