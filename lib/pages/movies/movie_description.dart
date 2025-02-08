@@ -187,7 +187,7 @@ class _movieDescriptionState extends State<movieDescription> {
                   child: BlocBuilder<MovieSchedulesBloc, MovieSchedulesState>(
                     builder: (context, state) {
                       return dateSlider(
-                        firstDate: DateTime(2024, 12, 20),
+                        firstDate: DateTime.now(),
                         initialDate: state.selectedDate,
                         onDateChanged: (date) {
                           context.read<MovieSchedulesBloc>().add(ChangeDateSelected(newDate: date));
