@@ -5,6 +5,7 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/components/single_use/theatre_page/theatres_list.dart';
 import 'package:prog/services/data/dummy_data.dart';
 import 'package:prog/services/models.dart';
+import 'package:prog/services/storage/database_calls.dart';
 import 'package:prog/services/storage/database_service.dart';
 
 class theatrePage extends StatefulWidget {
@@ -65,14 +66,20 @@ class _theatrePageState extends State<theatrePage> {
                 SizedBox(
               width: MediaQuery.sizeOf(context).width,
               child: FutureBuilder<List<Theater>>(
-                future: _dbService.getTheaters(),
+                future: DatabaseCalls.getAllTheaters(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   }
 
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Theaters found'));
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Center(child: Text('No Movies found'));
+                    }
                   }
 
                   List<Theater> theaters = snapshot.data!;

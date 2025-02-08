@@ -29,7 +29,9 @@ class Movie {
       : this(
           id: json['id']! as String,
           name: json['name']! as String,
-          year: json['year']! as int,
+          year: json['year'] is String
+              ? int.parse(json['year']! as String)
+              : json['year']! as int,
           bigImage: json['bigImage']! as String,
           smallImage: json['smallImage']! as String,
           description: json['description']! as String,
@@ -96,10 +98,11 @@ class Schedule {
 
   Schedule.fromJson(Map<String, dynamic> json)
       : this(
-            theaterId: json["theaterId"]! as String,
-            movieId: json["movieId"]! as String,
-            startTime: (json["startTime"]! as Timestamp).toDate(),
-            date: (json["date"]! as Timestamp).toDate());
+          theaterId: json["theaterId"]! as String,
+          movieId: json["movieId"]! as String,
+          startTime: DateTime.parse(json['startTime'] as String).toLocal(),
+          date: DateTime.parse(json['date'] as String).toLocal(),
+        );
 
   Schedule Copy(
       {String? theaterId,
@@ -120,6 +123,64 @@ class Schedule {
       "startTime": startTime,
       "date": date
     };
+  }
+}
+
+class ScheduleWithMovie extends Schedule {
+  final Movie movie;
+
+  ScheduleWithMovie({
+    required super.theaterId,
+    required super.movieId,
+    required super.startTime,
+    required super.date,
+    required this.movie,
+  }) : super();
+
+  factory ScheduleWithMovie.fromJson(Map<String, dynamic> json) {
+    return ScheduleWithMovie(
+      theaterId: json['theaterId'] as String,
+      movieId: json['movie']['id'] as String,
+      startTime: DateTime.parse(json['startTime'] as String).toLocal(),
+      date: DateTime.parse(json['date'] as String).toLocal(),
+      movie: Movie.fromJson(json['movie'] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final map = super.toJson();
+    map['movie'] = movie.toJson();
+    return map;
+  }
+}
+
+class ScheduleWithTheater extends Schedule {
+  final Theater theater;
+
+  ScheduleWithTheater({
+    required super.theaterId,
+    required super.movieId,
+    required super.startTime,
+    required super.date,
+    required this.theater,
+  }) : super();
+
+  factory ScheduleWithTheater.fromJson(Map<String, dynamic> json) {
+    return ScheduleWithTheater(
+      theaterId: json['theater']['id'] as String,
+      movieId: json['movieId'] as String,
+      startTime: DateTime.parse(json['startTime'] as String).toLocal(),
+      date: DateTime.parse(json['date'] as String).toLocal(),
+      theater: Theater.fromJson(json['theater'] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final map = super.toJson();
+    map['theater'] = theater.toJson();
+    return map;
   }
 }
 

@@ -5,8 +5,9 @@ import 'package:prog/components/single_use/theatre_page/cinema_image_title.dart'
 import 'package:prog/components/multiple_use/date_slider.dart';
 import 'package:prog/components/single_use/movie_page/movie_slider.dart';
 import 'package:prog/services/models.dart';
-import 'package:prog/services/data/dummy_data.dart';
 import 'package:prog/services/storage/database_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prog/blocs/theater_schedules_bloc/theater_schedules_bloc.dart';
 
 class cinemaDescription extends StatefulWidget {
   final Theater cinema;
@@ -23,9 +24,9 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
   String firstMovieTime = "11:00 am";
   String lastMovieTime = "7:30 pm";
   String location = "Algiers, Algeria";
-  var selectedDate = DateTime.now();
   String cinemaId = "1";
-  DatabaseService _dbService = DatabaseService();
+  
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +37,11 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
     lastMovieTime = widget.cinema.lastMovieTime;
     location = widget.cinema.location;
     cinemaId = widget.cinema.id;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -131,102 +137,60 @@ class _cinemaDescriptionState extends State<cinemaDescription> {
             SizedBox(
               height: 30,
             ),
-            dateSlider(
-              onDateChanged: _updateSelectedDate,
+            BlocBuilder<TheaterSchedulesBloc, TheaterSchedulesState>(
+              builder: (context, state) {
+                return dateSlider(
+                  initialDate: state.selectedDate,
+                  onDateChanged: (date) {
+                    context.read<TheaterSchedulesBloc>().add(ChangeDateSelected(newDate: date));
+                  },
+                );
+              },
             ),
             SizedBox(
               height: 10,
             ),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Schedule>>(
-                future: _dbService.getSchedulesByDateAndTheatreId(selectedDate, cinemaId),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text(
-            "No Schedules Found.",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: AppFonts.mainFont,
-            ),
-          ));
-                  }
-
-                  List<Schedule> shedules = snapshot.data!;
-                  List<String> movieIds = [];
-                  for (var schedule in shedules) {
-                    movieIds.add(schedule.movieId);
-                  }
-
-                  return FutureBuilder<List<Movie>>(
-                      future: _dbService.getMoviesByIds(movieIds),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-
-                        if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                          return Center(child: Text('No Movies found'));
-                        }
-                        List<Movie> movies = snapshot.data!;
-                        return MovieSlider(
-                          movies: movies,
-                        );
-                      });
-                },
-              ),
+            BlocBuilder<TheaterSchedulesBloc, TheaterSchedulesState>(
+              builder: (context, state) {
+                if (state is TheaterSchedulesLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (state is TheaterSchedulesError) {
+                  return Center(
+                    child: Text(
+                      state.message,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: AppFonts.mainFont,
+                      ),
+                    ),
+                  );
+                }
+                if (state.currentDaySchedules.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Schedules Found.",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: AppFonts.mainFont,
+                      ),
+                    ),
+                  );
+                }
+                
+                // Extract movies directly from ScheduleWithMovie objects
+                List<Movie> movies = state.currentDaySchedules
+                  .map((schedule) => schedule.movie)
+                  .toList();
+                
+                return MovieSlider(movies: movies);
+              },
             )
           ],
         ),
       ),
     );
-  }
-
-  void _updateSelectedDate(DateTime date) {
-    setState(() {
-      selectedDate = date;
-    });
-  }
-
-  List<Movie> getMovies(Theater theater, DateTime date) {
-    // implemetation to be adjusted
-    /*for (var day in theater.days) {
-      if(
-        day.date.weekday == selectedDate.weekday
-      ){ {
-        var schedules = day.schedules;
-        List<Movie> todayMovies = [];
-        for (var schedule in schedules) {
-          todayMovies.add(allMovies[schedule.movieId-1]);
-        }
-        return todayMovies;
-      }
-    }
-  }*/
-    return [];
-  }
-
-  List<DateTime> getTimes(Theater theater, DateTime date) {
-    // implemetation to be adjusted
-    /*for (var day in theater.days) {
-      if(
-        day.date.weekday == selectedDate.weekday
-      ){ {
-        var schedules = day.schedules;
-        List<DateTime> times = [];
-        for (var schedule in schedules) {
-          times.add(schedule.startTime);
-        }
-        return times;
-      }
-    }
-  }*/
-    return [];
   }
 }

@@ -7,6 +7,7 @@ import 'package:prog/assets/fonts.dart';
 import 'package:prog/blocs/review_create_bloc/review_create_bloc.dart';
 import 'package:prog/blocs/review_delete_bloc/review_delete_bloc.dart';
 import 'package:prog/blocs/review_get_bloc/review_get_bloc.dart';
+import 'package:prog/blocs/movie_schedules/movie_schedules_bloc.dart';
 
 import 'package:prog/components/multiple_use/date_slider.dart';
 import 'package:prog/components/single_use/movie_description/Showtime.dart';
@@ -183,18 +184,59 @@ class _movieDescriptionState extends State<movieDescription> {
               padding: const EdgeInsets.only(left: 25.0),
               child: Align(
                   alignment: Alignment.centerLeft,
-                  child: dateSlider(
-                    firstDate: DateTime(2024, 12, 20),
-                    onDateChanged: _updateSelectedDate,
+                  child: BlocBuilder<MovieSchedulesBloc, MovieSchedulesState>(
+                    builder: (context, state) {
+                      return dateSlider(
+                        firstDate: DateTime(2024, 12, 20),
+                        initialDate: state.selectedDate,
+                        onDateChanged: (date) {
+                          context.read<MovieSchedulesBloc>().add(ChangeDateSelected(newDate: date));
+                        },
+                      );
+                    },
                   )),
             ),
             SizedBox(
               height: 30,
             ),
-            ShowtimeWidget(
-              dbService: _dbService,
-              selectedDate: selectedDate,
-              movieId: widget.movie.id,
+            BlocBuilder<MovieSchedulesBloc, MovieSchedulesState>(
+              builder: (context, state) {
+                if (state is MovieSchedulesLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (state is MovieSchedulesError) {
+                  return Center(
+                    child: Text(
+                      state.message,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: AppFonts.mainFont,
+                      ),
+                    ),
+                  );
+                }
+                if (state is MovieSchedulesLoaded && state.currentDaySchedules.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Schedules Found.",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontFamily: AppFonts.mainFont,
+                      ),
+                    ),
+                  );
+                }
+                if (state is MovieSchedulesLoaded) {
+                  List<Theater> theaters = state.currentDaySchedules
+                      .map((schedule) => schedule.theater)
+                      .toList();
+
+                  return ShowtimeWidget(schedules: state.currentDaySchedules);
+                }
+                return Container();
+              },
             ),
             //line
             SizedBox(
@@ -345,7 +387,7 @@ class _movieDescriptionState extends State<movieDescription> {
   }
 
   void _updateSelectedDate(DateTime date) {
-    setState(() {});
+    // Removed the setState here, the bloc handles the state now
   }
 }
 

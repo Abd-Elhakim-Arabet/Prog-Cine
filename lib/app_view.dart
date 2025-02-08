@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:prog/blocs/movie_page_bloc/movies_page_bloc.dart';
 import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:prog/blocs/update_user_info_bloc/update_user_info_bloc.dart';
@@ -21,7 +22,11 @@ class MyAppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return BlocProvider<MyUserBloc>(
+      create: (context) => MyUserBloc(
+        myUserRepository: context.read<AuthenticationBloc>().userRepository,
+      ),
+      child: MaterialApp(
       debugShowCheckedModeBanner: false,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>( 
         builder: (context, state) {
@@ -32,8 +37,13 @@ class MyAppView extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasData) {
+                  context.read<MyUserBloc>().add(GetMyUser(
+                      myUserId: context.read<AuthenticationBloc>().state.user!.uid
+										));
                   return  MultiBlocProvider(
 								providers: [
+                  BlocProvider(
+                    create: (_)=> MoviesPageBloc()),
 									BlocProvider(
 										create: (context) => SignInBloc(
 											myUserRepository: context.read<AuthenticationBloc>().userRepository,
@@ -43,15 +53,7 @@ class MyAppView extends StatelessWidget {
 										create: (context) => UpdateUserInfoBloc(
 											userRepository: context.read<AuthenticationBloc>().userRepository
 										),
-									),
-									BlocProvider(
-										create: (context) => MyUserBloc(
-											myUserRepository: context.read<AuthenticationBloc>().userRepository
-										)..add(GetMyUser(
-                      myUserId: context.read<AuthenticationBloc>().state.user!.uid
-										)),
 									), 
-									
 								],
 							child: const pagesNavigator(),
 						);
@@ -70,6 +72,6 @@ class MyAppView extends StatelessWidget {
         "/resetPassword": (context) => resetPassword(),
         "/auth": (context) => authPage(),
       },
-    );
+    ));
   }
 }

@@ -47,7 +47,7 @@ class _DateSliderState extends State<dateSlider> {
           headerType: HeaderType.none
         ),
         firstDate: widget.firstDate ?? DateTime.now(),
-        lastDate: widget.lastDate??DateTime(2025,1,10),
+        lastDate: widget.lastDate?? DateTime.now().add(Duration(days: 15)),
         focusedDate: _selectedDate,
         itemExtent: 80.0, 
         itemBuilder: (context, date, isSelected, isDisabled, isToday, onTap) {
