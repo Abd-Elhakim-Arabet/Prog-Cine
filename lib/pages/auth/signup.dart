@@ -233,7 +233,6 @@ class _signupPageState extends State<signupPage> {
                     SizedBox(
                       height: 25,
                     ),
-                    myGoogleBtn(),
                   ],
                 ),
               ),

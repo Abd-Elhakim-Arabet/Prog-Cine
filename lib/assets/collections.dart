@@ -4,4 +4,5 @@ class MovieCollections {
   static const String upcoming = 'upcoming';
   static const String nowPlaying = 'now_playing';
   static const String this_weekend = 'this_weekend';
+  static const String main = 'main';
 }

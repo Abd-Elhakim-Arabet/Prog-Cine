@@ -49,13 +49,14 @@ class _mySearchBarState extends State<mySearchBar> {
             ),
             decoration: const InputDecoration(
               hintText: "Search",
+              
               hintStyle: TextStyle(
-                color: AppColors.myBackground,
+                color: Color(0xFFCBAAC5),
                 fontFamily: AppFonts.mainFont,
               ),
               prefixIcon: Icon(
                 Icons.search,
-                color: AppColors.myAccent,
+                color: Color(0xFFCBAAC5),
               ),
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(
@@ -72,28 +73,33 @@ class _mySearchBarState extends State<mySearchBar> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
-                  color: AppColors.myPrimary,
-                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: FutureBuilder<List<String>>(
                   future: DatabaseCalls.getGenres(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
+                      return SizedBox();
                     } else if (snapshot.hasError) {
                       return const Text('Error loading genres');
                     } else {
                       final genres = snapshot.data!;
                       genres.insert(0,'All genres');
-                      return DropdownSearch<String>(
-                        selectedItem: 'All genres',
-                        items: (filter, loadProps) => genres,
-                        onChanged: (value) {
-                          print(value);
-                          selectedGenre = value;
-                          _updateSearch();
-                        },
-                      
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.myAccent,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: DropdownSearch<String>(
+                          
+                          selectedItem: 'All genres',
+                          items: (filter, loadProps) => genres,
+                          onChanged: (value) {
+                            print(value);
+                            selectedGenre = value;
+                            _updateSearch();
+                          },
+                        
+                        ),
                       );
                     }
                   },
@@ -107,7 +113,7 @@ class _mySearchBarState extends State<mySearchBar> {
                 controller: _yearController,
                 decoration: InputDecoration(
                   hintText: 'Year',
-                  fillColor: AppColors.myPrimary,
+                  fillColor: AppColors.myAccent,
                   filled: true,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),

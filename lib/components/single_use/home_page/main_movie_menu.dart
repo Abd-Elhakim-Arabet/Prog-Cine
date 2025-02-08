@@ -61,7 +61,7 @@ class _mainMovieMenuState extends State<mainMovieMenu> {
                             )),
                         height: 270,
                         width: double.infinity,
-                        child: Image.asset(
+                        child: Image.network(
                           widget.movies[index].bigImage,
                           fit: BoxFit.cover,
                         ),

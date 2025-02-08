@@ -48,6 +48,8 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   rxdart: ^0.28.0
   dropdown_search: ^6.0.2
+  google_sign_in: ^6.2.2
+  
 
 dev_dependencies:
   flutter_test:
