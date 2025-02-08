@@ -253,17 +253,7 @@ class _signupPageState extends State<signupPage> {
                       SizedBox(
                         width: 10,
                       ),
-                      GestureDetector(
-                        onTap: widget.showLoginPage,
-                        child: Text(
-                          "Log In",
-                          style: TextStyle(
-                              color: AppColors.myPrimary,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: AppFonts.mainFont),
-                        ),
-                      ),
+                     
                     ],
                   ),
                   SizedBox(
