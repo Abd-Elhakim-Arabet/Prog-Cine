@@ -29,58 +29,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final DatabaseService databaseService = DatabaseService();
-
+  
   @override
   Widget build(BuildContext context) {
-    var profileInfo = Flexible(
-      flex: 0,
-      child: Column(
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            margin: EdgeInsets.only(top: 30),
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.amber,
-                  backgroundImage: AssetImage('lib/assets/images/HAKIM1.jpg'),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
-          Text(
-            "Abdelhakim Arabet",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              fontFamily: AppFonts.mainFont,
-            ),
-          ),
-          Text(
-            "testing@hakim.com",
-            style:
-                TextStyle(color: Colors.white54, fontWeight: FontWeight.w600),
-          )
-        ],
-      ),
-    );
-    var header = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-/*         SizedBox(width: 20),
-        Icon(Icons.arrow_back_ios, size: 30, color: Colors.white),
-        SizedBox(width: 20), */
-        profileInfo,
-/*         SizedBox(width: 20),
-        Icon(Icons.sunny, size: 30, color: Colors.white),
-        SizedBox(width: 20), */
-      ],
-    );
     return BlocListener<UpdateUserInfoBloc, UpdateUserInfoState>(
       listener: (context, state) {
         if (state is UploadPictureSuccess) {
@@ -94,7 +45,42 @@ class _ProfilePageState extends State<ProfilePage> {
         body: Column(
           children: <Widget>[
             SizedBox(height: 60),
-            profileInfo,
+            Flexible(
+              flex: 0,
+              child: Column(
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    margin: EdgeInsets.only(top: 30),
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundColor: Colors.amber,
+                          backgroundImage: AssetImage("assets/assetName"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    context.read<MyUserBloc>().state.user!.name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: AppFonts.mainFont,
+                    ),
+                  ),
+                  Text(
+                    context.read<MyUserBloc>().state.user!.email,
+                    style:
+                        TextStyle(color: Colors.white54, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+            ),
             SizedBox(height: 20),
             Expanded(
               child: ListView(

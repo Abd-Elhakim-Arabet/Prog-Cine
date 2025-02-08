@@ -213,7 +213,7 @@ class _loginPageState extends State<loginPage> {
                     SizedBox(
                       height: 25,
                     ),
-                    myGoogleBtn(),
+                   
                   ],
                 ),
               ),

@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:prog/assets/collections.dart';
 import 'package:prog/assets/colors.dart';
 import 'package:prog/assets/fonts.dart';
+import 'package:prog/blocs/sign_in_bloc/sign_in_bloc.dart';
 import 'package:prog/components/single_use/utitlity_pages/lower_section.dart';
 import 'package:prog/components/single_use/home_page/main_movie_menu.dart';
 import 'package:prog/components/multiple_use/movie_card.dart';
@@ -56,49 +58,40 @@ class _homePageState extends State<homePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: mySearchBar( onSearch: (query){
-                        print(query);
-                    },),
-                  ),
-                ),
-                const SizedBox(
-                  width: 40,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 25.0),
-                  child: seeAllBtn(),
-                ),
-              ],
-            ),
+            
             SizedBox(
               height: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                Padding(
-                  padding: EdgeInsets.only(right: 25.0),
-                  child: Text(
-                    "See All",
-                    style: TextStyle(
-                        color: AppColors.myPrimary,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
-            ),
+           
             SizedBox(
               height: 30,
             ),
-            mainMovieMenu(
-              movies: FeaturedMovies,
-              pgController: pageController,
+           SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: FutureBuilder<List<Movie>>(
+                future: DatabaseCalls.getMoviesFromCollection(MovieCollections.main),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return Center(child: Text('No Movies found'));
+                    }
+                  }
+
+                  List<Movie> movies = snapshot.data!;
+
+                  return mainMovieMenu(
+                    movies: movies,
+                    pgController: pageController,
+                  );
+                },
+              ),
             ),
             SizedBox(
               height: 10,
@@ -190,7 +183,16 @@ class _homePageState extends State<homePage> {
                   );
                 },
               ),
-            )
+            ),
+             GestureDetector(
+                    
+                    onTap: () {
+                      context.read<SignInBloc>().add(SignOutRequired());
+                    },
+                    child: Container(
+                      child: Text("Logout"),
+                    ),
+                  ),
           ],
         ),
       ),
