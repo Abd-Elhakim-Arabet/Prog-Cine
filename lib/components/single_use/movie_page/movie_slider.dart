@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prog/blocs/movie_schedules/movie_schedules_bloc.dart';
 import 'package:prog/blocs/my_user_bloc/my_user_bloc.dart';
 import 'package:prog/blocs/review_create_bloc/review_create_bloc.dart';
 import 'package:prog/blocs/review_delete_bloc/review_delete_bloc.dart';
@@ -55,12 +56,13 @@ class _MovieSliderState extends State<MovieSlider> {
                       scale: value,
                       child: InkWell(
                         onTap: () {
+                          var movie = widget.movies[index];
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => MultiBlocProvider(
                                         providers: [
-                                        
+                                          BlocProvider(create: (_)=>MovieSchedulesBloc(movieId: movie.id)..add(LoadMovieSchedules(movieId: movie.id))),
                                           BlocProvider(
                                             create: (context) => ReviewCreateBloc(
                                                 reviewRepository:

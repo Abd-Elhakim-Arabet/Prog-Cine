@@ -8,6 +8,9 @@ import 'package:prog/components/single_use/home_page/upper_section.dart';
 import 'package:prog/services/data/dummy_data.dart';
 import 'package:prog/services/models.dart';
 import 'package:prog/services/storage/database_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:prog/blocs/movie_page_bloc/movies_page_bloc.dart';
+
 
 class moviePage extends StatefulWidget {
   const moviePage({super.key});
@@ -28,81 +31,84 @@ class _moviePageState extends State<moviePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 70,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
-              child: mySearchBar(),
-            ),
-            const SizedBox(height: 20),
-            Section(filter: "Popular"),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMoviesFromCollection(MovieCollections.popular),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+            const SizedBox(height: 70),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: mySearchBar(
+                onSearch: (searchParams) {
+                  if (searchParams.values.every((value) => value == null)) {
+                    context.read<MoviesPageBloc>().add(const MoviesPageLoadCollections());
+                  } else {
+                    context.read<MoviesPageBloc>().add(MoviesPageSearch(searchParams));
                   }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
-                  }
-
-                  List<Movie> movies = snapshot.data!;
-
-                  return movieMatrix(
-                    movies: movies,
-                  );
                 },
               ),
             ),
             const SizedBox(height: 20),
-            Section(filter: "This Weekend"),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMoviesFromCollection(MovieCollections.this_weekend),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
-                  }
-
-                  List<Movie> movies = snapshot.data!;
-
-                  return movieMatrix(
-                    movies: movies,
+            BlocBuilder<MoviesPageBloc, MoviesPageBlocState>(
+              builder: (context, state) {
+                if (state is MoviesPageCollectionState) {
+                  return Column(
+                    children: [
+                      Section(filter: "Popular"),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: state.popularStatus == DataStatus.loading
+                            ? Center(child: CircularProgressIndicator())
+                            : state.popularStatus == DataStatus.error
+                                ? Center(child: Text('Failed to load popular movies'))
+                                : movieMatrix(
+                                    movies: state.popularMovies,
+                                  ),
+                      ),
+                      const SizedBox(height: 20),
+                      Section(filter: "This Weekend"),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: state.thisWeekendStatus == DataStatus.loading
+                            ? Center(child: CircularProgressIndicator())
+                            : state.thisWeekendStatus == DataStatus.error
+                                ? Center(child: Text('Failed to load this weekend movies'))
+                                : movieMatrix(
+                                    movies: state.thisWeekendMovies,
+                                  ),
+                      ),
+                      const SizedBox(height: 20),
+                      Section(filter: "In Theatres"),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: state.inTheaterStatus == DataStatus.loading
+                            ? Center(child: CircularProgressIndicator())
+                            : state.inTheaterStatus == DataStatus.error
+                                ? Center(child: Text('Failed to load in theater movies'))
+                                : movieMatrix(
+                                    movies: state.inTheaterMovies,
+                                  ),
+                      ),
+                    ],
                   );
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            Section(filter: "In Theatres"),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: FutureBuilder<List<Movie>>(
-                future: _dbService.getMoviesFromCollection(MovieCollections.in_theaters),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No Movies found'));
-                  }
-
-                  List<Movie> movies = snapshot.data!;
-
-                  return movieMatrix(
-                    movies: movies,
+                } else if (state is MoviesPageSearchState) {
+                  return Column(
+                    children: [
+                      Section(filter: "Search Results"),
+                      SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        child: state.status == DataStatus.loading
+                            ? Center(child: CircularProgressIndicator())
+                            : state.status == DataStatus.error
+                                ? Center(child: Text('Error'))
+                                : state.searchResults.isEmpty
+                                    ? Center(child: Text('No results found'))
+                                    : movieMatrix(movies: state.searchResults),
+                      ),
+                    ],
                   );
-                },
-              ),
+                } else {
+                  return Center(child: CircularProgressIndicator(
+                    color: Colors.red,
+                  ));
+                }
+              },
             ),
           ],
         ),
