@@ -6,11 +6,11 @@ import 'package:http/http.dart' as http;
 // this will implement the same functionality as the database_service.dart but using http requests for supabase
 // the implementation is not complete and will need to be completed
 class DatabaseCalls {
-  static const String _baseUrl = '127.0.0.1:5000';
+  static const String _baseUrl = 'prog-cine-api.vercel.app';
 
   static Future<List<Movie>> getAllMovies() async {
     String path = 'api/movies';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -26,7 +26,7 @@ class DatabaseCalls {
 
   static Future<List<Theater>> getAllTheaters() async {
     String path = 'api/theaters';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -42,7 +42,7 @@ class DatabaseCalls {
 
   static Future<List<Schedule>> getAllSchedules() async {
     String path = 'api/schedules';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -58,7 +58,7 @@ class DatabaseCalls {
 
   static Future<Movie> getMovieById(String id) async {
     String path = 'api/movie/$id';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -76,7 +76,7 @@ class DatabaseCalls {
 
   static Future<Theater> getTheaterById(String id) async {
     String path = 'api/theater/$id';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -94,7 +94,7 @@ class DatabaseCalls {
 
   static Future<Schedule> getScheduleById(String id) async {
     String path = 'api/schedule/$id';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -126,7 +126,7 @@ class DatabaseCalls {
       'startTime': startTime.toIso8601String(),
       'theaterId': theaterId
     };
-    var url = Uri.http(_baseUrl, path, queryParameters);
+    var url = Uri.https(_baseUrl, path, queryParameters);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -165,7 +165,7 @@ class DatabaseCalls {
       'startTime': startTime.toIso8601String(),
       'movieId': movieId
     };
-    var url = Uri.http(_baseUrl, path, queryParameters);
+    var url = Uri.https(_baseUrl, path, queryParameters);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -188,7 +188,7 @@ class DatabaseCalls {
 
   static Future<List<Movie>> getMoviesFromCollection(String collection) async {
     String path = 'api/moviecollection/$collection';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -215,7 +215,7 @@ class DatabaseCalls {
       'genre': genre,
       'year': year?.toString() ?? ''
     };
-    var url = Uri.http(_baseUrl, path, queryParameters);
+    var url = Uri.https(_baseUrl, path, queryParameters);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -231,7 +231,7 @@ class DatabaseCalls {
 
   static Future<List<String>> getGenres() async {
     String path = 'api/movies/genres';
-    var url = Uri.http(_baseUrl, path);
+    var url = Uri.https(_baseUrl, path);
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
