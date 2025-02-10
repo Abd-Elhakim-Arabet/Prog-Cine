@@ -34,12 +34,12 @@ class FirebaseApi {
 
   void handleMessage(RemoteMessage? message){
     if (message == null) return;
-    // navigate to the appropriate screen
+    // we should navigate to another screen now but uhmm
   }
 
   Future initLocalNotification() async {
     const iOS = DarwinInitializationSettings();
-    final android = AndroidInitializationSettings('@drawable/ic_launcher');
+    final android = AndroidInitializationSettings('@drawable/mdlogo');
     final settings = InitializationSettings(android: android, iOS: iOS);
 
     await _localNotifications.initialize(
